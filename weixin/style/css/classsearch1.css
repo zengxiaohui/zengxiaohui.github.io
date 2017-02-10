@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+.bar {position: fixed; right: 0; left: 0; z-index: 10; height: 44px; padding-right: 10px; padding-left: 10px; background-color: #f1f1f1; border-bottom: 1px solid #ddd; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.bar-nav {top: 0; }
+.icon {display: inline-block; font-family: Ratchicons; font-size: 24px; line-height: 1; text-decoration: none; -webkit-font-smoothing: antialiased; }
+.bar .icon {position: relative; z-index: 20; padding-top: 10px; padding-bottom: 10px; font-size: 24px; }
+.title {top: 0px; position: absolute; display: block; width: 100%; padding: 0; margin: 0 -10px; font-weight: 500; line-height: 44px; color: #000;background-color: #f1f1f1; z-index: 1; text-align: center; font-size: 1.4em; font-family: "STHeiti"; color: rgb(76, 76, 76); white-space: nowrap;}
+.bar .new-a-back{position: absolute; top: 0px; width: 40px; height: 44px; display: block; z-index: 2;}
+.bar .new-a-back span{display: block; width: 20px; height: 20px; margin: 12px 0 0 0px; text-indent: -100px; overflow: hidden; background: url(../img/arrow.png) no-repeat;background-size: 20px 20px;}
+.bar .new-a-menu{position: absolute; width: 40px; height: 44px; top: 0px; z-index: 1; right: 0px;}
+.bar .new-a-menu span{display: block; width: 36px; height: 10px; text-indent: -100px; overflow: hidden; background: url(../img/menu.png) no-repeat; background-size: 70% 70%; margin: 18px 0px 10px 0px;}
+.bar .tInput{box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; padding-left: 15px;border: 1px solid #dddddd;position: absolute; top: 5px; height: 30px; width: calc(100% - 90px); left: 40px;}
+
+.class_menu{width: 90px;float: left;}
+.class_menu ul{display: block; margin: 0; padding: 0; list-style-type: none;}
+.class_menu ul li{height: 49px; line-height: 49px; border-bottom: 1px solid #e0e0e0; border-right: 1px solid #e0e0e0; background: #f3f4f6; text-align: center;}
+.class_menu ul li a{display: block; width: 100%; height: 49px; line-height: 49px; text-decoration: none; font-size: 13px; color: #252525; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;}
+.class_menu ul li.cur{border-left: 5px solid #2259BE;background-color: white;border-right: initial;}
+.class_menu ul li.cur a{color: #676767;}
+.class_content{margin-left: 90px;margin-top: 45px;}
+.class_content div.class_subcontent{margin: 0 11px 0 13px;}
+.class_content div.class_subcontent div h4{font-size: 12px; margin: 0; padding: 18px 0 0 0; line-height: 1em; color: #888;}
+.class_content div.class_subcontent div ul{margin-top: 10px;margin-left: 5px;display: inline-block;}
+.class_content div.class_subcontent div ul li{float: left; text-align: center; margin-bottom: 5px;}
+.class_content div.class_subcontent div ul li a{text-decoration: none; color: #6E6E6E; border-right: 1px solid #555555; padding: 0px 5px;}

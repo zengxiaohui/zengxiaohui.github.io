@@ -1,0 +1,51 @@
+body{background-color: #f1f1f1;}
+.bar {position: fixed; right: 0; left: 0; z-index: 10; height: 44px; padding-right: 10px; padding-left: 10px; background-color: white; border-bottom: 1px solid #ddd; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.bar-nav {top: 0; }
+.icon {display: inline-block; font-family: Ratchicons; font-size: 24px; line-height: 1; text-decoration: none; -webkit-font-smoothing: antialiased; }
+.bar .icon {position: relative; z-index: 20; padding-top: 10px; padding-bottom: 10px; font-size: 24px; }
+.title {top: 0px; position: absolute; display: block; width: 100%; padding: 0; margin: 0 -10px; font-weight: 500; line-height: 44px; color: #000;background-color: #f1f1f1; z-index: 1; text-align: center; font-size: 1.4em; font-family: "STHeiti"; color: rgb(76, 76, 76); white-space: nowrap;}
+.bar .new-a-back{position: absolute; top: 0px; width: 40px; height: 44px; display: block; z-index: 2;}
+.bar .new-a-back span{display: block; width: 20px; height: 20px; margin: 12px 0 0 0px; text-indent: -100px; overflow: hidden; background: url(../img/arrow.png) no-repeat;background-size: 20px 20px;}
+.bar .new-a-menu{position: absolute; width: 40px; height: 44px; top: 0px; z-index: 1; right: 0px;}
+.bar .new-a-menu span{display: block; width: 36px; height: 10px; text-indent: -100px; overflow: hidden; background: url(../img/menu.png) no-repeat; background-size: 70% 70%; margin: 18px 0px 10px 0px;}
+
+.headimg{margin-top: 45px; text-align: center; color: #FFF; background-image: -webkit-linear-gradient(left,#5e75a7,#b58288); overflow: hidden; height: 7.18em;}
+.headimg span{background: url("../img/defaul.png") no-repeat; width: 3.8125em; height: 3.8125em; border-radius: 4em; border: .125em solid #FFF; box-shadow: inset 0 1px 8px rgba(0,0,0,0.2); margin-top: 0.5em; margin-bottom: .25em; display: inline-block; overflow: hidden; background-size: cover;}
+.headimg p{font-size: .75em;line-height: 1.5em;}
+
+.Gheader_list{width: 100%; overflow: hidden; background-color: #FFF; box-shadow: 0 1px 3px rgba(0,0,0,0.1);}
+.Gheader_list li{float: left; width: 50%; height: 3em; vertical-align: middle; text-align: center; display: table; position: relative;}
+.Gheader_list li a{color: #a5a5a5; font-size: .8125em; text-decoration: none; display: table-cell; width: 100%; height: 100%; vertical-align: middle; }
+.Gheader_list li p{font-family: "STHeiti"; color: rgb(76, 76, 76); border-right: 1px solid #ECECEC; }
+.Gheader_list li p:first-child {margin: 10px 0px 0px 0px;}
+.Gheader_list li p:last-child {margin-bottom: 10px;}
+.Gheader_list li:nth-child(even) p{border-right: initial;}
+
+div.list{height: 44px; line-height: 3.75em; padding: 0px 10px; border-bottom: 1px solid #d8d8d8;background-color: #fff; margin-top: 10px;}
+div.list .order{background: url("../img/order.png") center center no-repeat; width: 44px; height: 44px; display: inline-block; background-size: 70% 70%; float: left;}
+div.list h2{font-size: 2em; font-family: "STHeiti"; color: rgb(52, 52, 52); display: inline-block; margin-left: 10px;}
+div.list a{display: block; float: right; height: 100%;}
+div.list a .ionRight{background: url("../img/ionRight.png") center center no-repeat; width: 11px; height: 18px; display: inline-block; margin-top: 13.5px;}
+
+.Gomenu_list{width: 100%;-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; margin-bottom: 10px; background-color: #FFF; padding: .46875em .46875em; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.1);}
+.Gomenu_list li{float: left; width: 25%;-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; padding: .46875em .46875em; text-align: center;}
+.Gomenu_list li a{display: block; width: 100%; text-decoration: none;}
+.Gomenu_list li a img{width: 2.5em; height: 2.5em; display: block; margin: 0 auto .75em;}
+.Gomenu_list li a p{font-size: .75em; color: #6a6a6a; text-align: center; line-height: 1.35em;}
+
+ul.list{background-color: #fff; margin-top: 10px;margin-bottom: 20px;}
+ul.list li{font-size: 1.6em; font-family: "STHeiti"; color: rgb(76, 76, 76); height: 44px; line-height: 44px; padding: 5px 10px; border-bottom: 1px solid #d8d8d8; font-weight: bold; text-indent: 10px;}
+ul.list li:last-child{border-bottom: none;}
+ul.list i.ulsend{width: 44px; height: 44px; display: inline-block; background-size: 70% 70%; float: left;}
+ul.list i.ionRight{float: right;background: url("../img/ionRight.png") center center no-repeat; width: 11px; height: 18px; display: inline-block; margin-top: 13.5px;}
+ul.list i.ulsend1{background: url("../img/ulsend1.png") center center no-repeat; background-size: 70% 70%;}
+ul.list i.ulsend2{background: url("../img/ulsend2.png") center center no-repeat; background-size: 70% 70%;}
+ul.list i.ulsend3{background: url("../img/ulsend3.png") center center no-repeat; background-size: 70% 70%;}
+ul.list i.ulsend4{background: url("../img/ulsend4.png") center center no-repeat; background-size: 70% 70%;}
+
+.gp-footer-links{width: 100%; margin: 0 auto; display: table; height: 13px; padding: 18px 0; border-top:1px solid #E7E7E7; border-bottom:1px solid #E7E7E7;}
+.gp-footer-links li{display: table-cell; /*width: 69px;*/ height: 13px; line-height: 13px; font-size: 13px; text-align: center;}
+.gp-footer-links li a{display: inline-block; /*  width: 72px;*/ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; line-height: 1.1em; color: #848689; text-decoration: none;}
+.gp-footer-links li:first-child, .gp-footer-links li:nth-child(2) {border-right: 1px solid #d7d7d7;}
+.gp-footer-links li:last-child {border-left: 1px solid #d7d7d7;}
+.copyright {height: 44px; line-height: 44px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #848689; margin-bottom: 20px; font-size: 12px; }

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="style/css/base.css">
+	<link rel="stylesheet" href="style/css/jalendar.css">
+	<link rel="stylesheet" href="style/css/time.css">
+</head>
+<body>
+	<h2 class="htitle">选择起始时间</h2>
+	<div id="yourId" class="jalendar">
+		<div class="added-event" data-date="19-11-2015" data-title="WWDC 13 on San Francisco, LA"></div>
+		<div class="added-event" data-date="19-11-2015" data-title="Hazal ve Bora Nikah Töreni"></div>
+		<div class="added-event" data-date="21-11-2015" data-title="Hazal ve Bora Nikah Töreni"></div>
+		<div class="added-event" data-date="22-11-2015" data-title="Hazal ve Bora Nikah Töreni at 21"></div>
+		<div class="added-event" data-date="10-12-2015" data-title="Tarkan İstanbul Concert on Harbiye Açık Hava Tiyatrosu"></div>
+	</div>
+<script src="style/plugin/jquery-1.11.3.min.js"></script>
+<script src="style/plugin/jalendar.min.js"></script>
+<script>
+	$(function(){
+		$('#yourId').jalendar({
+		    color: '#fff',
+		    type: 'linker',
+		    customUrl: 'http://yourcustomurl.com/yourcustomurl?var=',
+		    dateType: 'mm-dd-yyyy',
+		    titleColor: '#666',
+		    weekColor: '#EA5C49',
+		    todayColor: '#EA5C49'
+		});
+	});
+</script>
+</body>
+</html>

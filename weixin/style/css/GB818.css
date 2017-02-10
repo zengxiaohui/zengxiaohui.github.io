@@ -1,0 +1,30 @@
+@CHARSET "UTF-8";
+.bar {position: fixed; right: 0; left: 0; z-index: 10; height: 44px; padding-right: 10px; padding-left: 10px; background-color: white; border-bottom: 1px solid #ddd; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.bar-nav {top: 0; }
+.icon {display: inline-block; font-family: Ratchicons; font-size: 24px; line-height: 1; text-decoration: none; -webkit-font-smoothing: antialiased; }
+.bar .icon {position: relative; z-index: 20; padding-top: 10px; padding-bottom: 10px; font-size: 24px; }
+.title {top: 0px; position: absolute; display: block; width: 100%; padding: 0; margin: 0 -10px; font-weight: 500; line-height: 44px; color: #000;background-color: #f1f1f1; z-index: 1; text-align: center; font-size: 1.4em; font-family: "STHeiti"; color: rgb(76, 76, 76); white-space: nowrap;}
+.bar .new-a-back{position: absolute; top: 0px; width: 40px; height: 44px; display: block; z-index: 2;}
+.bar .new-a-back span{display: block; width: 20px; height: 20px; margin: 12px 0 0 0px; text-indent: -100px; overflow: hidden; background: url(../img/arrow.png) no-repeat;background-size: 20px 20px;}
+.bar .new-a-menu{position: absolute; width: 40px; height: 44px; top: 0px; z-index: 1; right: 0px;}
+.bar .new-a-menu span{display: block; width: 36px; height: 10px; text-indent: -100px; overflow: hidden; background: url(../img/menu.png) no-repeat; background-size: 70% 70%; margin: 18px 0px 10px 0px;}
+.search {width: 24px; height: 24px; background: url('../img/funnel.png') center center no-repeat; background-size: 70% 70%; position: absolute; top: 10px; right: 48px; z-index: 2; }
+.funnel{border-right: 1px solid #d8d8d8;width: 30px; height: 32px; background: url('../img/funnel.png') center center no-repeat; background-size: 70% 70%; position: absolute; top: 5px; right: 48px; z-index: 2;}
+
+.htitle{overflow:hidden;margin-top: 45px;    padding: 10px 5%;}
+.htitle img{float: left; width: 60px; margin: 12.5px 10px 12.5px 0px;}
+.htitle p{text-align: center; color: rgb(76, 76, 76); text-indent: -60px; margin-bottom: 10px; font-size: 1.2em;}
+.htitle p span:last-child{margin-left: 10px;}
+.hlist{}
+.hlist li{overflow: hidden;  padding: 10px 5%; border-top: 1px solid #d8d8d8;}
+.hlist li div{float: left;}
+.hlist li .hleft{width: 22%;margin-right: 5%;}
+.hlist li .hleft span:first-child{position: relative;    display: inline-block;}
+.hlist li .hleft span{display: block;}
+.hlist li .hleft i.xin {position: absolute; top: 0px; right: -15px; font-style: normal; background-color: red; color: #fff; width: 12px; height: 12px; line-height: 12px; font-size: 1em; border-radius: 3px; display: block;}
+.hlist li .hmiddle{width: 45%;}
+.hlist li .hmiddle p{}
+.hlist li .hmiddle p span{color: #3c76df;}
+.hlist li .hright{width: 28%;line-height: 30px; height: 30px;}
+.hlist li .hright span{color: rgb(231, 98, 9);float: left;margin-right: 5px;}
+.hlist li .hright img{width: 30px;}

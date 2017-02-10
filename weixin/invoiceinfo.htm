@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="style/css/base.css">
+	<link rel="stylesheet" href="style/css/invoiceinfo.css"></head>
+<body>
+	<header class="bar bar-nav">
+		<a href="index.htm" class="new-a-back">
+			<span></span>
+		</a>
+		<h1 class="title">发票信息</h1>
+		<a href="#" class="new-a-menu">
+			<span></span>
+		</a>
+		<ul class="Cd_header" style="display: block;">
+			<span class="Scolor"></span>
+			<span class="Sbg"></span>
+			<li>
+				<a href="../index.html"> <i class="home"></i>
+					<span>首页</span>
+				</a>
+			</li>
+			<li>
+				<a href="../index.html"> <i class="shop"></i>
+					<span>购物车</span>
+				</a>
+			</li>
+		</ul>
+	</header>
+	<div class="btitle">
+		<p class="olHead">发票类型</p>
+		<div class="footer">
+			<a href="" >
+				<img src="style/img/tick.png" alt="">普通发票</a>
+			<a href="" class="fact">
+				<img src="style/img/tick.png" alt="">增值税发票</a>
+		</div>
+	</div>
+	<form action="">
+		<div class="item">
+			<input class="txt-input txt-username" type="text" placeholder="单位名称"></div>
+		<div class="item">
+			<input class="txt-input txt-username" type="password" placeholder="开户行"></div>
+		<div class="item">
+			<input class="txt-input txt-username" type="password" placeholder="开票地址"></div>
+		<div class="item">
+			<input class="txt-input txt-username" type="password" placeholder="账号"></div>
+		<div class="item">
+			<input class="txt-input txt-username" type="password" placeholder="税号"></div>
+	</form>
+	<ul class="list">
+		<li>
+			上传税务登记证
+			<i class="ionRight"></i>
+		</li>
+		<li>
+			上传纳税人证明
+			<i class="ionRight"></i>
+		</li>
+	</ul>
+	<div class="bombox">
+		<div class="bomboxbg"></div>
+		<div class="bom">
+			<ul class="blist">
+				<li>拍照</li>
+				<li>从相册选择</li>
+			</ul>
+			<a href="" class="cancel">取消</a>
+		</div>
+	</div>
+<script src="style/plugin/jquery-1.11.3.min.js"></script>
+<script>
+	$(function(){
+		$(".bar .new-a-menu").click(function(event) {
+			$(".Cd_header").slideToggle();
+		});
+		$(".bombox .bom a.cancel").click(function(event) {
+			$(".bombox").hide();
+			return false;
+		});
+	});
+</script>
+</body>
+</html>

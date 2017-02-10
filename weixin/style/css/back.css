@@ -1,0 +1,36 @@
+.bar {position: fixed; right: 0; left: 0; z-index: 10; height: 44px; padding-right: 10px; padding-left: 10px; background-color: white; border-bottom: 1px solid #ddd; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.bar-nav {top: 0; }
+.icon {display: inline-block; font-family: Ratchicons; font-size: 24px; line-height: 1; text-decoration: none; -webkit-font-smoothing: antialiased; }
+.bar .icon {position: relative; z-index: 20; padding-top: 10px; padding-bottom: 10px; font-size: 24px; }
+.title {top: 0px; position: absolute; display: block; width: 100%; padding: 0; margin: 0 -10px; font-weight: 500; line-height: 44px; color: #000;background-color: #f1f1f1; z-index: 1; text-align: center; font-size: 1.4em; font-family: "STHeiti"; color: rgb(76, 76, 76); white-space: nowrap;}
+.bar .new-a-back{position: absolute; top: 0px; width: 40px; height: 44px; display: block; z-index: 2;}
+.bar .new-a-back span{display: block; width: 20px; height: 20px; margin: 12px 0 0 0px; text-indent: -100px; overflow: hidden; background: url(../img/arrow.png) no-repeat;background-size: 20px 20px;}
+.bar .new-a-menu{position: absolute; width: 40px; height: 44px; top: 0px; z-index: 1; right: 0px;}
+.bar .new-a-menu span{display: block; width: 36px; height: 10px; text-indent: -100px; overflow: hidden; background: url(../img/menu.png) no-repeat; background-size: 70% 70%; margin: 18px 0px 10px 0px;}
+
+form{margin: 75px 20px 0px;overflow: hidden;}
+form .item {position: relative; width: 100%; margin-bottom: 10px; }
+form .item .txt-input {width: 100%; height: 44px; line-height: normal; padding: 0; border: 1px solid #d7d7d7; border-radius: 3px; background: #fff; font-family: '\5fae\8f6f\96c5\9ed1'; font-size: 16px; color: #252525; -webkit-appearance: none; }
+form .item .txt-username {padding-left: 15px; }
+form a.submit{display: block;color: #fff;text-align: center;line-height: 35px;margin-top: 20px;background-color: #3A95E7;border: 1px solid #3A95E7;width: 100%;padding: 5px 0;box-sizing: border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box;border-radius: 3px;margin-bottom: 20px;font-size: 1.5em;}
+form #imgCode{position: absolute;width: 78px;right: 0px;top: 0px;height: 42px;border: 1px solid #d7d7d7;border-radius: 0px 3px 3px 0px;}
+form p.info{color:#8D8D8D;font-size: 1.5em;line-height: 1.5em;margin-bottom: 10px;}
+form a.msCode{background-color: #F1F1F1; display: block; width: 25%; min-width: 100px; height: 42px; float: right; line-height: 42px; border: 1px solid #d7d7d7; text-align: center; border-radius: 3px;}
+
+/*bt_area
+------------------------------------------------------------------------------*/
+.bt_area {width: 100%; height: 49px; border-top: 1px solid #cecece; position: fixed; bottom: 0; left: 0; background-color: #fff;}
+.bt_area ul {width: 100%; height: 49px;}
+.bt_area ul li {width: 25%; height: 46px; padding-top: 3px; text-align: center; font-size: 10px; color: #7f7f7f; line-height: 14px; float: left; list-style: none; position: relative; }
+.bt_area ul li a { color: #7f7f7f;}
+.bt_area ul li i {display: inline-block; width: 25px; height: 25px; background: url(../img/bottom_icon.png) no-repeat; background-size: 150px 150px; background-position: -25px 0; }
+.bt_area ul li:nth-child(2) i {background-position: -25px -25px;}
+.bt_area ul li:nth-child(3) i {background-position: -25px -50px;}
+.bt_area ul li:nth-child(4) i {background-position: -25px -75px;}
+.bt_area ul li i.on {background-position: 0px 0px;}
+.bt_area ul li:nth-child(2) i.on {background-position: 0px -25px;}
+.bt_area ul li:nth-child(3) i.on {background-position: 0px -50px;}
+.bt_area ul li:nth-child(4) i.on {background-position: 0px -75px;}
+.bt_area ul li em {display: inline-block; width: 14px; height: 14px; border-radius: 7px; background-color: #F00; color: #fff; line-height: 14px; text-align: center; font-size: 10px; position: absolute; right: 20%; top: 5px; font-style: normal;}
+
+em.fError{color: #ff0000;font-style: normal;font-size: 13px;height: 16px;width: 100%;display: block;}

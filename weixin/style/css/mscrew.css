@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+.bar {position: fixed; right: 0; left: 0; z-index: 10; height: 44px; padding-right: 10px; padding-left: 10px; background-color: white; border-bottom: 1px solid #ddd; -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+.bar-nav {top: 0; }
+.icon {display: inline-block; font-family: Ratchicons; font-size: 24px; line-height: 1; text-decoration: none; -webkit-font-smoothing: antialiased; }
+.bar .icon {position: relative; z-index: 20; padding-top: 10px; padding-bottom: 10px; font-size: 24px; }
+.title {top: 0px; position: absolute; display: block; width: 100%; padding: 0; margin: 0 -10px; font-weight: 500; line-height: 44px; color: #000;background-color: #f1f1f1; z-index: 1; text-align: center; font-size: 1.4em; font-family: "STHeiti"; color: rgb(76, 76, 76); white-space: nowrap;}
+.bar .new-a-back{position: absolute; top: 0px; width: 40px; height: 44px; display: block; z-index: 2;}
+.bar .new-a-back span{display: block; width: 20px; height: 20px; margin: 12px 0 0 0px; text-indent: -100px; overflow: hidden; background: url(../img/arrow.png) no-repeat;background-size: 20px 20px;}
+.bar .new-a-menu{position: absolute; width: 40px; height: 44px; top: 0px; z-index: 1; right: 0px;}
+.bar .new-a-menu span{display: block; width: 36px; height: 10px; text-indent: -100px; overflow: hidden; background: url(../img/menu.png) no-repeat; background-size: 70% 70%; margin: 18px 0px 10px 0px;}
+.search {width: 24px; height: 24px; background: url('../img/funnel.png') center center no-repeat; background-size: 70% 70%; position: absolute; top: 10px; right: 48px; z-index: 2; }
+.funnel{border-right: 1px solid #d8d8d8;width: 30px; height: 32px; background: url('../img/funnel.png') center center no-repeat; background-size: 70% 70%; position: absolute; top: 5px; right: 48px; z-index: 2;}
+
+ul.mslist{overflow: hidden;margin-top: 45px;}
+ul.mslist li{box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; width: 33.333333333%; float: left;    position: relative; border-bottom: 1px solid #d8d8d8; border-right: 1px solid #d8d8d8; padding: 3% 2%;}
+ul.mslist li:nth-child(3n){border-right: none;}
+ul.mslist li img{ box-sizing: border-box; -moz-box-sizing: border-box;padding: 7px 5px; -webkit-box-sizing: border-box;width: 100%;}
+ul.mslist li span{width: 100%; display: block; margin-bottom: 5px;}
+ul.mslist li i.xin{position: absolute; top: 5px; right: 10px; font-style: normal; background-color: red; color: #fff; width: 12px; height: 12px; line-height: 12px; font-size: 1em; border-radius: 3px; display: block;}
