@@ -1,0 +1,8 @@
+@import "base";
+span.checkbox{position: relative; display: block; top: 8px;width: 15px; height: 14px; float: left; left: 3px;
+  i.checkbox{z-index: 1; position: absolute; width: 15px; height: 14px; display: block; background: url("../img/checkbox/checkbox.png") no-repeat 0px 0px;}
+  input.checkbox{position: absolute; z-index: 2; width: 15px; height: 14px; display: block; outline: none; border: none; opacity: 0;
+    &:checked+i.checkbox{background-position: 0px -20px;}
+  }
+}
+

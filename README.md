@@ -1,21 +1,11 @@
 # zengxiaohui.github.io
-My personal website, record my technology and life
+Summary of things done and summed up,Or a life blog
 
-have three layer
-1、html+css                //primary
-2、html+css+jquery         //intermediate
-3、html+css+jquery+media   //senior
-Corresponding to the 3 directory
-
-development environment
-gulp+scss+jquery+nodeJS
-
-document
-tree and anchor
-
-install cmd:
-	npm init
-	npm install gulp gulp-sourcemaps gulp-sass gulp-autoprefixer es6-promise gulp-base64 gulp-cssnano gulp-connect --save-dev --registry=https://registry.npm.taobao.org
-
-run cmd
-    gulp run
+```
+zengxiaohui.github.io/
+├── frame/  #这里是将PC和微信端的所有的效果的进行整合
+│   └── src
+├── PC/  #PC端的样式或者效果
+├── weixin/  #微信端的样式或者效果
+└── index.html #这个是入口导航页面
+```
