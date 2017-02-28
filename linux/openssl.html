@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+linux下生成https的crt和key证书: <br>
+	今天在配置kibana权限设置时，kibana要求使用https链接。<br>
+
+	于是总结了一下Linux下openssl生成 签名的步骤：<br>
+
+	x509证书一般会用到三类文，key，csr，crt。<br>
+	Key 是私用密钥openssl格，通常是rsa算法。<br>
+	Csr 是证书请求文件，用于申请证书。在制作csr文件的时，必须使用自己的私钥来签署申，还可以设定一个密钥。<br>
+	crt是CA认证后的证书文，（windows下面的，其实是crt），签署人用自己的key给你签署的凭证。 <br>
+	 
+	1.key的生成 <br>
+	openssl genrsa -des3 -out server.key 2048 <br>
+	这样是生成rsa私钥，des3算法，openssl格式，2048位强度。server.<br>key是密钥文件名。为了生成这样的密钥，需要一个至少四位的密码。可以通过以下方法生成没有密码的key:<br>
+	openssl rsa -in server.key -out server.key <br>
+	 
+	server.key就是没有密码的版本了。<br> 
+	 
+	2. 生成CA的crt<br>
+	openssl req -new -x509 -key server.key -out ca.crt -days 3650 <br>
+	生成的ca.crt文件是用来签署下面的server.csr文件。 <br>
+	 
+	3. csr的生成方法<br>
+	openssl req -new -key server.key -out server.csr <br>
+	需要依次输入国家，地区，组织，email。最重要的是有一个common <br>name，可以写你的名字或者域名。如果为了https申请，这个必须和域名吻合，否则会引发浏览器警报。生成的csr文件交给CA签名后形成服务端自己的证书。<br> 
+	 
+	4. crt生成方法<br>
+	CSR文件必须有CA的签名才可形成证书，可将此文件发送到verisign等地方由它验证，要交一大笔钱，何不自己做CA呢。<br>
+	openssl x509 -req -days 3650 -in server.csr -CA ca.crt -CAkey server.key -CAcreateserial -out server.crt<br>
+	输入key的密钥后，完成证书生成。-CA选项指明用于被签名的csr证书，-CAkey选项指明用于签名的密钥，-CAserial指明序列号文件，而-CAcreateserial指明文件不存在时自动生成。<br>
+	最后生成了私用密钥：server.key和自己认证的SSL证书：server.crt<br>
+	证书合并：<br>
+	cat server.key server.crt > server.pem<br>
+</body>
+</html>
