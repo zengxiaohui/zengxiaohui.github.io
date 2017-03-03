@@ -1,0 +1,120 @@
+方法二：Spring 通过ResponseBody直接返回
+这个需要的包很重要的，我先放出来。
+这个包一定要，很多教程里面没有说到这个包，搞得我一直找不到原因
+<dependency> <groupId>com.fasterxml.jackson.core</groupId> <artifactId>jackson-databind</artifactId> <version>2.8.6</version> </dependency>
+
+
+下面两个是JSON的包，也是必须的，网上的方法都有提到这两个包
+[html] view plain copy
+<!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl -->  
+    <dependency>  
+      <groupId>org.codehaus.jackson</groupId>  
+      <artifactId>jackson-mapper-asl</artifactId>  
+      <version>1.9.13</version>  
+    </dependency>  
+  
+    <!-- https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl-->  
+    <dependency>  
+      <groupId>org.codehaus.jackson</groupId>  
+      <artifactId>jackson-core-asl</artifactId>  
+      <version>1.9.13</version>  
+    </dependency>  
+
+PS：maven包的查找添加可以到这个网站上去查：点击打开链接，在搜索里面找你要的包名，点开后会列出很多版本，点击你要的新的版本，可以看到这个版本详情里面有添加
+Maven包的方法。
+把包添加好之后，在Web.xml里面上下文的配置文件在哪里：如
+[java] view plain copy
+<context-param>  
+    <param-name>contextConfigLocation</param-name>  
+    <param-value>/WEB-INF/mvc-dispatcher-servlet.xml</param-value>  
+  </context-param>  
+
+在WEB-INF下的
+[java] view plain copy
+mvc-dispatcher-servlet.xml文件是上下文的配置文件。打开这个文件  
+
+[java] view plain copy
+<mvc:annotation-driven/>  //确保有这一条，就可以了。具体原理我就不多讲，要我讲我也不懂，哈哈，后面会贴大神的解说。  
+好了，全部工具做完了。
+我们再理一下：
+首先添加必需的三个JSON包。
+再找到上下文件配置文件，打开配置文件，添加
+[java] view plain copy
+<mvc:annotation-driven/>  
+完成。
+下面是请求的部分了：
+[java] view plain copy
+@RequestMapping(value = "/getProduct2", method = RequestMethod.GET)  //一样是客户端的请求方法体和请求方式  
+    public @ResponseBody DMProduct getProduct2() {  
+        DMProduct dmProduct=new DMProduct();  
+        dmProduct.setProtID("010001");  
+        dmProduct.setProtName("白萝卜");  
+        return dmProduct;                                             //直接就可以返回类的实例，系统会自动帮我们序列化给客户端  
+    }
+
+
+
+package com.fd.report.entity;
+
+import java.io.Serializable;
+
+public class Customer implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+	
+	private int customerId; // 用户id
+	private String customerName; // 用户名
+	private String customerAccount;
+	private transient String customerPassword;
+	private String customerTele;
+	private String customerCardId;
+
+	public int getCustomerId() {
+		return customerId;
+	}
+
+	public void setCustomerId(int customerId) {
+		this.customerId = customerId;
+	}
+
+	public String getCustomerName() {
+		return customerName;
+	}
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
+
+	public String getCustomerAccount() {
+		return customerAccount;
+	}
+
+	public void setCustomerAccount(String customerAccount) {
+		this.customerAccount = customerAccount;
+	}
+
+	public String getCustomerPassword() {
+		return customerPassword;
+	}
+
+	public void setCustomerPassword(String customerPassword) {
+		this.customerPassword = customerPassword;
+	}
+
+	public String getCustomerTele() {
+		return customerTele;
+	}
+
+	public void setCustomerTele(String customerTele) {
+		this.customerTele = customerTele;
+	}
+
+	public String getCustomerCardId() {
+		return customerCardId;
+	}
+
+	public void setCustomerCardId(String customerCardId) {
+		this.customerCardId = customerCardId;
+	}
+
+}
