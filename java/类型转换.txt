@@ -1,0 +1,33 @@
+object->Integer:   Integer.parseInt(obj.toString);
+
+ArrayList、string、string[]之间的转换
+1、ArrarList 转换为 string[] ：
+
+　　ArrayList list = new ArrayList();
+
+　　list.Add("aaa");
+
+　　list.Add("bbb");
+
+　　string[] arrString = (string[])list.ToArray(typeof( string)) ;
+
+2、string[] 转换为 ArrarList ：
+
+　　ArrayList list = new ArrayList(new string[] { "aaa", "bbb" });
+
+3、ArrayList 转换为 string ：
+
+　　ArrayList list = new ArrayList();
+
+　　list.Add("aaa");
+
+　　list.Add("bbb");
+
+　　string str= string.Join(",", (string[])list.ToArray(typeof( string)));
+
+4、string 转换为 ArrayList ：
+
+　　string str="1,2,3,4,5";
+
+　　ArrayList b = new ArrayList( str.Split(',') ) ;
+

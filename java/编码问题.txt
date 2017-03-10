@@ -1,0 +1,1 @@
+URLDecoder.decode(request.getParameter("data1"),"UTF-8")

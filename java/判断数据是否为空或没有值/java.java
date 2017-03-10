@@ -1,1 +1,1 @@
-name != null && ！name.equals("")
+name != null && ！name.equals("")   string

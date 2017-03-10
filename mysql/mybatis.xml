@@ -1,0 +1,174 @@
+<select id="findActiveBlogLike"
+     resultType="Blog">
+  SELECT * FROM BLOG 
+  <where> 
+    <if test="state != null">
+         state = #{state}
+    </if> 
+    <if test="title != null">
+        AND title like #{title}
+    </if>
+    <if test="author != null and author.name != null">
+        AND author_name like #{author.name}
+    </if>
+  </where>
+</select>
+
+where 元素知道只有在一个以上的if条件有值的情况下才去插入“WHERE”子句。而且，若最后的内容是“AND”或“OR”开头的，where 元素也知道如何将他们去除。
+如果 where 元素没有按正常套路出牌，我们还是可以通过自定义 trim 元素来定制我们想要的功能。比如，和 where 元素等价的自定义 trim 元素为：
+<trim prefix="WHERE" prefixOverrides="AND |OR "> ... </trim>
+
+mybatis <where>、<set>、<trim>、<sql>、<foreach>标签的使用
+mybatis where标签的使用
+　　where后面跟查询条件 简化sql语句中判断条件的书写
+　　　　例:
+　　　　　　<select id="user" parameterType="user" resultType="User">
+　　　　　　　　select * from user 
+　　　　　　　　　　<where>
+　　　　　　　　　　　　<if test="id!=null and id!=''">
+　　　　　　　　　　　　　　id=#{id}
+　　　　　　　　　　　　</if>
+　　　　　　　　　　　　<if test="name!=null and name!=''">
+　　　　　　　　　　　　　　and name=#{name}
+　　　　　　　　　　　　</if>
+　　　　　　　　　　　　<if test="gender!=null and gender!=''">
+　　　　　　　　　　　　　　and gender=#{gender}
+　　　　　　　　　　　　</if>
+　　　　　　　　　　</where>
+　　　　　　　</select>
+
+
+　　MyBatis会智能的把首个and 或 or 给忽略
+　　　　如果id为null 执行的sql语句为 :
+　　　　　　select * from user where name='xxx' and gender='xxx'
+
+mybatis set标签的使用
+　　例:
+　　　　<update id="userUpdate" parameterType="user">
+　　　　　　update user 
+　　　　　　　　<set>
+　　　　　　　　　　<if test="id!=null and id!=''">
+　　　　　　　　　　　　id=#{id},
+　　　　　　　　　　</if>
+　　　　　　　　　　<if test="name!=null and name!=''">
+　　　　　　　　　　　　name=#{name},
+　　　　　　　　　　</if>
+　　　　　　　　　　<if test="gender!=null and gender!=''">
+　　　　　　　　　　　　gender=#{gender},
+　　　　　　　　　　</if>
+　　　　　　　　</set>
+　　　　</update>
+
+
+如上片段假如都不为null的情况下执行SQL为:	update user set id="xx",name='xxx',gender='xxx';
+在如上sql中最后一个逗号会被set标记自动忽略不计
+mybatis trim标签的使用
+　　trim 属性
+　　prefix：前缀
+　　suffix：后缀
+　　prefixOverrides：忽略第一个指定分隔符
+　　suffixOverrides：会略最后一个分隔符
+例:
+　　1)
+
+　　　　<select id="user" parameterType="user" resultType="User">
+　　　　　　select * from user 
+　　　　　　　　<trim prefix="WHERE" prefixoverride="and | or">
+　　　　　　　　　　<if test="id!=null and id!=''">
+　　　　　　　　　　　　id=#{id}
+　　　　　　　　　　</if>
+　　　　　　　　　　<if test="name!=null and name!=''">
+　　　　　　　　　　　　and name=#{name}
+　　　　　　　　　　</if>
+　　　　　　　　　　<if test="gender!=null and gender!=''">
+　　　　　　　　　　　　and gender=#{gender}
+　　　　　　　　　　</if>
+　　　　　　　</trim>
+　　　　</select>
+
+如果id为null执行的sql语句为:
+select * from user where name="xxx" and gender="xxx"
+
+2)
+
+　　<update>
+　　　　update user 
+　　　　　　<trim prefix="set" suffixoverride=",">
+　　　　　　　　<if test="id!=null and id!=''">
+　　　　　　　　　　id=#{id},
+　　　　　　　　</if>
+　　　　　　　　<if test="name!=null and name!=''">
+　　　　　　　　　　name=#{name},
+　　　　　　　　</if>
+　　　　　　　　<if test="gender!=null and gender!=''">
+　　　　　　　　　　gender=#{gender}
+　　　　　　　　</if>
+　　　　　　　　</trim>
+　　</update>
+
+如果gender为null 执行的sql语句为:
+update user set id="xx",name="xx"
+
+ 
+
+mybatis foreach标签的使用
+
+可以利用<foreach>标签实现sql条件的循环，可完成类似批量的sql
+
+　　mybatis接受的参数分为：
+　　　　（1）基本类型（2）对象（3）List（4）数组（5）Map
+
+　　参数：
+　　　　collection：要循环的集合
+　　　　index：定一个名字，用于表示在迭代过程中，每次迭代到的位置
+　　　　item：集合中每一个元素进行迭代时的别名
+　　　　open：以什么开始
+　　　　close：以什么结束
+　　　　separator：循环内容之间以什么分隔 
+例:
+　　1)批量添加
+　　　　<insert id="add" parameterType="List">
+　　　　　　insert into user(id,name,gender) values
+　　　　　　　　<foreach collection="list" item="user" open="(" close=")" separator=",">
+　　　　　　　　　　#{user.id},#{user.name},#{user.gender}
+　　　　　　　　</foreach>
+　　　　</insert>
+
+　　　　若list有两条数据 则执行的sql语句为:
+　　　　　　insert into user(id,name,gender) values ("1","张三","男"),("2","李四","女")
+
+　　　　mapper接口:
+　　　　　　void add(List<User> users);
+
+2)批量删除
+　　　　　　<delete id="deleteUser" parameterType="array">
+　　　　　　　　delete from user where id in
+　　　　　　　　　　<foreach collection="array" item="id" open="(" close=")" separator=",">
+　　　　　　　　　　　　#{id}
+　　　　　　　　　　</foreach>
+　　　　　　</delete>
+
+　　如果有两条数据要删除 执行的sql语句为:
+　　　　delete from user where id in(1,2)
+
+mybatis sql标签的使用
+
+　　　　通过sql片段达到代码重复利用
+　　　　　　例:
+　　　　　　　　<sql id="sqlcont">
+　　　　　　　　　　select count(*)
+　　　　　　　　</sql>
+
+　　　　　　　　<sql id="sqlselect">
+　　　　　　　　　　select * 
+　　　　　　　　</sql>
+　　　　　　　　<sql id="sqlcontent">
+　　　　　　　　　　from user
+　　　　　　　　</sql>
+　　　　
+
+
+　　　　　　<select id="findUser" parameterType="user" resultType="User">
+　　　　　　　　<include refid="sqlcont"/>
+　　　　　　　　<include refid="sqlcontent"/>
+　　　　　　</select>
