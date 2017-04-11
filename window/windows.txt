@@ -1,2 +1,14 @@
 打开windows的远程连接：
 	点击windows键，在“搜索程序和文件”的文本框中输入“mstsc”，打开远程连接的窗口
+
+打开windows服务：services.msc
+打开windows注册表：regedit
+
+window server升级：
+	 Windows Server 2008 R2标准版升级到企业版其实很简单，就是一个命令的事情，不需要重新安装系统，但升级是不可逆的。（升级命令是DISM.exe。需在线升级）
+ 1.检测当前版本，输入：  DISM /online /Get-CurrentEdition
+ 2.查询当前系统可升级的版本，输入：     DISM /online /Get-TargetEditions 
+ 3. 升级到需要的版本，格式：  DISM /online /Set-Edition:<edition ID> /ProductKey:XXXXX-XXXXX-XXXXX-XXXXX
+             如：  DISM /online  /Set-Edition:ServerEnterprise  /productkey:489J6-VHDMP-X63PK-3K798-CPX3Y    
+        第一个参数是edition ID, 也就是第二步中查询到的目标版本； 第二个参数是ProductKey，25个字符的目标系统版本的产品密钥。
+  注意：语法错误报87，产品密钥不符报1605 ；成功后会提示重启（多次）。

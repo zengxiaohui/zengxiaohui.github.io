@@ -5,6 +5,14 @@
 	<title>Document</title>
 </head>
 <body>
+	查找某个字符串之间的值
+	Matcher m2=Pattern.compile("<icon>(.*?)</icon>").matcher(str);
+    while(m2.find())
+      System.out.println(m2.group(1));
+	
+	String str2 = "<abcd efg>higklmnopq<rstu vwxyz";
+    System.out.println(str2.substring(str2.indexOf(">")+1, str2.lastIndexOf("<")));
+
 	string操作：
 		替换：
 			String abc = "<img src=\"img/rxa.png\"/>";

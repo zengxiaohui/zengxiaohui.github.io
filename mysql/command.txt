@@ -1,0 +1,14 @@
+GRANT ALL PRIVILEGES ON report.* TO 'reportuser'@'10.88.%.%' IDENTIFIED BY 'rptpass' WITH GRANT OPTION;
+
+GRANT ALL PRIVILEGES ON *.* TO 'myuser'@'192.168.1.6'IDENTIFIED BY 'mypassword' WITH GRANT OPTION;
+
+grant all on report.* to 'reportuser'@'%' identified by 'rptpass';
+
+CREATE DATABASE report CHARACTER SET utf8 COLLATE utf8_bin;
+
+UPDATE user SET Password=PASSWORD('C0bramk!!!') where USER='root';
+
+CREATE DATABASE zabbix CHARACTER SET utf8 COLLATE utf8_bin;
+
+查看数据库的用户情况
+SELECT DISTINCT CONCAT('User: ''',user,'''@''',host,''';') AS query FROM mysql.user;

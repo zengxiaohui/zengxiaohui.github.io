@@ -1,0 +1,26 @@
+DateUtils:
+private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>(){
+	@Override
+	protected DateFormat initialValue(){
+		return new SimpleDateFormat("yyyy-MM-dd");
+	}
+}
+Instant  Date
+LocalDateTime   Calendar
+DateTimeFormatter  SimpleDateFormatter
+
+什么是线程安全，线程不安全
+
+程序是按照步骤来的，如果是a++的话，在那一行代码中，a的值是不变的，下一行才发生变化，++a则是在那一行已经发生了变化。
+第一种情况：
+a=3;
+b=a++;
+运行后
+b=3，a=4
+第二种情况：
+a=3;
+b=++a;
+运行后
+b=4，a=4
+
+++a线程安全
