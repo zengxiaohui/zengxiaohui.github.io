@@ -24,5 +24,13 @@
 
 	varchar(3)
 	非空CHAR的最大总长度是255【字节】；非空VARCHAR的最大总长度是65533【字节】，超过5000个字符就用text
+
+	重命名表：ALTER TABLE i_origin_move RENAME AS o_origin_move
+
+	将列转为一行
+	select GROUP_CONCAT(start_pin_id, ",",end_pin_id)
+  	from t_origin_move AS o
+	WHERE
+ 	collinfo_id=826 AND origin_type=true
 </body>
 </html>

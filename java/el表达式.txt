@@ -9,3 +9,8 @@ is [not] even是否为偶数
 is [not] even by $b即($a / $b) % 2 == 0   
 is [not] odd是否为奇   
 is not odd by $b即($a / $b) % 2 != 0 
+
+<c:forEach items="${pathsPin }" var="pin" varStatus="stat">
+    <c:if test="${!stat.last }">${pin } → </c:if>
+    <c:if test="${stat.last }">${pin } </c:if>
+</c:forEach>

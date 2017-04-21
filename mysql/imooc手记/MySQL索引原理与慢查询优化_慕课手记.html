@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://www.imooc.com/article/4817 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./MySQL索引原理与慢查询优化_慕课手记_files/push.js"></script>
+
+<title>
+MySQL索引原理与慢查询优化_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="索引目的 索引的目的在于提高查询效率，可以类比字典，如果要查“mysql”这个单词，我们肯定需要定位到m字母，然后从下往下找到y字母，再找到剩下的sql。如">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./MySQL索引原理与慢查询优化_慕课手记_files/moco.min.css" type="text/css">
+
+
+
+<script>
+var pageInfo = {
+    id: "4817",
+    praiseNum:"24"
+}
+var user = {
+    uid : "1313300",
+    img : "http://img.mukewang.com/5458676e0001af7702200220-100-100.jpg",
+    nickname : "雪落的瞬间"
+}
+var authorUid = {
+    uid : '264930'
+}
+</script>
+
+<link rel="stylesheet" href="./MySQL索引原理与慢查询优化_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/jquery.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/seajs-text.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/common.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/string.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/userinfo.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/cart.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/cookie.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/suggest.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/store.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/json.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/im.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/details.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/socket.io.min.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/moco.min.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/prettify.js"></script><link charset="utf-8" rel="stylesheet" href="./MySQL索引原理与慢查询优化_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/ueditor.parse.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/layer.min.js"></script><link charset="utf-8" rel="stylesheet" href="./MySQL索引原理与慢查询优化_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./MySQL索引原理与慢查询优化_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/addCopy.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/imgPreview.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/praise.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/verify-code.js"></script><script charset="utf-8" async="" src="./MySQL索引原理与慢查询优化_慕课手记_files/mo.min.js"></script><link href="./MySQL索引原理与慢查询优化_慕课手记_files/ueditor(1).css" type="text/css" rel="stylesheet"><script src="./MySQL索引原理与慢查询优化_慕课手记_files/share.js"></script><link rel="stylesheet" href="./MySQL索引原理与慢查询优化_慕课手记_files/share_style0_16.css"><script src="./MySQL索引原理与慢查询优化_慕课手记_files/ZeroClipboard.js" type="text/javascript" defer="defer"></script><link id="syntaxhighlighter_css" rel="stylesheet" type="text/css" href="./MySQL索引原理与慢查询优化_慕课手记_files/shCoreDefault.css"><script id="syntaxhighlighter_js" src="./MySQL索引原理与慢查询优化_慕课手记_files/shCore.js" type="text/javascript" defer="defer"></script></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block js-header-avator"><a href="http://www.imooc.com/u/1313300" target="_self"><img width="40" height="40" src="./MySQL索引原理与慢查询优化_慕课手记_files/5458676e0001af7702200220-100-100.jpg"></a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://www.imooc.com/course/program" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+                                            <li class="visible-xs-block"><a href="http://www.imooc.com/user/setprofile" target="_self">我的设置</a></li>
+                <li class="visible-xs-block"><a href="http://www.imooc.com/passport/user/logout?referer=http://www.imooc.com" target="_self">退出</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="clearfix logined">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                
+                <li class="remind_warp">
+                    <i class="msg_remind" style="display: inline;"></i>
+                    <a target="_blank" href="http://www.imooc.com/u/1313300/notices">
+                        <i class="icon-notifi"></i>
+                        <!-- <span class="msg_icon" style="display: none;"></span> -->
+                    </a>
+                </li>
+        	   
+                <li class="set_btn user-card-box" id="header-user-card">
+                    <a id="header-avator" class="user-card-item js-header-avator" action-type="my_menu" href="http://www.imooc.com/u/1313300" target="_self">
+                        <img width="40" height="40" src="./MySQL索引原理与慢查询优化_慕课手记_files/5458676e0001af7702200220-100-100.jpg">
+                        <i class="myspace_remind" style="display: none;"></i>
+                        <span style="display: none;">动态提醒</span>
+                    </a>
+                    <div class="g-user-card"><div class="card-inner">                        <div class="card-top clearfix">                            <a href="http://www.imooc.com/u/1313300" class="l"><img src="./MySQL索引原理与慢查询优化_慕课手记_files/5458676e0001af7702200220-100-100.jpg" alt="雪落的瞬间"></a>                            <div class="card-top-right-box l">                                <a href="http://www.imooc.com/u/1313300"><span class="name text-ellipsis">雪落的瞬间</span></a>                                <div class="meta">                                    <a href="http://www.imooc.com/u/1313300/experience">经验<b id="js-user-mp">17,301</b></a>                                    <a href="http://www.imooc.com/u/1313300/credit">积分<b id="js-user-credit">17</b></a>                                </div>                            </div>                        </div>                        <div class="user-center-box">                            <ul class="clearfix">                                <li class="l"><a href="http://www.imooc.com/u/1313300/courses" target="_blank"><span class="user-center-icon icon-tick"></span>我的课程</a></li>                                <li class="l">                                    <a href="http://order.imooc.com/myorder" target="_blank"><span class="user-center-icon icon-receipt"></span>订单中心</a>                                    <i id="js-usercard-coupon-icon" style="display: none;"></i>                                </li>                                <li class="l"><a href="http://www.imooc.com/mall/index" target="_blank"><span class="user-center-icon icon-score_shop"></span>积分商城</a></li>                                <li class="l"><a href="http://www.imooc.com/user/setbindsns" target="_blank"><span class="user-center-icon icon-set"></span>个人设置</a></li>                            </ul>                        </div><div class="card-history"><span class="history-item">                                                <span class="tit text-ellipsis">初识机器学习-理论篇</span>                                                <span class="media-name text-ellipsis">                                                    6-1机器学习解决问题（1）                                                </span>                                                <i class="icon-clock"></i>                                                <a href="http://www.imooc.com/video/12877" class="continue" title="机器学习解决问题（1）
+6-1机器学习解决问题（1）">继续</a>                                            </span></div><div class="card-sets clearfix"><a href="http://www.imooc.com/passport/user/logout?referer=http://www.imooc.com" class="r">安全退出</a></div>                    </div></div>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/27" target="_blank">ECShop</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=1
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>MySQL索引原理与慢查询优化</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        MySQL索引原理与慢查询优化
+                </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2016-02-17 14:14:49</span>
+                <span class="spacer l spacer-2">5189浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/4817#comment">2评论</a>
+                                    
+                                                    </div>
+        </div>
+
+        <div class="detail-content ">
+            <strong style="display:block;font-size:22px;margin:22px 0 10px">索引目的</strong>
+<p>索引的目的在于提高查询效率，可以类比字典，如果要查“mysql”这个单词，我们肯定需要定位到m字母，然后从下往下找到y字母，再找到剩下的sql。如果没有索引，那么你可能需要把所有单词看一遍才能找到你想要的，如果我想找到m开头的单词呢？或者w开头的单词呢？是不是觉得如果没有索引，这个事情根本无法完成？</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">索引原理</strong>
+<p>除了词典，生活中随处可见索引的例子，如火车站的车次表、图书的目录等。它们的原理都是一样的，通过不断的缩小想要获得数据的范围来筛选出最终想要的结果，同时把随机的事件变成顺序的事件，也就是我们总是通过同一种查找方式来锁定数据。</p>
+<p>数据库也是一样，但显然要复杂许多，因为不仅面临着等值查询，还有范围查询(&gt;、&lt;、between、in)、模糊查询(like)、并集查询(or)等等。数据库应该选择怎么样的方式来应对所有的问题呢？我们回想字典的例子，能不能把数据分成段，然后分段查询呢？最简单的如果1000条数据，1到100分成第一段，101到200分成第二段，201到300分成第三段……这样查第250条数据，只要找第三段就可以了，一下子去除了90%的无效数据。但如果是1千万的记录呢，分成几段比较好？稍有算法基础的同学会想到搜索树，其平均复杂度是lgN，具有不错的查询性能。但这里我们忽略了一个关键的问题，复杂度模型是基于每次相同的操作成本来考虑的，数据库实现比较复杂，数据保存在磁盘上，而为了提高性能，每次又可以把部分数据读入内存来计算，因为我们知道访问磁盘的成本大概是访问内存的十万倍左右，所以简单的搜索树难以满足复杂的应用场景。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">磁盘IO与预读</strong>
+<p>前面提到了访问磁盘，那么这里先简单介绍一下磁盘IO和预读，磁盘读取数据靠的是机械运动，每次读取数据花费的时间可以分为寻道时间、旋转延迟、传输时间三个部分，寻道时间指的是磁臂移动到指定磁道所需要的时间，主流磁盘一般在5ms以下；旋转延迟就是我们经常听说的磁盘转速，比如一个磁盘7200转，表示每分钟能转7200次，也就是说1秒钟能转120次，旋转延迟就是1/120/2 = 4.17ms；传输时间指的是从磁盘读出或将数据写入磁盘的时间，一般在零点几毫秒，相对于前两个时间可以忽略不计。那么访问一次磁盘的时间，即一次磁盘IO的时间约等于5+4.17 = 9ms左右，听起来还挺不错的，但要知道一台500 -MIPS的机器每秒可以执行5亿条指令，因为指令依靠的是电的性质，换句话说执行一次IO的时间可以执行40万条指令，数据库动辄十万百万乃至千万级数据，每次9毫秒的时间，显然是个灾难。下图是计算机硬件延迟的对比图，供大家参考：</p>
+<p><img title="MySQL索引原理与慢查询优化_" 图片1="" src="./MySQL索引原理与慢查询优化_慕课手记_files/56c40dd80001c03105480321.png" alt="图片描述"></p>
+<p>考虑到磁盘IO是非常高昂的操作，计算机操作系统做了一些优化，当一次IO时，不光把当前磁盘地址的数据，而是把相邻的数据也都读取到内存缓冲区内，因为局部预读性原理告诉我们，当计算机访问一个地址的数据的时候，与其相邻的数据也会很快被访问到。每一次IO读取的数据我们称之为一页(page)。具体一页有多大数据跟操作系统有关，一般为4k或8k，也就是我们读取一页内的数据时候，实际上才发生了一次IO，这个理论对于索引的数据结构设计非常有帮助。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">索引的数据结构</strong>
+<p>前面讲了生活中索引的例子，索引的基本原理，数据库的复杂性，又讲了操作系统的相关知识，目的就是让大家了解，任何一种数据结构都不是凭空产生的，一定会有它的背景和使用场景，我们现在总结一下，我们需要这种数据结构能够做些什么，其实很简单，那就是：每次查找数据时把磁盘IO次数控制在一个很小的数量级，最好是常数数量级。那么我们就想到如果一个高度可控的多路搜索树是否能满足需求呢？就这样，b+树应运而生。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">b+树详解</strong>
+<p><img title="MySQL索引原理与慢查询优化_" 图片2="" src="./MySQL索引原理与慢查询优化_慕课手记_files/56c40dfa00017ef806240300.jpg" alt="B+tree"></p>
+<p>如上图，是一颗b+树，这里只说一些重点，浅蓝色的块我们称之为一个磁盘块，可以看到每个磁盘块包含几个数据项（深蓝色所示）和指针（黄色所示），如磁盘块1包含数据项17和35，包含指针P1、P2、P3，P1表示小于17的磁盘块，P2表示在17和35之间的磁盘块，P3表示大于35的磁盘块。真实的数据存在于叶子节点即3、5、9、10、13、15、28、29、36、60、75、79、90、99。非叶子节点只不存储真实的数据，只存储指引搜索方向的数据项，如17、35并不真实存在于数据表中。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">b+树的查找过程</strong>
+<p>如图所示，如果要查找数据项29，那么首先会把磁盘块1由磁盘加载到内存，此时发生一次IO，在内存中用二分查找确定29在17和35之间，锁定磁盘块1的P2指针，内存时间因为非常短（相比磁盘的IO）可以忽略不计，通过磁盘块1的P2指针的磁盘地址把磁盘块3由磁盘加载到内存，发生第二次IO，29在26和30之间，锁定磁盘块3的P2指针，通过指针加载磁盘块8到内存，发生第三次IO，同时内存中做二分查找找到29，结束查询，总计三次IO。真实的情况是，3层的b+树可以表示上百万的数据，如果上百万的数据查找只需要三次IO，性能提高将是巨大的，如果没有索引，每个数据项都要发生一次IO，那么总共需要百万次的IO，显然成本非常非常高。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">b+树性质</strong>
+<ol>
+<li>通过上面的分析，我们知道IO次数取决于b+数的高度h，假设当前数据表的数据为N，每个磁盘块的数据项的数量是m，则有h=㏒(m+1)N，当数据量N一定的情况下，m越大，h越小；而m= 磁盘块的大小 / 数据项的大小，磁盘块的大小也就是一个数据页的大小，是固定的，如果数据项占的空间越小，数据项的数量越多，树的高度越低。这就是为什么每个数据项，即索引字段要尽量的小，比如int占4字节，要比bigint8字节少一半。这也是为什么b+树要求把真实的数据放到叶子节点而不是内层节点，一旦放到内层节点，磁盘块的数据项会大幅度下降，导致树增高。当数据项等于1时将会退化成线性表。</li>
+<li>当b+树的数据项是复合的数据结构，比如(name,age,sex)的时候，b+数是按照从左到右的顺序来建立搜索树的，比如当(张三,20,F)这样的数据来检索的时候，b+树会优先比较name来确定下一步的所搜方向，如果name相同再依次比较age和sex，最后得到检索的数据；但当(20,F)这样的没有name的数据来的时候，b+树就不知道下一步该查哪个节点，因为建立搜索树的时候name就是第一个比较因子，必须要先根据name来搜索才能知道下一步去哪里查询。比如当(张三,F)这样的数据来检索时，b+树可以用name来指定搜索方向，但下一个字段age的缺失，所以只能把名字等于张三的数据都找到，然后再匹配性别是F的数据了，这个是非常重要的性质，即索引的最左匹配特性。</li>
+</ol>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">慢查询优化</strong>
+<p>关于MySQL索引原理是比较枯燥的东西，大家只需要有一个感性的认识，并不需要理解得非常透彻和深入。我们回头来看看一开始我们说的慢查询，了解完索引原理之后，大家是不是有什么想法呢？先总结一下索引的几大基本原则</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">建索引的几大原则</strong>
+<p>1.最左前缀匹配原则，非常重要的原则，mysql会一直向右匹配直到遇到范围查询(&gt;、&lt;、between、like)就停止匹配，比如<code>a = 1 and b = 2 and c &gt; 3 and d = 4</code>如果建立(a,b,c,d)顺序的索引，d是用不到索引的，如果建立(a,b,d,c)的索引则都可以用到，a,b,d的顺序可以任意调整。<br>
+2.=和in可以乱序，比如<code>a = 1 and b = 2 and c = 3</code> 建立(a,b,c)索引可以任意顺序，mysql的查询优化器会帮你优化成索引可以识别的形式。<br>
+3.尽量选择区分度高的列作为索引，区分度的公式是<code>count(distinct col)/count(*)</code>，表示字段不重复的比例，比例越大我们扫描的记录数越少，唯一键的区分度是1，而一些状态、性别字段可能在大数据面前区分度就是0，那可能有人会问，这个比例有什么经验值吗？使用场景不同，这个值也很难确定，一般需要join的字段我们都要求是0.1以上，即平均1条扫描10条记录。<br>
+4.索引列不能参与计算，保持列“干净”，比如<code>from_unixtime(create_time) =’2014-05-29’</code>就不能使用到索引，原因很简单，b+树中存的都是数据表中的字段值，但进行检索时，需要把所有元素都应用函数才能比较，显然成本太大。所以语句应该写成<code>create_time= unix_timestamp(’2014-05-29’);</code><br>
+5.尽量的扩展索引，不要新建索引。比如表中已经有a的索引，现在要加(a,b)的索引，那么只需要修改原来的索引即可</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">一条简单sql的查询优化</strong>
+<pre class="prettyprint"><code><span class="kwd">select</span><span class="pln"> count</span><span class="pun">(*)</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> task </span><span class="kwd">where</span><span class="pln"> status</span><span class="pun">=</span><span class="lit">2</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> operator_id</span><span class="pun">=</span><span class="lit">20839</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> operate_time</span><span class="pun">&gt;</span><span class="lit">1371169729</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> operate_time</span><span class="pun">&lt;</span><span class="lit">1371174603</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> type</span><span class="pun">=</span><span class="lit">2</span><span class="pun">;</span></code></pre>
+<p>根据最左匹配原则，该sql语句的索引应该是status、operator_id、type、operate_time的联合索引；其中status、operator_id、type的顺序可以颠倒;</p>
+<p>比如还有如下查询</p>
+<pre class="prettyprint"><code><span class="kwd">select</span><span class="pln"> </span><span class="pun">*</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> task </span><span class="kwd">where</span><span class="pln"> status </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="kwd">and</span><span class="pln"> type </span><span class="pun">=</span><span class="pln"> </span><span class="lit">12</span><span class="pln"> limit </span><span class="lit">10</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">select</span><span class="pln"> count</span><span class="pun">(*)</span><span class="pln"> </span><span class="kwd">from</span><span class="pln"> task </span><span class="kwd">where</span><span class="pln"> status </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pln"> </span><span class="pun">;</span></code></pre>
+<p>那么索引建立成<code>(status,type,operator_id,operate_time)</code>就是非常正确的，因为可以覆盖到所有情况。这个就是利用了索引的最左匹配的原则。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">查询优化神器 – explain命令</strong>
+<p>关于explain命令相信大家并不陌生，具体用法和字段含义可以参考官网explain-output，这里需要强调rows是核心指标，绝大部分rows小的语句执行一定很快（有例外，下面会讲到）。所以优化语句基本上都是在优化rows。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">慢查询优化基本步骤</strong>
+<p>0.先运行看看是否真的很慢，注意设置<code>SQL_NO_CACHE</code><br>
+1.where条件单表查，锁定最小返回记录表。这句话的意思是把查询语句的where都应用到表中返回的记录数最小的表开始查起，单表每个字段分别查询，看哪个字段的区分度最高；<br>
+2.explain查看执行计划，是否与1预期一致（从锁定记录较少的表开始查询）；<br>
+3.order by limit 形式的sql语句让排序的表优先查；<br>
+4.了解业务方使用场景；<br>
+5.加索引时参照建索引的几大原则；<br>
+6.观察结果，不符合预期继续从0分析。</p>
+<blockquote>
+<p>原文出处： <a href="http://www.javaranger.com/archives/1728" target="_blank" rel="nofollow">http://www.javaranger.com/archives/1728</a> </p>
+</blockquote>
+        </div>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/11" target="_blank">Mysql</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/347039/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/54275f3a0001cc3d09360936-100-100.jpg" title="帮忙想个呗">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1864581/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/568dc2bb0001b79c06400640-100-100.jpg" title="Oaktree">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2750587/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/567ec6ae0001262101800180-100-100.jpg" title="连宏伟HW">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2946624/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/56d66edd0001eecc04190419-100-100.jpg" title="牵着蜗牛过马路">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3061580/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/57282272000128ad01000100-100-100.jpg" title="我落泪">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3158540/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/570511f700015a7d01800180-100-100.jpg" title="SUNKOMO_Yi">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3319952/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/545847490001582602200220-100-100.jpg" title="慕粉3319952">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3388504/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/545847e20001163c02200220-100-100.jpg" title="fire20162016">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3443797/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/574db7470001738302790279-100-100.jpg" title="枫一阵">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3880652/articles">                                                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/5458659400017f0802190220-100-100.jpg" title="慕粉3880652">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">24</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1492580534480">
+                                    <a href="http://www.imooc.com/article/4817#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/4817#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/4817#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                                                    <span id="js-follow" data-id="4817" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                                            </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <h2>相关阅读</h2><ul><li><a href="http://www.imooc.com/article/7253" title="我设计Mysql索引的原则"><h3>我设计Mysql索引的原则</h3></a></li><li><a href="http://www.imooc.com/article/11837" title="八月MySQL之索引的设计和使用"><h3>八月MySQL之索引的设计和使用</h3></a></li><li><a href="http://www.imooc.com/article/17287" title="MySQL 数据库规范--开发篇"><h3>MySQL 数据库规范--开发篇</h3></a></li><li><a href="http://www.imooc.com/article/17292" title="MySQL 数据库索引原理与分类"><h3>MySQL 数据库索引原理与分类</h3></a></li><li><a href="http://www.imooc.com/article/17293" title="MySQL 数据库索引使用场景&amp;注意事项"><h3>MySQL 数据库索引使用场景&amp;注意事项</h3></a></li></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./MySQL索引原理与慢查询优化_慕课手记_files/5458676e0001af7702200220-80-80.jpg" width="40" alt="雪落的瞬间"></span>
+                <span class="nick">雪落的瞬间</span>
+            </div>
+    
+            <div class="df-text">
+                <div id="js-reply-editor-box" class="wd-comment-box js-ci-inner  edui-imooc" style=""><div id="edui1" class="edui-editor  edui-imooc" style="width: 766px; z-index: 9999;"><div id="edui1_toolbarbox" class="edui-editor-toolbarbox edui-imooc"><div id="edui1_toolbarboxouter" class="edui-editor-toolbarboxouter edui-imooc"><div class="edui-editor-toolbarboxinner edui-imooc"><div id="edui2" class="edui-toolbar   edui-imooc" onselectstart="return false;" onmousedown="return $EDITORUI[&quot;edui2&quot;]._onMouseDown(event, this);" style="-webkit-user-select: none;"><div id="edui3" class="edui-box edui-combox edui-for-insertcode edui-imooc"><div title="代码语言" id="edui3_state" onmousedown="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui3&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-combox-body edui-imooc"><div id="edui3_button_body" class="edui-box edui-button-body edui-imooc" onclick="$EDITORUI[&quot;edui3&quot;]._onButtonClick(event, this);">代码语言</div><div class="edui-box edui-splitborder edui-imooc"></div><div class="edui-box edui-arrow edui-imooc" onclick="$EDITORUI[&quot;edui3&quot;]._onArrowClick();"></div></div></div></div><div id="edui17" class="edui-box edui-button edui-for-bold edui-imooc"><div id="edui17_state" onmousedown="$EDITORUI[&quot;edui17&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui17&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui17&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui17&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui17_body" unselectable="on" title="加粗" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui17&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui17&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div></div></div></div></div><div id="edui18" class="edui-box edui-button edui-for-italic edui-imooc"><div id="edui18_state" onmousedown="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui18&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui18_body" unselectable="on" title="斜体" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui18&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui18&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div></div></div></div></div><div id="edui19" class="edui-box edui-button edui-for-underline edui-imooc"><div id="edui19_state" onmousedown="$EDITORUI[&quot;edui19&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui19&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui19&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui19&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui19_body" unselectable="on" title="下划线" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui19&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui19&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div></div></div></div></div><div id="edui26" class="edui-box edui-button edui-for-insertimage edui-imooc"><div id="edui26_state" onmousedown="$EDITORUI[&quot;edui26&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui26&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui26&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui26&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui26_body" unselectable="on" title="多图上传" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui26&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui26&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div><div class="edui-box edui-label edui-imooc"></div></div></div></div></div><div id="edui31" class="edui-box edui-button edui-for-link edui-imooc"><div id="edui31_state" onmousedown="$EDITORUI[&quot;edui31&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui31&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui31&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui31&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui31_body" unselectable="on" title="超链接" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui31&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui31&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div><div class="edui-box edui-label edui-imooc"></div></div></div></div></div><div id="edui32" class="edui-box edui-button edui-for-unlink edui-imooc"><div id="edui32_state" onmousedown="$EDITORUI[&quot;edui32&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui32&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui32&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui32&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui32_body" unselectable="on" title="取消链接" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui32&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui32&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div></div></div></div></div><div id="edui33" class="edui-box edui-button edui-for-insertunorderedlist edui-imooc"><div id="edui33_state" onmousedown="$EDITORUI[&quot;edui33&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui33&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui33&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui33&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui33_body" unselectable="on" title="无序列表" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui33&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui33&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div><div class="edui-box edui-label edui-imooc"></div></div></div></div></div><div id="edui34" class="edui-box edui-button edui-for-insertorderedlist edui-imooc"><div id="edui34_state" onmousedown="$EDITORUI[&quot;edui34&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui34&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui34&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui34&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui34_body" unselectable="on" title="有序列表" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui34&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui34&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div><div class="edui-box edui-label edui-imooc"></div></div></div></div></div><div id="edui35" class="edui-box edui-button edui-for-blockquote edui-imooc"><div id="edui35_state" onmousedown="$EDITORUI[&quot;edui35&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui35&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui35&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui35&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui35_body" unselectable="on" title="引用" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui35&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui35&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div></div></div></div></div><div id="edui36" class="edui-box edui-button edui-for-redo edui-imooc"><div id="edui36_state" onmousedown="$EDITORUI[&quot;edui36&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui36&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui36&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui36&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui36_body" unselectable="on" title="重做" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui36&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui36&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div></div></div></div></div><div id="edui37" class="edui-box edui-button edui-for-undo edui-imooc"><div id="edui37_state" onmousedown="$EDITORUI[&quot;edui37&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui37&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui37&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui37&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui37_body" unselectable="on" title="撤销" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui37&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui37&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div></div></div></div></div><div id="edui40" class="edui-box edui-button edui-for-preview edui-imooc"><div id="edui40_state" onmousedown="$EDITORUI[&quot;edui40&quot;].Stateful_onMouseDown(event, this);" onmouseup="$EDITORUI[&quot;edui40&quot;].Stateful_onMouseUp(event, this);" onmouseover="$EDITORUI[&quot;edui40&quot;].Stateful_onMouseOver(event, this);" onmouseout="$EDITORUI[&quot;edui40&quot;].Stateful_onMouseOut(event, this);" class="edui-imooc"><div class="edui-button-wrap edui-imooc"><div id="edui40_body" unselectable="on" title="预览" class="edui-button-body edui-imooc" onmousedown="return $EDITORUI[&quot;edui40&quot;]._onMouseDown(event, this);" onclick="return $EDITORUI[&quot;edui40&quot;]._onClick(event, this);"><div class="edui-box edui-icon edui-imooc"></div><div class="edui-box edui-label edui-imooc"></div></div></div></div></div></div></div></div><div id="edui1_toolbarmsg" class="edui-editor-toolbarmsg edui-imooc" style="display:none;"><div id="edui1_upload_dialog" class="edui-editor-toolbarmsg-upload edui-imooc" onclick="$EDITORUI[&quot;edui1&quot;].showWordImageDialog();">点击上传</div><div class="edui-editor-toolbarmsg-close edui-imooc" onclick="$EDITORUI[&quot;edui1&quot;].hideToolbarMsg();">x</div><div id="edui1_toolbarmsg_label" class="edui-editor-toolbarmsg-label edui-imooc"></div><div style="height:0;overflow:hidden;clear:both;" class="edui-imooc"></div></div><div id="edui1_message_holder" class="edui-editor-messageholder edui-imooc" style="top: 42px; z-index: 10000;"></div></div><div id="edui1_iframeholder" class="edui-editor-iframeholder edui-imooc" style="width: 766px; height: 100px; z-index: 9999; overflow: hidden;"><iframe id="ueditor_0" width="100%" height="100%" frameborder="0" src="javascript:void(function(){document.open();document.write(&quot;&lt;!DOCTYPE html&gt;&lt;html xmlns=&#39;http://www.w3.org/1999/xhtml&#39; class=&#39;view&#39; &gt;&lt;head&gt;&lt;style type=&#39;text/css&#39;&gt;.view{padding:0;word-wrap:break-word;cursor:text;height:90%;}
+body{margin:8px;font-family:sans-serif;font-size:16px;}p{margin:5px 0;}&lt;/style&gt;&lt;link rel=&#39;stylesheet&#39; type=&#39;text/css&#39; href=&#39;http://www.imooc.com/static/lib/ueditor/themes/iframe.css&#39;/&gt;&lt;/head&gt;&lt;body class=&#39;view&#39; &gt;&lt;/body&gt;&lt;script type=&#39;text/javascript&#39;  id=&#39;_initialScript&#39;&gt;setTimeout(function(){editor = window.parent.UE.instants[&#39;ueditorInstant0&#39;];editor._setup(document);},0);var _tmpScript = document.getElementById(&#39;_initialScript&#39;);_tmpScript.parentNode.removeChild(_tmpScript);&lt;/script&gt;&lt;/html&gt;&quot;);document.close();}())" src="./MySQL索引原理与慢查询优化_慕课手记_files/saved_resource.html"></iframe></div><div id="edui1_bottombar" class="edui-editor-bottomContainer edui-imooc"><table class="edui-imooc"><tbody class="edui-imooc"><tr class="edui-imooc"><td id="edui1_elementpath" class="edui-editor-bottombar edui-imooc" style="display: none;"></td><td id="edui1_wordcount" class="edui-editor-wordcount edui-imooc" style="display: none;"></td><td id="edui1_scale" class="edui-editor-scale edui-imooc" style="display: none;"><div class="edui-editor-icon edui-imooc"></div></td></tr></tbody></table></div><div id="edui1_scalelayer" class="edui-imooc"></div></div></div>
+                <p id="feed-error" class="feed-error"></p>
+                <div class="df-bottom clearfix">
+                    <div class="verify-code"></div>
+                    <button id="js-submit" class="btn btn-green r">评论（Ctrl+Enter）</button>
+                </div>
+            </div>
+
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title" style="display: none;">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list" style="display: none;">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i>2</i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list">
+            
+        <div id="js-feedback-list"><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/334064/articles"><img src="./MySQL索引原理与慢查询优化_慕课手记_files/54584d1d00015c0b02200220-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/334064/articles" target="_blank">乔帮主</a><span class="com-floor r">2F</span></div><div class="feed-list-content"><p>这个讲的真的很好！很不错！赞一个！</p><div class="comment-footer"><span class="feed-list-times"> 2016-04-01 17:58:44</span><span class="reply-btn" data-commentid="19211" data-uid="334064" data-username="乔帮主">回复</span><span class="agree-with r" data-commentid="19211" data-uid="334064" data-username="乔帮主"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u/1313300/articles" class="user-head"><img src="./MySQL索引原理与慢查询优化_慕课手记_files/5458676e0001af7702200220-100-100.jpg" alt="雪落的瞬间"></a><a href="http://www.imooc.com/u/1313300/articles" class="nick">雪落的瞬间</a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="334064" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/1382520/articles"><img src="./MySQL索引原理与慢查询优化_慕课手记_files/551de89d00010adf01800180-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/1382520/articles" target="_blank">金灿灿的大蛋</a><span class="com-floor r">1F</span></div><div class="feed-list-content"><p>精彩！</p><div class="comment-footer"><span class="feed-list-times"> 2016-03-15 10:51:11</span><span class="reply-btn" data-commentid="16857" data-uid="1382520" data-username="金灿灿的大蛋">回复</span><span class="agree-with r" data-commentid="16857" data-uid="1382520" data-username="金灿灿的大蛋"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u/1313300/articles" class="user-head"><img src="./MySQL索引原理与慢查询优化_慕课手记_files/5458676e0001af7702200220-100-100.jpg" alt="雪落的瞬间"></a><a href="http://www.imooc.com/u/1313300/articles" class="nick">雪落的瞬间</a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="1382520" class="release-reply-btn">提交</div></div></div></div></div></div></div></div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page" style="display: none;"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/264930/articles" class="l" title="IT程序狮" target="_blank">
+                <img src="./MySQL索引原理与慢查询优化_慕课手记_files/57848bee000143ec02000200-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/264930/articles" title="IT程序狮" target="_blank">
+            IT程序狮
+            </a>
+                                    <i class="user-icon great" title="认证作者"></i>
+                   
+                    </p>
+       
+        <span class="user-job">Web前端工程师</span>
+        <span class="user-desc">
+            汇聚、分享优秀的IT技术资讯、文章。欢迎关注！^_^
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/264930/articles" target="_blank" class="article-num r-bor l">
+                <span>377</span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/264930/articles?type=praise" target="_blank" class="article-recom l">
+                <span>426</span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/1512" title="12 个免费学习编程的好地方"><h3>12 个免费学习编程的好地方</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">48868浏览</span>
+                    <span class="spacer l spacer-2">525推荐</span>
+                    <span class="spacer l" href="">74评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/1097" title="什么才算是真正的编程能力？"><h3>什么才算是真正的编程能力？</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">31936浏览</span>
+                    <span class="spacer l spacer-2">407推荐</span>
+                    <span class="spacer l" href="">81评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/10467" title="学编程没人带？推荐10个免费学编程的最佳网站给你"><h3>学编程没人带？推荐10个免费学编程的最佳网站给你</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">17678浏览</span>
+                    <span class="spacer l spacer-2">241推荐</span>
+                    <span class="spacer l" href="">25评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/1392" title="史上最全的SpringMVC学习笔记"><h3>史上最全的SpringMVC学习笔记</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">85043浏览</span>
+                    <span class="spacer l spacer-2">201推荐</span>
+                    <span class="spacer l" href="">25评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/1125" title="VB / Java / C / C# / C++ 等零基础学哪个更容易上手？"><h3>VB / Java / C / C# / C++ 等零基础学哪个更容易上手？</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">16021浏览</span>
+                    <span class="spacer l spacer-2">206推荐</span>
+                    <span class="spacer l" href="">17评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./MySQL索引原理与慢查询优化_慕课手记_files/ueditor.final.min.js"></script>
+
+<!--script-->
+<script src="./MySQL索引原理与慢查询优化_慕课手记_files/ssologin.js"></script>
+<script type="text/javascript" src="./MySQL索引原理与慢查询优化_慕课手记_files/sea.js"></script>
+<script type="text/javascript" src="./MySQL索引原理与慢查询优化_慕课手记_files/sea_config.js"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./MySQL索引原理与慢查询优化_慕课手记_files/h.js" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img border="0" src="./MySQL索引原理与慢查询优化_慕课手记_files/21.gif" width="20" height="20"></a>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./MySQL索引原理与慢查询优化_慕课手记_files/user"></script><script type="text/javascript" src="./MySQL索引原理与慢查询优化_慕课手记_files/iplookup.php"></script>
+
+
+<div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div id="edui_fixedlayer" class="edui-imooc" style="position: fixed; left: 0px; top: 0px; width: 0px; height: 0px;"><div id="edui41" class="edui-popup  edui-bubble edui-imooc" onmousedown="return false;" style="display: none;"> <div id="edui41_body" class="edui-popup-body edui-imooc"> <iframe style="position:absolute;z-index:-1;left:0;top:0;background-color: transparent;" frameborder="0" width="100%" height="100%" src="./MySQL索引原理与慢查询优化_慕课手记_files/saved_resource(1).html" class="edui-imooc"></iframe> <div class="edui-shadow edui-imooc"></div> <div id="edui41_content" class="edui-popup-content edui-imooc">  </div> </div></div></div><div id="global-zeroclipboard-html-bridge" class="global-zeroclipboard-container" style="position: absolute; left: 0px; top: -9999px; width: 1px; height: 1px; z-index: 999999999;"><object id="global-zeroclipboard-flash-bridge" name="global-zeroclipboard-flash-bridge" width="100%" height="100%" type="application/x-shockwave-flash" data="./MySQL索引原理与慢查询优化_慕课手记_files/ZeroClipboard.swf"><param name="allowScriptAccess" value="sameDomain"><param name="allowNetworking" value="all"><param name="menu" value="false"><param name="wmode" value="transparent"><param name="flashvars" value="trustedOrigins=www.imooc.com%2C%2F%2Fwww.imooc.com%2Chttp%3A%2F%2Fwww.imooc.com"></object></div></body></html>
