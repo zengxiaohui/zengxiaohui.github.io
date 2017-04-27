@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://www.imooc.com/article/4260 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="作者： 常明，Java架构师 [请尊重原创，盗版必究，转载请指明出处] 前面我们谈了Redis Sharding多服务器集群技术，Redis Sharding是客户端Shardin">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/moco.min.css" type="text/css">
+
+<script src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/push.js.下载"></script><script type="text/javascript" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "4260",
+    praiseNum:"22"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '2245641'
+}
+</script>
+
+<link rel="stylesheet" href="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/moco.min.js.下载"></script><script charset="utf-8" async="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/mo.min.js.下载"></script><script src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/share.js.下载"></script><link rel="stylesheet" href="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/share_style0_16.css"></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/4260#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/4260#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>《Redis系列专题》 之 Redis官方集群方案 Redis Cluster</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        《Redis系列专题》 之 Redis官方集群方案 Redis Cluster
+                </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2016-01-22 12:02:58</span>
+                <span class="spacer l spacer-2">11197浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/4260#comment">3评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <p>作者： 常明，Java架构师<br>
+[请尊重原创，盗版必究，转载请指明出处]<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片1="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a7370001438307590573.png" alt="fm"></p>
+<hr>
+<p>前面我们谈了Redis Sharding多服务器集群技术，Redis Sharding是客户端Sharding技术，对于服务端来说，各个Redis服务器彼此是相互独立的，这对于服务端根据需要灵活部署Redis非常轻便，Redis Sharding具有很好的灵活性、可伸缩性，是一种轻量级集群技术。</p>
+<p>本篇，介绍另外一种多Redis服务器集群技术，即Redis Cluster。Redis Cluster是一种服务器Sharding技术，3.0版本开始正式提供。</p>
+<p>Redis Cluster中，Sharding采用slot(槽)的概念，一共分成16384个槽，这有点儿类似前面讲的pre sharding思路。对于每个进入Redis的键值对，根据key进行散列，分配到这16384个slot中的某一个中。使用的hash算法也比较简单，就是CRC16后16384取模。</p>
+<p>Redis集群中的每个node(节点)负责分摊这16384个slot中的一部分，也就是说，每个slot都对应一个node负责处理。当动态添加或减少node节点时，需要将16384个槽做个再分配，槽中的键值也要迁移。当然，这一过程，在目前实现中，还处于半自动状态，需要人工介入。</p>
+<p>Redis集群，要保证16384个槽对应的node都正常工作，如果某个node发生故障，那它负责的slots也就失效，整个集群将不能工作。</p>
+<p>为了增加集群的可访问性，官方推荐的方案是将node配置成主从结构，即一个master主节点，挂n个slave从节点。这时，如果主节点失效，Redis Cluster会根据选举算法从slave节点中选择一个上升为主节点，整个集群继续对外提供服务。这非常类似前篇文章提到的Redis Sharding场景下服务器节点通过Sentinel监控架构成主从结构，只是Redis Cluster本身提供了故障转移容错的能力。</p>
+<p>Redis Cluster的新节点识别能力、故障判断及故障转移能力是通过集群中的每个node都在和其它nodes进行通信，这被称为集群总线(cluster bus)。它们使用特殊的端口号，即对外服务端口号加10000。例如如果某个node的端口号是6379，那么它与其它nodes通信的端口号是16379。nodes之间的通信采用特殊的二进制协议。</p>
+<p>对客户端来说，整个cluster被看做是一个整体，客户端可以连接任意一个node进行操作，就像操作单一Redis实例一样，当客户端操作的key没有分配到该node上时，Redis会返回转向指令，指向正确的node，这有点儿像浏览器页面的302 redirect跳转。</p>
+<p><strong>Redis Cluster是Redis 3.0以后才正式推出，时间较晚，目前能证明在大规模生产环境下成功的案例还不是很多，需要时间检验。</strong><br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片2="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a7ab0001493d07140036.png" alt="去"><br>
+下面，我们就实际操作建立一个Redis Cluster。我们将建立3个node，每个node架构成一主一从，故总共有6个redis实例，端口号从7000-7005。</p>
+<p>Cluster下的Redis实例，和普通Redis实例一样，只是处于cluster模式方式下运行。</p>
+<p>实操步骤如下：</p>
+<ol>
+<li>以3.0.5为例，建立cluster目录，其下再建6个子目录代表6实例环境</li>
+</ol>
+<pre class="prettyprint"><code><span class="pln">mkdir cluster
+mkdir </span><span class="lit">7000</span><span class="pln"> </span><span class="lit">7001</span><span class="pln"> </span><span class="lit">7002</span><span class="pln"> </span><span class="lit">7003</span><span class="pln"> </span><span class="lit">7004</span><span class="pln"> </span><span class="lit">7005</span></code></pre>
+<ol>
+<li>将redis.conf模板分别copy到上面6子目录中，并做如下修改，以7000为例：</li>
+</ol>
+<pre class="prettyprint"><code><span class="pun">修改如下信息</span><span class="pln">
+daemonize yes
+pidfile </span><span class="pun">/</span><span class="kwd">var</span><span class="pun">/</span><span class="pln">run</span><span class="pun">/</span><span class="pln">redis</span><span class="pun">-</span><span class="lit">7000.pid</span><span class="pln">
+port </span><span class="lit">7000</span><span class="pln">
+logfile </span><span class="str">"/var/log/redis-7000.log"</span><span class="pln">
+
+</span><span class="pun">注释掉如下信息，</span><span class="pln"> </span><span class="pun">不需要</span><span class="pln">RDB</span><span class="pun">持久化</span><span class="pln">
+</span><span class="com">#save 900 1</span><span class="pln">
+</span><span class="com">#save 300 10</span><span class="pln">
+</span><span class="com">#save 60 10000</span><span class="pln">
+
+</span><span class="pun">修改如下信息</span><span class="pln">
+appendonly yes
+appendfilename </span><span class="str">"appendonly-7000.aof"</span><span class="pln">
+
+</span><span class="pun">取消如下注释，让</span><span class="typ">Redis</span><span class="pun">在集群模式下运行</span><span class="pln">
+cluster</span><span class="pun">-</span><span class="pln">enabled yes   </span><span class="pun">启动</span><span class="pln">cluster</span><span class="pun">模式</span><span class="pln">
+cluster</span><span class="pun">-</span><span class="pln">config</span><span class="pun">-</span><span class="pln">file nodes</span><span class="pun">-</span><span class="lit">7000.conf</span><span class="pln">  </span><span class="pun">集群信息文件名，由</span><span class="pln">redis</span><span class="pun">自己维护</span><span class="pln">
+cluster</span><span class="pun">-</span><span class="pln">node</span><span class="pun">-</span><span class="pln">timeout </span><span class="lit">15000</span><span class="pln"> </span><span class="lit">15</span><span class="pun">秒中联系不到对方</span><span class="pln">node</span><span class="pun">，即认为对方有故障可能</span></code></pre>
+<p>. 在各个目录下执行 redis-server redis.conf  启动redis实例</p>
+<p>这时，这几个实例都是各自是一个集群状态在运行，并没有形成一个整体集群态，我们需要Redis提供的基于ruby开发的工具进行人工设置。</p>
+<p>4.安装ruby环境</p>
+<pre class="prettyprint"><code><span class="pln">yum  install ruby ruby</span><span class="pun">-</span><span class="pln">devel rubygems</span></code></pre>
+<p>5.安装Redis的ruby依赖接口</p>
+<pre class="prettyprint"><code><span class="pln">gem install redis</span></code></pre>
+<p>6.利用脚本工具建立集群</p>
+<pre class="prettyprint"><code><span class="pun">./</span><span class="pln">redis</span><span class="pun">-</span><span class="pln">trib</span><span class="pun">.</span><span class="pln">rb create </span><span class="pun">--</span><span class="pln">replicas </span><span class="lit">1</span><span class="pln"> </span><span class="lit">192.168</span><span class="pun">.</span><span class="lit">1.142</span><span class="pun">:</span><span class="lit">7000</span><span class="pln"> </span><span class="lit">192.168</span><span class="pun">.</span><span class="lit">1.142</span><span class="pun">:</span><span class="lit">7001</span><span class="pln"> </span><span class="lit">192.168</span><span class="pun">.</span><span class="lit">1.142</span><span class="pun">:</span><span class="lit">7002</span><span class="pln"> </span><span class="lit">192.168</span><span class="pun">.</span><span class="lit">1.142</span><span class="pun">:</span><span class="lit">7003</span><span class="pln"> </span><span class="lit">192.168</span><span class="pun">.</span><span class="lit">1.142</span><span class="pun">:</span><span class="lit">7004</span><span class="pln"> </span><span class="lit">192.168</span><span class="pun">.</span><span class="lit">1.142</span><span class="pun">:</span><span class="lit">7005</span></code></pre>
+<p>该脚本自动执行节点分配方案，将前3个redis实例作为主节点，后三个作为从节点，如图：<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片3="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a81600010ae406400559.png" alt="q2"><br>
+按提示敲入"yes"，执行方案，将6个节点组成集群，3主3从。</p>
+<p>执行redis-cli -p 7000 info Replication 命令，观察7000这个节点，发现其复制配置信息已配置成主节点，并有一个从节点7003<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片4="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a8910001179206400210.png" alt="q3"><br>
+再执行redis-cli -p 7003 info Replication发现，该节点已设置成从节点。这些主从设置，都是在创建集群时自动完成的。<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片5="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a89f000148bc06400354.png" alt="q4"><br>
+至此，3主3从的Redis集群建立起来了。接下来我们做个故障转移试验，将主节点7001 shutdown掉，看看发生什么？<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片6="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a8ab0001a4e906400146.png" alt="q5"><br>
+我们看到，从节点7004会上升为主节点继续提供集群服务。那又重新启动7001节点呢？<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片7="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a8c600012c5f06400129.png" alt="q6"><br>
+我们发现7001节点已经成为从节点，不会成为取代7004成为主节点。那如果将主节点7001和从节点7004都shutdown掉呢？<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片8="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a8d800013b2d06390271.png" alt="q7"><br>
+这时，整个cluster是拒绝提供服务的。因为原来7001分配的slot现在无节点接管，需要人工介入重新分配slots。<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片9="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a8ec000146ef07130032.png" alt="q8"><br>
+下面我们操作下，如果修改集群节点架构：</p>
+<p>删除一个从节点。注意，如果删除主节点，其负责的slots必须为空。</p>
+<pre class="prettyprint"><code><span class="pun">./</span><span class="pln">redis</span><span class="pun">-</span><span class="pln">trib</span><span class="pun">.</span><span class="pln">rb </span><span class="kwd">del</span><span class="pun">-</span><span class="pln">node </span><span class="lit">192.168</span><span class="pun">.</span><span class="lit">1.142</span><span class="pun">:</span><span class="lit">7000</span><span class="pln"> ee2fc0ea6e630f54e3b811caedf8896b26a99cba</span></code></pre>
+<p>将7001节点的slot都转移到7000</p>
+<p><code>./redis-trib.rb reshard 192.168.1.142:7000</code></p>
+<p>按提示操作即可。</p>
+<p>加一个节点。注意新添加的节点还没有分配slot，用reshard给它分配一定比例的slots</p>
+<p><code>./redis-trib.rb add-node 192.168.1.142:7001 192.168.1.142:7000</code></p>
+<p>给指定一个主节点添加一个从节点。</p>
+<p><code>./redis-trib.rb add-node --slave --master-id f4d17d56a9dda1a102da7cd799192beff7cba69e 192.168.1.142:7004 192.168.1.142:7000</code></p>
+<p>注意如果此redis实例参与过集群，需先cluster reset 清除重置一下。<br>
+<img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片10="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a97f00013dc107370033.png" alt="q9"><br>
+上面介绍了服务端Redis Cluster搭建过程。下面来看看客户端如何使用？</p>
+<p>Java语言的客户端驱动Jedis是支持Redis Cluster的。我们具体实操下：</p>
+<ol>
+<li>pom.xml中配置jedis jar包</li>
+</ol>
+<pre class="prettyprint"><code><span class="tag">&lt;dependency&gt;</span><span class="pln">
+  </span><span class="tag">&lt;groupId&gt;</span><span class="pln">redis.clients</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+  </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">jedis</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+  </span><span class="tag">&lt;version&gt;</span><span class="pln">2.8.0</span><span class="tag">&lt;/version&gt;</span><span class="pln">  </span><span class="com">&lt;!--  最近升级了  --&gt;</span><span class="pln">
+</span><span class="tag">&lt;/dependency&gt;</span></code></pre>
+<ol>
+<li>spring配置文件中配置JedisCluster</li>
+</ol>
+<pre class="prettyprint"><code><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"poolConfig"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"redis.clients.jedis.JedisPoolConfig"</span><span class="tag">&gt;</span><span class="pln">  
+   </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxTotal"</span><span class="pln">  </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"4096"</span><span class="tag">/&gt;</span><span class="pln">  
+  </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxIdle"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"200"</span><span class="tag">/&gt;</span><span class="pln">  
+  </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxWaitMillis"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"3000"</span><span class="tag">/&gt;</span><span class="pln">
+   </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"testOnBorrow"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+  </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"testOnReturn"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/bean&gt;</span><span class="pln">  
+
+</span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"jedisCluster"</span><span class="pln"> </span><span class="atn">class</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="atv">"redis.clients.jedis.JedisCluster"</span><span class="tag">&gt;</span><span class="pln">
+  </span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"0"</span><span class="tag">&gt;</span><span class="pln">
+   </span><span class="tag">&lt;set&gt;</span><span class="pln">
+    </span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"redis.clients.jedis.HostAndPort"</span><span class="tag">&gt;</span><span class="pln">
+      </span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"0"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"192.168.1.142"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+      </span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"1"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"7002"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/bean&gt;</span><span class="pln">              
+  </span><span class="tag">&lt;/set&gt;</span><span class="pln">
+</span><span class="tag">&lt;/constructor-arg&gt;</span><span class="pln">
+</span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"1"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"2000"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"int"</span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"2"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"2"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"int"</span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"3"</span><span class="pln"> </span><span class="atn">ref</span><span class="pun">=</span><span class="atv">"poolConfig"</span><span class="tag">/&gt;</span><span class="pln"> 
+</span><span class="tag">&lt;/bean&gt;</span></code></pre>
+<p>3.编写测试代码</p>
+<pre class="prettyprint"><code><span class="lit">@Test</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> basicOpTestForCluster</span><span class="pun">(){</span><span class="pln">
+
+  </span><span class="kwd">long</span><span class="pln"> </span><span class="kwd">begin</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="typ">System</span><span class="pun">.</span><span class="pln">currentTimeMillis</span><span class="pun">();</span><span class="pln">   
+  </span><span class="kwd">for</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i</span><span class="pun">=</span><span class="lit">0</span><span class="pun">;</span><span class="pln">i</span><span class="pun">&lt;</span><span class="lit">10000</span><span class="pun">;</span><span class="pln"> i</span><span class="pun">++){</span><span class="pln">
+    jedis</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"person."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> i </span><span class="pun">+</span><span class="pln"> </span><span class="str">".name"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"frank"</span><span class="pun">);</span><span class="pln">
+    jedis</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"person."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> i </span><span class="pun">+</span><span class="pln"> </span><span class="str">".city"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"beijing"</span><span class="pun">);</span><span class="pln">
+
+    </span><span class="typ">String</span><span class="pln"> name </span><span class="pun">=</span><span class="pln"> jedis</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">"person."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> i </span><span class="pun">+</span><span class="pln"> </span><span class="str">".name"</span><span class="pun">);</span><span class="pln">
+    </span><span class="typ">String</span><span class="pln"> city </span><span class="pun">=</span><span class="pln"> jedis</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">"person."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> i </span><span class="pun">+</span><span class="pln"> </span><span class="str">".city"</span><span class="pun">);</span><span class="pln">
+
+    assertEquals</span><span class="pun">(</span><span class="str">"frank"</span><span class="pun">,</span><span class="pln">name</span><span class="pun">);</span><span class="pln">
+    assertEquals</span><span class="pun">(</span><span class="str">"beijing"</span><span class="pun">,</span><span class="pln">city</span><span class="pun">);</span><span class="pln">
+
+    jedis</span><span class="pun">.</span><span class="kwd">del</span><span class="pun">(</span><span class="str">"person."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> i </span><span class="pun">+</span><span class="pln"> </span><span class="str">".name"</span><span class="pun">);</span><span class="pln">
+    </span><span class="typ">Boolean</span><span class="pln"> result </span><span class="pun">=</span><span class="pln"> jedis</span><span class="pun">.</span><span class="pln">exists</span><span class="pun">(</span><span class="str">"person."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> i </span><span class="pun">+</span><span class="pln"> </span><span class="str">".name"</span><span class="pun">);</span><span class="pln">
+    assertEquals</span><span class="pun">(</span><span class="kwd">false</span><span class="pun">,</span><span class="pln">result</span><span class="pun">);</span><span class="pln">
+
+    result </span><span class="pun">=</span><span class="pln"> jedis</span><span class="pun">.</span><span class="pln">exists</span><span class="pun">(</span><span class="str">"person."</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> i </span><span class="pun">+</span><span class="pln"> </span><span class="str">".city"</span><span class="pun">);</span><span class="pln">
+    assertEquals</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">,</span><span class="pln">result</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  </span><span class="kwd">long</span><span class="pln"> </span><span class="kwd">end</span><span class="pln"> </span><span class="pun">=</span><span class="pln"> </span><span class="typ">System</span><span class="pun">.</span><span class="pln">currentTimeMillis</span><span class="pun">();</span><span class="pln">   
+  </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"total time: "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">end</span><span class="pun">-</span><span class="kwd">begin</span><span class="pun">)/</span><span class="lit">1000</span><span class="pun">);</span><span class="pln">    
+</span><span class="pun">}</span></code></pre>
+<p><img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片11="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a9cc00015a3306400129.png" alt="图片描述"></p>
+<p><img title="《Redis系列专题》之Redis官方集群方案RedisCluster_" 图片12="" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a1a9d70001d8cd06830512.png" alt="图片描述"></p>
+        </div>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/3" target="_blank">JAVA</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/8" target="_blank">MongoDB</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/27" target="_blank">WebApp</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/447657/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/543e18c200010bc419201200-100-100.jpg" title="鬼球_">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1006998/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/545cf4a00001965101990199-100-100.jpg" title="vip__小鑫">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1864581/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/568dc2bb0001b79c06400640-100-100.jpg" title="Oaktree">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2132253/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/57c634870001baec02550201-100-100.jpg" title="云天河V">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2214550/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/56a830be0001388002510251-100-100.jpg" title="小桥流水人家丶EH3">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2348820/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/55f581350001d13101000100-100-100.jpg" title="永远的菜鸟">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2750587/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/567ec6ae0001262101800180-100-100.jpg" title="连宏伟HW">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3171783/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/533e4d510001c2ad02000200-100-100.jpg" title="小鹤头">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3939399/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/57cd1d900001473901000100-100-100.jpg" title="qq_李强_03939399">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4880721/articles">                                                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/58a9bccf0001e16806400640-100-100.jpg" title="慕粉2342071364">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">22</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292431019">
+                                    <a href="http://www.imooc.com/article/4260#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/4260#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/4260#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="4260" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <h2>相关阅读</h2><ul><li><a href="http://www.imooc.com/article/3930" title="《Redis系列专题》 之 大规模互联网应用Redis架构要点(精华)"><h3>《Redis系列专题》 之 大规模互联网应用Redis架构要点(精华)</h3></a></li><li><a href="http://www.imooc.com/article/9933" title="xml 解析（DOM）视频总结"><h3>xml 解析（DOM）视频总结</h3></a></li><li><a href="http://www.imooc.com/article/11715" title="经典数据结构-红黑树详解"><h3>经典数据结构-红黑树详解</h3></a></li><li><a href="http://www.imooc.com/article/12179" title="【新手自白书】简单单项链表的实现（JAVA）"><h3>【新手自白书】简单单项链表的实现（JAVA）</h3></a></li><li><a href="http://www.imooc.com/article/16786" title="3-1节   认识DOM的属性、元素与文本"><h3>3-1节   认识DOM的属性、元素与文本</h3></a></li></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title" style="display: none;">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list" style="display: none;">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i>3</i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list">
+            
+        <div id="js-feedback-list"><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/163867/articles"><img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/541e643800017af406400640-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/163867/articles" target="_blank">止0水</a><span class="com-floor r">3F</span></div><div class="feed-list-content"><p>jedis 访问 redis 代码写的看着别扭</p><div class="comment-footer"><span class="feed-list-times"> 2016-03-30 18:16:52</span><span class="reply-btn" data-commentid="18939" data-uid="163867" data-username="止0水">回复</span><span class="agree-with r" data-commentid="18939" data-uid="163867" data-username="止0水"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/4260" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="163867" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/1114393/articles"><img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/545869390001b87802200220-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/1114393/articles" target="_blank">a4500</a><i class="user-icon ismooc" title="慕星人"></i><span class="com-floor r">2F</span></div><div class="feed-list-content"><p>我有一个关于redis cluster的问题，就是password我们要如何设置？
+可以设置password吗？</p><div class="comment-footer"><span class="feed-list-times"> 2016-03-23 11:00:55</span><span class="reply-btn" data-commentid="18077" data-uid="1114393" data-username="a4500">回复</span><span class="agree-with r" data-commentid="18077" data-uid="1114393" data-username="a4500"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2245641/articles"><img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/2245641/articles" class="from-user">手插口袋_</a> 回复 <a href="http://www.imooc.com/u/1114393/articles" class="to-user">a4500</a>：<span class="feed-list-time r"> 2016-03-24 16:42:41</span><p>你这个问题是问存的密码的命名Key么？</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="18077" data-uid="2245641" data-username="手插口袋_">回复</span></div></div></div></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/4260" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="1114393" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/1272466/articles"><img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/54eed63c0001d01e01000100-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/1272466/articles" target="_blank">搁浅ing</a><span class="com-floor r">1F</span></div><div class="feed-list-content"><p>最近在研究集群，php最新版本的phpredis已经支持集群了，但是用觉得有各种各样的问题困扰，比如我线上生产环境的数据怎么才能转移到集群。。打算在看看codis，这个也是一个不错的选择</p><div class="comment-footer"><span class="feed-list-times"> 2016-01-23 22:11:35</span><span class="reply-btn" data-commentid="10575" data-uid="1272466" data-username="搁浅ing">回复</span><span class="agree-with r" data-commentid="10575" data-uid="1272466" data-username="搁浅ing"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/4260" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="1272466" class="release-reply-btn">提交</div></div></div></div></div></div></div></div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page" style="display: none;"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/2245641/articles" class="l" title="手插口袋_" target="_blank">
+                <img src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/2245641/articles" title="手插口袋_" target="_blank">
+            手插口袋_
+            </a>
+                                    <i class="user-icon great" title="认证作者"></i>
+                   
+                    </p>
+       
+        <span class="user-job">JAVA开发工程师</span>
+        <span class="user-desc">
+            人生为棋，我愿为卒，行动虽慢，可谁曾见我后退一步。
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/2245641/articles" target="_blank" class="article-num r-bor l">
+                <span>26</span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/2245641/articles?type=praise" target="_blank" class="article-recom l">
+                <span>29</span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/7799" title="《Docker系列专题》之 描述篇"><h3>《Docker系列专题》之 描述篇</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">9386浏览</span>
+                    <span class="spacer l spacer-2">69推荐</span>
+                    <span class="spacer l" href="">23评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/12401" title="《java websocket》之 实现"><h3>《java websocket》之 实现</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">4232浏览</span>
+                    <span class="spacer l spacer-2">53推荐</span>
+                    <span class="spacer l" href="">13评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4797" title="《杂文》 之 教大家如何写一份特别的简历"><h3>《杂文》 之 教大家如何写一份特别的简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">1993浏览</span>
+                    <span class="spacer l spacer-2">21推荐</span>
+                    <span class="spacer l" href="">44评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4807" title="《杂   文》 之 教你制作一份属于自己的简历"><h3>《杂   文》 之 教你制作一份属于自己的简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">3048浏览</span>
+                    <span class="spacer l spacer-2">57推荐</span>
+                    <span class="spacer l" href="">7评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/3585" title="《Redis系列专题》之 20分钟快速了解Redis"><h3>《Redis系列专题》之 20分钟快速了解Redis</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">27610浏览</span>
+                    <span class="spacer l spacer-2">50推荐</span>
+                    <span class="spacer l" href="">11评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img border="0" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/21.gif" width="20" height="20"></a>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div>
+
+
+<script type="text/javascript" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/user"></script><script type="text/javascript" src="./《Redis系列专题》 之 Redis官方集群方案 Redis Cluster_慕课手记_files/iplookup.php"></script><div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div></body></html>

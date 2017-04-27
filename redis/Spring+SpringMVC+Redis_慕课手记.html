@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://www.imooc.com/article/15163 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><script src="./Spring+SpringMVC+Redis_慕课手记_files/push.js.下载"></script>
+
+<title>
+Spring+SpringMVC+Redis_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="发表博客 博客管理 Spring+SpringMVC+Redis 搭建Redis环境 Redis github下载地址 CSDN资源下载地址 目前官方推荐的最新稳定版本为3.2.1">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./Spring+SpringMVC+Redis_慕课手记_files/moco.min.css" type="text/css">
+
+<script type="text/javascript" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "15163",
+    praiseNum:"27"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '1034225'
+}
+</script>
+
+<link rel="stylesheet" href="./Spring+SpringMVC+Redis_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./Spring+SpringMVC+Redis_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./Spring+SpringMVC+Redis_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./Spring+SpringMVC+Redis_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/moco.min.js.下载"></script><script charset="utf-8" async="" src="./Spring+SpringMVC+Redis_慕课手记_files/mo.min.js.下载"></script><script src="./Spring+SpringMVC+Redis_慕课手记_files/share.js.下载"></script><link rel="stylesheet" href="./Spring+SpringMVC+Redis_慕课手记_files/share_style0_16.css"></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/15163#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/15163#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>Spring+SpringMVC+Redis</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        Spring+SpringMVC+Redis
+        <span class="type">原创</span>        </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2016-12-09 16:45:25</span>
+                <span class="spacer l spacer-2">2137浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/15163#comment">1评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <p>发表博客<br>
+博客管理<br>
+Spring+SpringMVC+Redis </p>
+<ol>
+<li>搭建Redis环境<br>
+<a href="https://github.com/MSOpenTech/redis/releases" target="_blank" rel="nofollow">Redis github下载地址</a><br>
+<a href="http://download.csdn.net/detail/soul_code/9706626" target="_blank" rel="nofollow">CSDN资源下载地址</a><br>
+目前官方推荐的最新稳定版本为3.2.1<br>
+下载之后直接解压得到以下目录结构<br>
+<img title="Spring+SpringMVC+Redis_" 图片1="" src="./Spring+SpringMVC+Redis_慕课手记_files/20161205134856186" alt="这里写图片描述"><br>
+点击redis-server.exe即可启动Redis数据库<br>
+<img title="Spring+SpringMVC+Redis_" 图片2="" src="./Spring+SpringMVC+Redis_慕课手记_files/20161209143324521" alt="这里写图片描述"><br>
+看到如下截图，Redis即启动成功</li>
+<li>
+<p>搭建spring环境<br>
+添加springmvc需要的依赖包</p>
+<pre class="prettyprint"><code><span class="pln">    </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+        </span><span class="tag">&lt;groupId&gt;</span><span class="pln">org.springframework</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+        </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">spring-webmvc</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+        </span><span class="tag">&lt;version&gt;</span><span class="pln">4.3.4.RELEASE</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/dependency&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+        </span><span class="tag">&lt;groupId&gt;</span><span class="pln">javax.servlet</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+        </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">javax.servlet-api</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+        </span><span class="tag">&lt;version&gt;</span><span class="pln">3.1.0</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/dependency&gt;</span><span class="pln">
+    </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+        </span><span class="tag">&lt;groupId&gt;</span><span class="pln">com.fasterxml.jackson.core</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+        </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">jackson-core</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+        </span><span class="tag">&lt;version&gt;</span><span class="pln">2.8.4</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/dependency&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+        </span><span class="tag">&lt;groupId&gt;</span><span class="pln">com.fasterxml.jackson.core</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+        </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">jackson-databind</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+        </span><span class="tag">&lt;version&gt;</span><span class="pln">2.8.4</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/dependency&gt;</span></code></pre>
+</li>
+<li>集成Redis<br>
+①添加Redis需要的依赖包</li>
+</ol>
+<pre class="prettyprint"><code><span class="pln">        </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+            </span><span class="tag">&lt;groupId&gt;</span><span class="pln">org.springframework.data</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+            </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">spring-data-redis</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+            </span><span class="tag">&lt;version&gt;</span><span class="pln">1.7.5.RELEASE</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/dependency&gt;</span><span class="pln">
+        </span><span class="com">&lt;!-- Redis客户端 --&gt;</span><span class="pln">
+        </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+            </span><span class="tag">&lt;groupId&gt;</span><span class="pln">redis.clients</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+            </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">jedis</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+            </span><span class="tag">&lt;version&gt;</span><span class="pln">2.9.0</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/dependency&gt;</span></code></pre>
+<p>②配置Redis : spring-redis.xml</p>
+<pre class="prettyprint"><code><span class="pun">&lt;?</span><span class="pln">xml version</span><span class="pun">=</span><span class="str">"1.0"</span><span class="pln"> encoding</span><span class="pun">=</span><span class="str">"UTF-8"</span><span class="pun">?&gt;</span><span class="pln">
+</span><span class="tag">&lt;beans</span><span class="pln"> </span><span class="atn">xmlns</span><span class="pun">=</span><span class="atv">"http://www.springframework.org/schema/beans"</span><span class="pln">
+       </span><span class="atn">xmlns:xsi</span><span class="pun">=</span><span class="atv">"http://www.w3.org/2001/XMLSchema-instance"</span><span class="pln">
+       </span><span class="atn">xmlns:context</span><span class="pun">=</span><span class="atv">"http://www.springframework.org/schema/context"</span><span class="pln">
+       </span><span class="atn">xsi:schemaLocation</span><span class="pun">=</span><span class="atv">"http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd 
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd"</span><span class="tag">&gt;</span><span class="pln">
+
+    </span><span class="com">&lt;!-- 引入redis配置 --&gt;</span><span class="pln">
+    </span><span class="tag">&lt;context:property-placeholder</span><span class="pln"> </span><span class="atn">location</span><span class="pun">=</span><span class="atv">"classpath:redis.properties"</span><span class="pln"> </span><span class="atn">ignore-unresolvable</span><span class="pun">=</span><span class="atv">"true"</span><span class="tag">/&gt;</span><span class="pln">
+
+    </span><span class="com">&lt;!-- Redis 配置 --&gt;</span><span class="pln">
+    </span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"jedisPoolConfig"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"redis.clients.jedis.JedisPoolConfig"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxTotal"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${redis.pool.maxTotal}"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxIdle"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${redis.pool.maxIdle}"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxWaitMillis"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${redis.pool.maxWaitMillis}"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"testOnBorrow"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${redis.pool.testOnBorrow}"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/bean&gt;</span><span class="pln">
+
+    </span><span class="com">&lt;!-- redis单节点数据库连接配置 --&gt;</span><span class="pln">
+    </span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"jedisConnectionFactory"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"org.springframework.data.redis.connection.jedis.JedisConnectionFactory"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"hostName"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${redis.ip}"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"port"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${redis.port}"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="com">&lt;!-- &lt;property name="password" value="${redis.pass}" /&gt; --&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"poolConfig"</span><span class="pln"> </span><span class="atn">ref</span><span class="pun">=</span><span class="atv">"jedisPoolConfig"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/bean&gt;</span><span class="pln"> 
+
+    </span><span class="com">&lt;!-- redisTemplate配置，redisTemplate是对Jedis的对redis操作的扩展，有更多的操作，封装使操作更便捷 --&gt;</span><span class="pln">
+    </span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"redisTemplate"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"org.springframework.data.redis.core.RedisTemplate"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"connectionFactory"</span><span class="pln"> </span><span class="atn">ref</span><span class="pun">=</span><span class="atv">"jedisConnectionFactory"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/bean&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;/beans&gt;</span></code></pre>
+<p>redis.properties</p>
+<pre class="prettyprint"><code><span class="pln">redis</span><span class="pun">.</span><span class="pln">pool</span><span class="pun">.</span><span class="pln">maxTotal</span><span class="pun">=</span><span class="lit">105</span><span class="pln">
+redis</span><span class="pun">.</span><span class="pln">pool</span><span class="pun">.</span><span class="pln">maxIdle</span><span class="pun">=</span><span class="lit">10</span><span class="pln">
+redis</span><span class="pun">.</span><span class="pln">pool</span><span class="pun">.</span><span class="pln">maxWaitMillis</span><span class="pun">=</span><span class="lit">5000</span><span class="pln">
+redis</span><span class="pun">.</span><span class="pln">pool</span><span class="pun">.</span><span class="pln">testOnBorrow</span><span class="pun">=</span><span class="kwd">true</span><span class="pln">
+redis</span><span class="pun">.</span><span class="pln">ip</span><span class="pun">=</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pln">
+redis</span><span class="pun">.</span><span class="pln">port</span><span class="pun">=</span><span class="lit">6379</span></code></pre>
+<p><img title="Spring+SpringMVC+Redis_" 图片3="" src="./Spring+SpringMVC+Redis_慕课手记_files/20161209163918130" alt="这里写图片描述"></p>
+<ol>
+<li>配置DispatcherServlet<br>
+这里采用硬编码的方式对DispatcherServlet进行配置，不依赖于web.xml</li>
+</ol>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> white</span><span class="pun">.</span><span class="pln">yu</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">support</span><span class="pun">.</span><span class="typ">AbstractAnnotationConfigDispatcherServletInitializer</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> white</span><span class="pun">.</span><span class="pln">yu</span><span class="pun">.</span><span class="pln">config</span><span class="pun">.</span><span class="typ">RootConfig</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> white</span><span class="pun">.</span><span class="pln">yu</span><span class="pun">.</span><span class="pln">config</span><span class="pun">.</span><span class="typ">WebConfig</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com">/**
+ * DispatchServlet 拦截器 
+ * @author white
+ *
+ */</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">MainDispatcherServletInitializer</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln">
+        </span><span class="typ">AbstractAnnotationConfigDispatcherServletInitializer</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="com">/**
+     * 配置应用上下文
+     */</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">protected</span><span class="pln"> </span><span class="typ">Class</span><span class="pun">&lt;?&gt;[]</span><span class="pln"> getRootConfigClasses</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Class</span><span class="pun">&lt;?&gt;[]</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">RootConfig</span><span class="pun">.</span><span class="kwd">class</span><span class="pln"> </span><span class="pun">};</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="com">/**
+     * 配置web上下文
+     */</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">protected</span><span class="pln"> </span><span class="typ">Class</span><span class="pun">&lt;?&gt;[]</span><span class="pln"> getServletConfigClasses</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Class</span><span class="pun">&lt;?&gt;[]</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="typ">WebConfig</span><span class="pun">.</span><span class="kwd">class</span><span class="pln"> </span><span class="pun">};</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="com">/**
+     * 配置DispatcherServlet映射路径
+     */</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">protected</span><span class="pln"> </span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> getServletMappings</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="str">"/"</span><span class="pln"> </span><span class="pun">};</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+<p>应用上下文RootConfig</p>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> white</span><span class="pun">.</span><span class="pln">yu</span><span class="pun">.</span><span class="pln">config</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">ComponentScan</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">ComponentScan</span><span class="pun">.</span><span class="typ">Filter</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Configuration</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">FilterType</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">ImportResource</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">stereotype</span><span class="pun">.</span><span class="typ">Controller</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">config</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">EnableWebMvc</span><span class="pun">;</span><span class="pln">
+
+</span><span class="lit">@Configuration</span><span class="pln">
+</span><span class="lit">@ComponentScan</span><span class="pun">(</span><span class="pln">basePackages </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="pln"> </span><span class="str">"white.yu"</span><span class="pln"> </span><span class="pun">},</span><span class="pln"> excludeFilters </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="lit">@Filter</span><span class="pun">(</span><span class="pln">type </span><span class="pun">=</span><span class="pln"> </span><span class="typ">FilterType</span><span class="pun">.</span><span class="pln">ANNOTATION</span><span class="pun">,</span><span class="pln"> value </span><span class="pun">=</span><span class="pln"> </span><span class="typ">Controller</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">),</span><span class="pln">
+        </span><span class="lit">@Filter</span><span class="pun">(</span><span class="pln">type </span><span class="pun">=</span><span class="pln"> </span><span class="typ">FilterType</span><span class="pun">.</span><span class="pln">ANNOTATION</span><span class="pun">,</span><span class="pln"> value </span><span class="pun">=</span><span class="pln"> </span><span class="typ">EnableWebMvc</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">)</span><span class="pln"> </span><span class="pun">})</span><span class="pln">
+</span><span class="lit">@ImportResource</span><span class="pun">(</span><span class="str">"classpath:spring/spring-*.xml"</span><span class="pun">)</span><span class="pln"> </span><span class="com">//引入redis的配置文件</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">RootConfig</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+<p>web上下文 WebConfig </p>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> white</span><span class="pun">.</span><span class="pln">yu</span><span class="pun">.</span><span class="pln">config</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Bean</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">ComponentScan</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">context</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Configuration</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="typ">ViewResolver</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">config</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">DefaultServletHandlerConfigurer</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">config</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">EnableWebMvc</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">config</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">WebMvcConfigurerAdapter</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">view</span><span class="pun">.</span><span class="typ">InternalResourceViewResolver</span><span class="pun">;</span><span class="pln">
+
+</span><span class="lit">@Configuration</span><span class="pln">
+</span><span class="lit">@EnableWebMvc</span><span class="pln">
+</span><span class="lit">@ComponentScan</span><span class="pun">({</span><span class="pln"> </span><span class="str">"white.yu.web"</span><span class="pln"> </span><span class="pun">})</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">WebConfig</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">WebMvcConfigurerAdapter</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="com">/**
+     * 配置视图解析器
+     * 
+     * @return
+     */</span><span class="pln">
+    </span><span class="lit">@Bean</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">ViewResolver</span><span class="pln"> viewResolver</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">InternalResourceViewResolver</span><span class="pln"> resolver </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">InternalResourceViewResolver</span><span class="pun">();</span><span class="pln">
+        resolver</span><span class="pun">.</span><span class="pln">setPrefix</span><span class="pun">(</span><span class="str">"/WEB-INF/views/"</span><span class="pun">);</span><span class="pln">
+        resolver</span><span class="pun">.</span><span class="pln">setSuffix</span><span class="pun">(</span><span class="str">".html"</span><span class="pun">);</span><span class="pln">
+        resolver</span><span class="pun">.</span><span class="pln">setExposePathVariables</span><span class="pun">(</span><span class="kwd">true</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> resolver</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="com">/**
+     * 配置静态资源处理器
+     */</span><span class="pln">
+    </span><span class="lit">@Override</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> configureDefaultServletHandling</span><span class="pun">(</span><span class="pln">
+            </span><span class="typ">DefaultServletHandlerConfigurer</span><span class="pln"> configurer</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="kwd">super</span><span class="pun">.</span><span class="pln">configureDefaultServletHandling</span><span class="pun">(</span><span class="pln">configurer</span><span class="pun">);</span><span class="pln">
+        configurer</span><span class="pun">.</span><span class="pln">enable</span><span class="pun">();</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+<ol>
+<li>编写测试Controller</li>
+</ol>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> white</span><span class="pun">.</span><span class="pln">yu</span><span class="pun">.</span><span class="pln">web</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">util</span><span class="pun">.</span><span class="typ">List</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> javax</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Resource</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">beans</span><span class="pun">.</span><span class="pln">factory</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">Autowired</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">data</span><span class="pun">.</span><span class="pln">redis</span><span class="pun">.</span><span class="pln">core</span><span class="pun">.</span><span class="typ">ListOperations</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">stereotype</span><span class="pun">.</span><span class="typ">Controller</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">RequestMapping</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">bind</span><span class="pun">.</span><span class="pln">annotation</span><span class="pun">.</span><span class="typ">ResponseBody</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> white</span><span class="pun">.</span><span class="pln">yu</span><span class="pun">.</span><span class="pln">cache</span><span class="pun">.</span><span class="typ">RedisCache</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> white</span><span class="pun">.</span><span class="pln">yu</span><span class="pun">.</span><span class="pln">entity</span><span class="pun">.</span><span class="typ">User</span><span class="pun">;</span><span class="pln">
+
+</span><span class="lit">@Controller</span><span class="pln">
+</span><span class="lit">@RequestMapping</span><span class="pun">(</span><span class="str">"user"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">UserController</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="lit">@Resource</span><span class="pun">(</span><span class="pln">name </span><span class="pun">=</span><span class="pln"> </span><span class="str">"redisTemplate"</span><span class="pun">)</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">ListOperations</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">User</span><span class="pun">&gt;</span><span class="pln"> listOps</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="lit">@RequestMapping</span><span class="pun">(</span><span class="str">"/list"</span><span class="pun">)</span><span class="pln">
+    </span><span class="lit">@ResponseBody</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;</span><span class="pln"> list</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// 获取Redis数据库中的所有user数据</span><span class="pln">
+        </span><span class="com">// -1 表示获取数据库中的所有数据</span><span class="pln">
+        </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">User</span><span class="pun">&gt;</span><span class="pln"> range </span><span class="pun">=</span><span class="pln"> listOps</span><span class="pun">.</span><span class="pln">range</span><span class="pun">(</span><span class="str">"user"</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> range</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@RequestMapping</span><span class="pun">(</span><span class="str">"/add"</span><span class="pun">)</span><span class="pln">
+    </span><span class="lit">@ResponseBody</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">User</span><span class="pln"> list</span><span class="pun">(</span><span class="typ">User</span><span class="pln"> user</span><span class="pun">){</span><span class="pln">
+        </span><span class="com">// 添加到Redis数据库</span><span class="pln">
+        listOps</span><span class="pun">.</span><span class="pln">leftPush</span><span class="pun">(</span><span class="str">"user"</span><span class="pun">,</span><span class="pln"> user</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">return</span><span class="pln"> user</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+<p>搭建Redis环境<br>
+Redis github下载地址<br>
+CSDN资源下载地址<br>
+目前官方推荐的最新稳定版本为3.2.1<br>
+下载之后直接解压得到以下目录结构<br>
+这里写图片描述<br>
+点击redis-server.exe即可启动Redis数据库<br>
+这里写图片描述<br>
+看到如下截图，Redis即启动成功<br>
+搭建spring环境<br>
+添加springmvc需要的依赖包<br>
+&lt;dependency&gt;<br>
+&lt;groupId&gt;org.springframework&lt;/groupId&gt;<br>
+&lt;artifactId&gt;spring-webmvc&lt;/artifactId&gt;<br>
+&lt;version&gt;4.3.4.RELEASE&lt;/version&gt;<br>
+&lt;/dependency&gt;</p>
+<pre><code>    &lt;dependency&gt;
+        &lt;groupId&gt;javax.servlet&lt;/groupId&gt;
+        &lt;artifactId&gt;javax.servlet-api&lt;/artifactId&gt;
+        &lt;version&gt;3.1.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+        &lt;version&gt;2.8.4&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+        &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+        &lt;version&gt;2.8.4&lt;/version&gt;
+    &lt;/dependency&gt;</code></pre>
+<p>集成Redis<br>
+①添加Redis需要的依赖包<br>
+&lt;dependency&gt;<br>
+&lt;groupId&gt;org.springframework.data&lt;/groupId&gt;<br>
+&lt;artifactId&gt;spring-data-redis&lt;/artifactId&gt;<br>
+&lt;version&gt;1.7.5.RELEASE&lt;/version&gt;<br>
+&lt;/dependency&gt;<br>
+&lt;!-- Redis客户端 --&gt;<br>
+&lt;dependency&gt;<br>
+&lt;groupId&gt;redis.clients&lt;/groupId&gt;<br>
+&lt;artifactId&gt;jedis&lt;/artifactId&gt;<br>
+&lt;version&gt;2.9.0&lt;/version&gt;<br>
+&lt;/dependency&gt;<br>
+②配置Redis : spring-redis.xml</p>
+<p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;beans xmlns="<a href="http://www.springframework.org/schema/beans" target="_blank" rel="nofollow">http://www.springframework.org/schema/beans</a>"<br>
+xmlns:xsi="<a href="http://www.w3.org/2001/XMLSchema-instance" target="_blank" rel="nofollow">http://www.w3.org/2001/XMLSchema-instance</a>"<br>
+xmlns:context="<a href="http://www.springframework.org/schema/context" target="_blank" rel="nofollow">http://www.springframework.org/schema/context</a>"<br>
+xsi:schemaLocation="<a href="http://www.springframework.org/schema/beans" target="_blank" rel="nofollow">http://www.springframework.org/schema/beans</a><br>
+<a href="http://www.springframework.org/schema/beans/spring-beans-4.3.xsd" target="_blank" rel="nofollow">http://www.springframework.org/schema/beans/spring-beans-4.3.xsd</a><br>
+<a href="http://www.springframework.org/schema/context" target="_blank" rel="nofollow">http://www.springframework.org/schema/context</a><br>
+<a href="http://www.springframework.org/schema/context/spring-context.xsd" target="_blank" rel="nofollow">http://www.springframework.org/schema/context/spring-context.xsd</a>"&gt;</p>
+<pre><code>&lt;!-- 引入redis配置 --&gt;
+&lt;context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/&gt;
+
+&lt;!-- Redis 配置 --&gt;
+&lt;bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig"&gt;
+    &lt;property name="maxTotal" value="${redis.pool.maxTotal}" /&gt;
+    &lt;property name="maxIdle" value="${redis.pool.maxIdle}" /&gt;
+    &lt;property name="maxWaitMillis" value="${redis.pool.maxWaitMillis}" /&gt;
+    &lt;property name="testOnBorrow" value="${redis.pool.testOnBorrow}" /&gt;
+&lt;/bean&gt;
+
+&lt;!-- redis单节点数据库连接配置 --&gt;
+&lt;bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"&gt;
+    &lt;property name="hostName" value="${redis.ip}" /&gt;
+    &lt;property name="port" value="${redis.port}" /&gt;
+    &lt;!-- &lt;property name="password" value="${redis.pass}" /&gt; --&gt;
+    &lt;property name="poolConfig" ref="jedisPoolConfig" /&gt;
+&lt;/bean&gt; 
+
+&lt;!-- redisTemplate配置，redisTemplate是对Jedis的对redis操作的扩展，有更多的操作，封装使操作更便捷 --&gt;
+&lt;bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"&gt;
+    &lt;property name="connectionFactory" ref="jedisConnectionFactory" /&gt;
+&lt;/bean&gt;</code></pre>
+<p>&lt;/beans&gt;<br>
+redis.properties</p>
+<p>redis.pool.maxTotal=105<br>
+redis.pool.maxIdle=10<br>
+redis.pool.maxWaitMillis=5000<br>
+redis.pool.testOnBorrow=true<br>
+redis.ip=127.0.0.1<br>
+redis.port=6379<br>
+这里写图片描述 </p>
+<ol>
+<li>配置DispatcherServlet<br>
+这里采用硬编码的方式对DispatcherServlet进行配置，不依赖于web.xml</li>
+</ol>
+<p>package white.yu;</p>
+<p>import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;</p>
+<p>import white.yu.config.RootConfig;<br>
+import white.yu.config.WebConfig;</p>
+<p>/**</p>
+<ul>
+<li>DispatchServlet 拦截器 </li>
+<li>@author white</li>
+<li>
+<p>*/<br>
+public class MainDispatcherServletInitializer extends<br>
+AbstractAnnotationConfigDispatcherServletInitializer {</p>
+<p>/**</p>
+<ul>
+<li>配置应用上下文<br>
+*/<br>
+@Override<br>
+protected Class&lt;?&gt;[] getRootConfigClasses() {<br>
+return new Class&lt;?&gt;[] { RootConfig.class };<br>
+}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>配置web上下文<br>
+*/<br>
+@Override<br>
+protected Class&lt;?&gt;[] getServletConfigClasses() {<br>
+return new Class&lt;?&gt;[] { WebConfig.class };<br>
+}</li>
+</ul>
+<p>/**</p>
+<ul>
+<li>配置DispatcherServlet映射路径<br>
+*/<br>
+@Override<br>
+protected String[] getServletMappings() {<br>
+return new String[] { "/" };<br>
+}</li>
+</ul>
+</li>
+</ul>
+<p>}<br>
+应用上下文RootConfig</p>
+<p>package white.yu.config;</p>
+<p>import org.springframework.context.annotation.ComponentScan;<br>
+import org.springframework.context.annotation.ComponentScan.Filter;<br>
+import org.springframework.context.annotation.Configuration;<br>
+import org.springframework.context.annotation.FilterType;<br>
+import org.springframework.context.annotation.ImportResource;<br>
+import org.springframework.stereotype.Controller;<br>
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;</p>
+<p>@Configuration<br>
+@ComponentScan(basePackages = { "white.yu" }, excludeFilters = {<br>
+@Filter(type = FilterType.ANNOTATION, value = Controller.class),<br>
+@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })<br>
+@ImportResource("classpath:spring/spring-*.xml") //引入redis的配置文件<br>
+public class RootConfig {</p>
+<p>}<br>
+web上下文 WebConfig</p>
+<p>package white.yu.config;</p>
+<p>import org.springframework.context.annotation.Bean;<br>
+import org.springframework.context.annotation.ComponentScan;<br>
+import org.springframework.context.annotation.Configuration;<br>
+import org.springframework.web.servlet.ViewResolver;<br>
+import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;<br>
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;<br>
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;<br>
+import org.springframework.web.servlet.view.InternalResourceViewResolver;</p>
+<p>@Configuration<br>
+@EnableWebMvc<br>
+@ComponentScan({ "white.yu.web" })<br>
+public class WebConfig extends WebMvcConfigurerAdapter {</p>
+<pre><code>/**
+ * 配置视图解析器
+ * 
+ * @return
+ */
+@Bean
+public ViewResolver viewResolver() {
+    InternalResourceViewResolver resolver = new InternalResourceViewResolver();
+    resolver.setPrefix("/WEB-INF/views/");
+    resolver.setSuffix(".html");
+    resolver.setExposePathVariables(true);
+    return resolver;
+}
+
+/**
+ * 配置静态资源处理器
+ */
+@Override
+public void configureDefaultServletHandling(
+        DefaultServletHandlerConfigurer configurer) {
+    super.configureDefaultServletHandling(configurer);
+    configurer.enable();
+}</code></pre>
+<p>}<br>
+编写测试Controller<br>
+package white.yu.web;</p>
+<p>import java.util.List;</p>
+<p>import javax.annotation.Resource;</p>
+<p>import org.springframework.beans.factory.annotation.Autowired;<br>
+import org.springframework.data.redis.core.ListOperations;<br>
+import org.springframework.stereotype.Controller;<br>
+import org.springframework.web.bind.annotation.RequestMapping;<br>
+import org.springframework.web.bind.annotation.ResponseBody;</p>
+<p>import white.yu.cache.RedisCache;<br>
+import white.yu.entity.User;</p>
+<p>@Controller<br>
+@RequestMapping("user")<br>
+public class UserController {</p>
+<pre><code>@Resource(name = "redisTemplate")
+private ListOperations&lt;String, User&gt; listOps;
+
+@RequestMapping("/list")
+@ResponseBody
+public List&lt;User&gt; list() {
+    // 获取Redis数据库中的所有user数据
+    // -1 表示获取数据库中的所有数据
+    List&lt;User&gt; range = listOps.range("user", 0, -1);
+    return range;
+
+}
+
+@RequestMapping("/add")
+@ResponseBody
+public User list(User user){
+    // 添加到Redis数据库
+    listOps.leftPush("user", user);
+    return user;
+
+}</code></pre>
+<p>}<br>
+5948</p>
+        </div>
+                <p class="original">本文原创发布于慕课网 ，转载请注明出处，谢谢合作！</p>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/3" target="_blank">JAVA</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/283266/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/533e4c910001a72d02000200-100-100.jpg" title="风中过客">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1323320/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/5506d78e0001692e04800640-100-100.jpg" title="霜花似雪">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1390627/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/55226816000138d302560282-100-100.jpg" title="elforg">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2085889/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/558bcd630001933001800180-100-100.jpg" title="qwertqq">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2222869/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/57b7d1ee0001894901000100-100-100.jpg" title="741268766">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2354109/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/57e882c600018fa301800180-100-100.jpg" title="rnnk">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2733147/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/5678e7f4000168c501000100-100-100.jpg" title="qq_青铜哥无敌_0">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4392733/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/5825932100019f6b01000100-100-100.jpg" title="腻而不忘4392733">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4835999/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/589d2da60001e22401000100-100-100.jpg" title="一卷空宵">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/5045891/articles">                                                <img src="./Spring+SpringMVC+Redis_慕课手记_files/545850e10001f06002200220-100-100.jpg" title="慕粉103940299">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">27</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292421211">
+                                    <a href="http://www.imooc.com/article/15163#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/15163#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/15163#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="15163" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <h2>相关阅读</h2><ul><li><a href="http://www.imooc.com/article/13178" title="框架学习总结——SpringMVC（学习中）"><h3>框架学习总结——SpringMVC（学习中）</h3></a></li><li><a href="http://www.imooc.com/article/15388" title="SpringBoot项目实战（2）：集成SpringBoot"><h3>SpringBoot项目实战（2）：集成SpringBoot</h3></a></li><li><a href="http://www.imooc.com/article/15406" title="SpringBoot项目实战（4）：集成Mybatis"><h3>SpringBoot项目实战（4）：集成Mybatis</h3></a></li><li><a href="http://www.imooc.com/article/15451" title="SpringBoot项目实战（5）：集成分页插件"><h3>SpringBoot项目实战（5）：集成分页插件</h3></a></li><li><a href="http://www.imooc.com/article/15703" title="struts2,spring3.0+,hibernate4.0+,maven整合"><h3>struts2,spring3.0+,hibernate4.0+,maven整合</h3></a></li></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./Spring+SpringMVC+Redis_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title" style="display: none;">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list" style="display: none;">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i>1</i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list">
+            
+        <div id="js-feedback-list"><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/1323320/articles"><img src="./Spring+SpringMVC+Redis_慕课手记_files/5506d78e0001692e04800640-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/1323320/articles" target="_blank">霜花似雪</a><span class="com-floor r">1F</span></div><div class="feed-list-content"><p></p><p>大神你好！可否给我发一下源码？这里网页编辑有问题，不好看，谢谢！邮箱：2510736432@qq.com</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2017-02-21 14:24:39</span><span class="reply-btn" data-commentid="35252" data-uid="1323320" data-username="霜花似雪">回复</span><span class="agree-with r" data-commentid="35252" data-uid="1323320" data-username="霜花似雪"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/1034225/articles"><img src="./Spring+SpringMVC+Redis_慕课手记_files/56cab1920001ba5203000250-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/1034225/articles" class="from-user">Hi小鱼_White</a> 回复 <a href="http://www.imooc.com/u/1323320/articles" class="to-user">霜花似雪</a>：<span class="feed-list-time r"> 2017-02-28 22:47:44</span><p>(⊙o⊙)… 源码 我没有保存，慕课网的排版有点问题，你可以看下我csdn的博客</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="35252" data-uid="1034225" data-username="Hi小鱼_White">回复</span></div></div></div><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/1323320/articles"><img src="./Spring+SpringMVC+Redis_慕课手记_files/5506d78e0001692e04800640-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/1323320/articles" class="from-user">霜花似雪</a> 回复 <a href="http://www.imooc.com/u/1034225/articles" class="to-user">Hi小鱼_White</a>：<span class="feed-list-time r"> 2017-03-01 13:38:13</span><p>好吧！
+谢谢</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="35252" data-uid="1323320" data-username="霜花似雪">回复</span></div></div></div></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/15163" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="1323320" class="release-reply-btn">提交</div></div></div></div></div></div></div></div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page" style="display: none;"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/1034225/articles" class="l" title="Hi小鱼_White" target="_blank">
+                <img src="./Spring+SpringMVC+Redis_慕课手记_files/56cab1920001ba5203000250-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/1034225/articles" title="Hi小鱼_White" target="_blank">
+            Hi小鱼_White
+            </a>
+                               
+                    </p>
+       
+        <span class="user-job">全栈工程师</span>
+        <span class="user-desc">
+            一个有情怀的程序员
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/1034225/articles" target="_blank" class="article-num r-bor l">
+                <span>60</span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/1034225/articles?type=praise" target="_blank" class="article-recom l">
+                <span>59</span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/2967" title="Java工程师成神之路"><h3>Java工程师成神之路</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">8751浏览</span>
+                    <span class="spacer l spacer-2">97推荐</span>
+                    <span class="spacer l" href="">12评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/2745" title="面向对象的六大设计原则（一）"><h3>面向对象的六大设计原则（一）</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">4489浏览</span>
+                    <span class="spacer l spacer-2">57推荐</span>
+                    <span class="spacer l" href="">9评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/2964" title="四道Java基础题 你能对几道？"><h3>四道Java基础题 你能对几道？</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">2492浏览</span>
+                    <span class="spacer l spacer-2">38推荐</span>
+                    <span class="spacer l" href="">15评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/12431" title="如何用Java代码写一封简历"><h3>如何用Java代码写一封简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">3029浏览</span>
+                    <span class="spacer l spacer-2">46推荐</span>
+                    <span class="spacer l" href="">0评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/3264" title="Java高级特性之泛型"><h3>Java高级特性之泛型</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">2549浏览</span>
+                    <span class="spacer l spacer-2">36推荐</span>
+                    <span class="spacer l" href="">6评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./Spring+SpringMVC+Redis_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./Spring+SpringMVC+Redis_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./Spring+SpringMVC+Redis_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./Spring+SpringMVC+Redis_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./Spring+SpringMVC+Redis_慕课手记_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img border="0" src="./Spring+SpringMVC+Redis_慕课手记_files/21.gif" width="20" height="20"></a>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./Spring+SpringMVC+Redis_慕课手记_files/user"></script><script type="text/javascript" src="./Spring+SpringMVC+Redis_慕课手记_files/iplookup.php"></script><div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div>
+
+
+</body></html>

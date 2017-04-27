@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://www.imooc.com/article/9451 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+linux安装redis简明过程_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="wget http://download.redis.io/redis-stable.tar.gz tar xvzf redis-stable.tar.gz cd redis-st">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./linux安装redis简明过程_慕课手记_files/moco.min.css" type="text/css">
+
+<script src="./linux安装redis简明过程_慕课手记_files/push.js.下载"></script><script type="text/javascript" async="" src="./linux安装redis简明过程_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "9451",
+    praiseNum:"11"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '1183564'
+}
+</script>
+
+<link rel="stylesheet" href="./linux安装redis简明过程_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./linux安装redis简明过程_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./linux安装redis简明过程_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./linux安装redis简明过程_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/moco.min.js.下载"></script><script charset="utf-8" async="" src="./linux安装redis简明过程_慕课手记_files/mo.min.js.下载"></script><script src="./linux安装redis简明过程_慕课手记_files/share.js.下载"></script><link rel="stylesheet" href="./linux安装redis简明过程_慕课手记_files/share_style0_16.css"></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/9451#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/9451#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>linux安装redis简明过程</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        linux安装redis简明过程
+                </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2016-06-20 16:45:40</span>
+                <span class="spacer l spacer-2">1613浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/9451#comment">0评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <p>wget <a href="http://download.redis.io/redis-stable.tar.gz" target="_blank" rel="nofollow">http://download.redis.io/redis-stable.tar.gz</a><br>
+tar xvzf redis-stable.tar.gz<br>
+cd redis-stable<br>
+make<br>
+（安装失败可能是因为一些依赖包没有安装，自行根据报错解决）</p>
+<p>make test  测试redis是否正确安装</p>
+<p>将src下面的redis-server和redis-cli放到/usr/local/bin下面（不用进入src就可以运行命令，很方便）</p>
+<p>建立redis配置目录<br>
+mkdir /etc/redis<br>
+mkdir /var/redis<br>
+mkdir /var/redis/log<br>
+mkdir /var/redis/run<br>
+mkdir /var/redis/6379</p>
+<p>复制配置模板文件<br>
+cp redis.conf /etc/redis/6379.conf</p>
+<p>修改配置项<br>
+daemonize yes<br>
+pidfile /var/redis/run/redis_6379.pid<br>
+logfile /var/redis/log/redis_6379.log<br>
+dir /var/redis/6379<br>
+redis-server /etc/redis/6379.conf(这是启动redis相应配置的命令，很重要切记切记)<br>
+（这里的配置项和上面创建的文件夹有关，思考下理解应该没有什么问题）<br>
+退出redis:quit</p>
+<p>进入redis：<br>
+redis-cli<br>
+hset、hget  这些命令拿来玩玩（放心玩不坏的）<br>
+大家都是聪明人我就不说太多了</p>
+        </div>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/2" target="_blank">PHP</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/20" target="_blank">Linux</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/163080/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/552bddc60001b78101000100-100-100.jpg" title="慕男婶加v">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/466534/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/533e4c700001c60f02200220-100-100.jpg" title="foveni">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/484416/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/54584c9c0001489602200220-100-100.jpg" title="扣子and">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1943097/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/554c3c900001dfd901000100-100-100.jpg" title="qq_风逝无痕_0">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2260100/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/55d053fa0001163001000100-100-100.jpg" title="qq_路人甲_11">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2652418/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/58724f110001ca7501000100-100-100.jpg" title="林_子夕">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3614856/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/545845c40001996c02200220-100-100.jpg" title="慕粉18581350114">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3761758/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/57b06e130001a55a11111111-100-100.jpg" title="慕粉3761758">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4393699/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/5825cc1a0001d77406400640-100-100.jpg" title="不落皇城0">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4514746/articles">                                                <img src="./linux安装redis简明过程_慕课手记_files/54584cfb0001308402200220-100-100.jpg" title="慕粉193504265">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">11</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292475144">
+                                    <a href="http://www.imooc.com/article/9451#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/9451#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/9451#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="9451" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <ul></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./linux安装redis简明过程_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i></i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/1183564/articles" class="l" title="风之子ccf" target="_blank">
+                <img src="./linux安装redis简明过程_慕课手记_files/54b7de090001516803200240-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/1183564/articles" title="风之子ccf" target="_blank">
+            风之子ccf
+            </a>
+                               
+                    </p>
+       
+        <span class="user-job">PHP开发工程师</span>
+        <span class="user-desc">
+            听说人的一生从一开始就已经注定，我信了，但我还是在不停的努力，听说不是技术越牛逼赚的钱就越多，我信了，但我还是在不停的研究技术。
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/1183564/articles" target="_blank" class="article-num r-bor l">
+                <span>13</span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/1183564/articles?type=praise" target="_blank" class="article-recom l">
+                <span>0</span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/3999" title="【慕星人年终总结】毕业近两年"><h3>【慕星人年终总结】毕业近两年</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">2584浏览</span>
+                    <span class="spacer l spacer-2">26推荐</span>
+                    <span class="spacer l" href="">13评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/7415" title="自己写的php  mvc框架"><h3>自己写的php  mvc框架</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">2247浏览</span>
+                    <span class="spacer l spacer-2">10推荐</span>
+                    <span class="spacer l" href="">4评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/10255" title="php接收二进制流上传图片"><h3>php接收二进制流上传图片</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">869浏览</span>
+                    <span class="spacer l spacer-2">7推荐</span>
+                    <span class="spacer l" href="">0评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/9467" title="redis加入开机启动服务"><h3>redis加入开机启动服务</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">979浏览</span>
+                    <span class="spacer l spacer-2">6推荐</span>
+                    <span class="spacer l" href="">1评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/11249" title="简述jsonp实现跨域原理"><h3>简述jsonp实现跨域原理</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">925浏览</span>
+                    <span class="spacer l spacer-2">4推荐</span>
+                    <span class="spacer l" href="">1评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./linux安装redis简明过程_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./linux安装redis简明过程_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./linux安装redis简明过程_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./linux安装redis简明过程_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./linux安装redis简明过程_慕课手记_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img border="0" src="./linux安装redis简明过程_慕课手记_files/21.gif" width="20" height="20"></a>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./linux安装redis简明过程_慕课手记_files/user"></script><script type="text/javascript" src="./linux安装redis简明过程_慕课手记_files/iplookup.php"></script>
+
+
+<div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div></body></html>

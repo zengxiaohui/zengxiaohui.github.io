@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://www.imooc.com/article/3957 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="作者： 常明，Java架构师 [请尊重原创，盗版必究，转载请指明出处] 前面我们对CAS做了相当的了解，也基本能够将CAS应用于生产环境。本篇笔者将结合自身实际工作经验，谈谈在大型">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/moco.min.css" type="text/css">
+
+<script src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/push.js.下载"></script><script type="text/javascript" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "3957",
+    praiseNum:"13"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '2245641'
+}
+</script>
+
+<link rel="stylesheet" href="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/mo.min.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/moco.min.js.下载"></script><script src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/share.js.下载"></script><link rel="stylesheet" href="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/share_style0_16.css"></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/3957#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/3957#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)
+                </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2016-01-14 15:06:18</span>
+                <span class="spacer l spacer-2">7386浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/3957#comment">5评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <p>作者： 常明，Java架构师<br>
+[请尊重原创，盗版必究，转载请指明出处]</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px"><img title="《SSOCAS单点系列》之大型互联网应用基于CAS的SSO架构(精华)_" 图片1="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/569747550001402516461050.jpg" alt="f"></strong>
+<p>前面我们对CAS做了相当的了解，也基本能够将CAS应用于生产环境。本篇笔者将结合自身实际工作经验，谈谈在大型互联网应用中，如何架构CAS的问题。内容绝对干货，值得珍藏:)</p>
+<p>对于大中型互联网应用，网站性能问题提到了前所未有的高度，能够应对高并发、高可用、避免单点故障是系统架构设计的基本准则。</p>
+<p>如果引入了SSO，那个这个认证中心就是整个应用架构中的一个及其重要的关键点，它必须满足两个基本要求：</p>
+<p>1.高可用，不允许发生故障。可想而知，如果认证中心发生故障，整个应用群将无法登陆，将会导致所有服务瘫痪。</p>
+<p>2.高并发，因为所有用户的登录请求都需要经过它处理，其承担的处理量常常是相当巨大的。</p>
+<p><strong>因此，在实际生产系统中，认证中心这个关键部件通常需要进行集群，单个认证中心提供服务是非常危险的。</strong></p>
+<p>当我们用CAS作为SSO解决方案时，CAS Server作为认证中心就会涉及到集群问题。对CAS Server来说，缺省是单应用实例运行的，多实例集群运行，我们需要做特殊考虑。</p>
+<p>考虑集群，就要考虑应用中有哪些点和状态相关，这些状态相关的点和应用的运行环境密切相关。在多实例运行下，运行环境是分布式的，这些状态相关的点需要考虑，在分布式环境下，如何保持状态的一致性。</p>
+<p>鉴于CAS实现方式，状态相关点有两个，一是CAS登录登出流程，采用webflow实现，流程状态存储于session中。二是票据存储，缺省是在JVM内存中。</p>
+<p>那么CAS集群，我们需要保证多个实例下，session中的状态以及票据存储状态，是一致的。常用的解决方案是共享，也就是说，在多CAS实例下，他们的session和票据ticket是共享的，这样就解决了一致性问题。</p>
+<p>CAS在Tomcat下运行的话，官方提出的建议是利用tomcat集群进行Session复制(Session Replication)。在高并发状态下，这种session复制效率不是很高，节点数增多时更是如此，实战中采用较少。</p>
+<p>我们可以采用共享session的技术。但笔者实践中，则采用了另外一种更灵活的方案，那就是<strong>session sticky</strong>技术。</p>
+<p>什么是session sticky？即将某一用户来的请求，通过前置机合理分配，始终定位在一台tomcat上，这样用户的登录登出webflow流程，始终发生在同一tomcat服务器上，保证了状态的完整性。实际上，采用这种方式，我们绕过了Session共享的需求。</p>
+<p>另一个问题我们绕不过去了，那就是ticket共享问题。我们知道，ticket缺省是存储于虚拟机内存中的，多个CAS Server实例，意味着多个tomcat节点，多个JVM，TicketRegistry是各自独立不共享的。</p>
+<p><strong>我们是否也可使用session sticky解决呢，不可以！</strong>因为对于ticket来说，根据认证协议，访问ticket不仅来自浏览器用户请求，而且还来自CAS Client应用系统，这是一个三方合作系统。来自应用系统的请求可能会访问到另一个CAS Server节点从而导致状态不一致。</p>
+<p>因此我们要直面解决ticket共享问题。ticket的存储由TicketRegistry定义，缺省是DefaultTicketRegistry，即JVM内存方式实现，我们可以定义外置存储方式，让多个实例共用这个存储，以达到共享目的。</p>
+<p>外置存储实现方式有多种选择，如存储在数据库中、存储在Cache中、存储在内存数据库中等，CAS也提供了多种实现方式的插件，如利用memcached作为ticket存储方式的插件cas-server-integration-memcached、利用Cache的cas-server-integration-ehcache、cas-server-integration-jboss等。</p>
+<p>这里，使用另外一种方式，即利用目前更流行的内存数据管理系统Redis来存储Ticket。同时，为了保证redis的高可用和高并发处理，我们使用redis主从集群，Sentinel控制，故认证中心具有很好的灵活性和水平可扩展性，整个架构图如下：<br>
+<img title="《SSOCAS单点系列》之大型互联网应用基于CAS的SSO架构(精华)_" 图片2="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/569747f40001cd0706300326.png" alt="q1"><br>
+下面我们就一步步进行配置搭建：</p>
+<p>1.仿照cas-server-integration-memcached工程建立cas-server-integration-redis工程<br>
+<img title="《SSOCAS单点系列》之大型互联网应用基于CAS的SSO架构(精华)_" 图片3="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/5697480a00014b8e05110493.png" alt="q2"><br>
+2.pom.xml中添加redis的java客户端jar包，去掉memcached中需要的jar，最后依赖包如下：</p>
+<pre class="prettyprint"><code><span class="tag">&lt;dependencies&gt;</span><span class="pln">
+ </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+  </span><span class="tag">&lt;groupId&gt;</span><span class="pln">org.jasig.cas</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+  </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">cas-server-core</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+  </span><span class="tag">&lt;version&gt;</span><span class="pln">${project.version}</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+ </span><span class="tag">&lt;/dependency&gt;</span><span class="pln">
+ </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+  </span><span class="tag">&lt;groupId&gt;</span><span class="pln">redis.clients</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+  </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">jedis</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+  </span><span class="tag">&lt;version&gt;</span><span class="pln">2.7.2</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+ </span><span class="tag">&lt;/dependency&gt;</span><span class="pln">
+ </span><span class="com">&lt;!-- Test dependencies --&gt;</span><span class="pln">
+ </span><span class="tag">&lt;dependency&gt;</span><span class="pln">
+  </span><span class="tag">&lt;groupId&gt;</span><span class="pln">org.mockito</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+  </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">mockito-core</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+  </span><span class="tag">&lt;version&gt;</span><span class="pln">1.9.0</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+  </span><span class="tag">&lt;scope&gt;</span><span class="pln">test</span><span class="tag">&lt;/scope&gt;</span><span class="pln">
+ </span><span class="tag">&lt;/dependency&gt;</span><span class="pln">
+</span><span class="tag">&lt;/dependencies&gt;</span></code></pre>
+<ol>
+<li>定义RedisTicketRegistry类，这个是核心，它实现了TicketRegistry接口，我们使用Jedis客户端：</li>
+</ol>
+<pre class="prettyprint"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">RedisTicketRegistry</span><span class="pln"> </span><span class="kwd">extends</span><span class="pln"> </span><span class="typ">AbstractDistributedTicketRegistry</span><span class="pln"> </span><span class="kwd">implements</span><span class="pln"> </span><span class="typ">DisposableBean</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+ </span><span class="com">/** Redis client. */</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">JedisSentinelPool</span><span class="pln"> jedisPool</span><span class="pun">;</span><span class="pln">  
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> st_time</span><span class="pun">;</span><span class="pln">  </span><span class="com">//ST最大空闲时间</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> tgt_time</span><span class="pun">;</span><span class="pln"> </span><span class="com">//TGT最大空闲时间</span><span class="pln">
+
+ </span><span class="lit">@Override</span><span class="pln">
+ </span><span class="kwd">protected</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> updateTicket</span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Ticket</span><span class="pln"> ticket</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   logger</span><span class="pun">.</span><span class="pln">debug</span><span class="pun">(</span><span class="str">"Updating ticket {}"</span><span class="pun">,</span><span class="pln"> ticket</span><span class="pun">);</span><span class="pln">
+   </span><span class="typ">Jedis</span><span class="pln"> jedis </span><span class="pun">=</span><span class="pln"> jedisPool</span><span class="pun">.</span><span class="pln">getResource</span><span class="pun">();</span><span class="pln">
+   </span><span class="typ">String</span><span class="pln"> ticketId </span><span class="pun">=</span><span class="pln"> ticket</span><span class="pun">.</span><span class="pln">getId</span><span class="pun">()</span><span class="pln"> </span><span class="pun">;</span><span class="pln">
+   </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+     jedis</span><span class="pun">.</span><span class="pln">expire</span><span class="pun">(</span><span class="pln">ticketId</span><span class="pun">.</span><span class="pln">getBytes</span><span class="pun">(),</span><span class="pln"> getTimeout</span><span class="pun">(</span><span class="pln">ticket</span><span class="pun">));</span><span class="pln">
+   </span><span class="pun">}</span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    logger</span><span class="pun">.</span><span class="pln">error</span><span class="pun">(</span><span class="str">"Failed updating {}"</span><span class="pun">,</span><span class="pln"> ticket</span><span class="pun">,</span><span class="pln"> e</span><span class="pun">);</span><span class="pln">
+   </span><span class="pun">}</span><span class="kwd">finally</span><span class="pun">{</span><span class="pln">
+    jedis</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+   </span><span class="pun">}</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="lit">@Override</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> addTicket</span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Ticket</span><span class="pln"> ticket</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  logger</span><span class="pun">.</span><span class="pln">debug</span><span class="pun">(</span><span class="str">"Adding ticket {}"</span><span class="pun">,</span><span class="pln"> ticket</span><span class="pun">);</span><span class="pln">
+  </span><span class="typ">Jedis</span><span class="pln"> jedis </span><span class="pun">=</span><span class="pln"> jedisPool</span><span class="pun">.</span><span class="pln">getResource</span><span class="pun">();</span><span class="pln">
+  </span><span class="typ">String</span><span class="pln"> ticketId </span><span class="pun">=</span><span class="pln"> ticket</span><span class="pun">.</span><span class="pln">getId</span><span class="pun">()</span><span class="pln"> </span><span class="pun">;</span><span class="pln">
+
+  </span><span class="typ">ByteArrayOutputStream</span><span class="pln"> bos </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ByteArrayOutputStream</span><span class="pun">();</span><span class="pln">
+  </span><span class="typ">ObjectOutputStream</span><span class="pln"> oos </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">try</span><span class="pun">{</span><span class="pln">
+   oos </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ObjectOutputStream</span><span class="pun">(</span><span class="pln">bos</span><span class="pun">);</span><span class="pln">
+   oos</span><span class="pun">.</span><span class="pln">writeObject</span><span class="pun">(</span><span class="pln">ticket</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="kwd">catch</span><span class="pun">(</span><span class="typ">IOException</span><span class="pln"> e</span><span class="pun">){</span><span class="pln">
+   logger</span><span class="pun">.</span><span class="pln">error</span><span class="pun">(</span><span class="str">"adding ticket {} to redis error."</span><span class="pun">,</span><span class="pln"> ticket</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="kwd">finally</span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">try</span><span class="pun">{</span><span class="pln"> 
+    </span><span class="kwd">if</span><span class="pun">(</span><span class="kwd">null</span><span class="pun">!=</span><span class="pln">oos</span><span class="pun">)</span><span class="pln"> oos</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+   </span><span class="pun">}</span><span class="kwd">catch</span><span class="pun">(</span><span class="typ">IOException</span><span class="pln"> e</span><span class="pun">){</span><span class="pln">
+    logger</span><span class="pun">.</span><span class="pln">error</span><span class="pun">(</span><span class="str">"oos closing error when adding ticket {} to redis."</span><span class="pun">,</span><span class="pln"> ticket</span><span class="pun">);</span><span class="pln">
+   </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+
+  jedis</span><span class="pun">.</span><span class="pln">setex</span><span class="pun">(</span><span class="pln">ticketId</span><span class="pun">.</span><span class="pln">getBytes</span><span class="pun">(),</span><span class="pln"> getTimeout</span><span class="pun">(</span><span class="pln">ticket</span><span class="pun">),</span><span class="pln">bos</span><span class="pun">.</span><span class="pln">toByteArray</span><span class="pun">());</span><span class="pln">
+  jedis</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="lit">@Override</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> deleteTicket</span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> ticketId</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+  logger</span><span class="pun">.</span><span class="pln">debug</span><span class="pun">(</span><span class="str">"Deleting ticket {}"</span><span class="pun">,</span><span class="pln"> ticketId</span><span class="pun">);</span><span class="pln">
+  </span><span class="typ">Jedis</span><span class="pln"> jedis </span><span class="pun">=</span><span class="pln"> jedisPool</span><span class="pun">.</span><span class="pln">getResource</span><span class="pun">();</span><span class="pln">
+  </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   jedis</span><span class="pun">.</span><span class="kwd">del</span><span class="pun">(</span><span class="pln">ticketId</span><span class="pun">.</span><span class="pln">getBytes</span><span class="pun">());</span><span class="pln">
+   </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   logger</span><span class="pun">.</span><span class="pln">error</span><span class="pun">(</span><span class="str">"Failed deleting {}"</span><span class="pun">,</span><span class="pln"> ticketId</span><span class="pun">,</span><span class="pln"> e</span><span class="pun">);</span><span class="pln">
+   </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">false</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">finally</span><span class="pun">{</span><span class="pln">
+   jedis</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="lit">@Override</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Ticket</span><span class="pln"> getTicket</span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> ticketId</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="typ">Jedis</span><span class="pln"> jedis </span><span class="pun">=</span><span class="pln"> jedisPool</span><span class="pun">.</span><span class="pln">getResource</span><span class="pun">();</span><span class="pln">
+  </span><span class="kwd">try</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">byte</span><span class="pun">[]</span><span class="pln"> value </span><span class="pun">=</span><span class="pln"> jedis</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="pln">ticketId</span><span class="pun">.</span><span class="pln">getBytes</span><span class="pun">());</span><span class="pln">
+   </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">null</span><span class="pun">==</span><span class="pln">value</span><span class="pun">){</span><span class="pln">
+    logger</span><span class="pun">.</span><span class="pln">error</span><span class="pun">(</span><span class="str">"Failed fetching {}, ticketId is null. "</span><span class="pun">,</span><span class="pln"> ticketId</span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+   </span><span class="pun">}</span><span class="pln">
+   </span><span class="typ">ByteArrayInputStream</span><span class="pln"> bais </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ByteArrayInputStream</span><span class="pun">(</span><span class="pln">value</span><span class="pun">);</span><span class="pln">
+   </span><span class="typ">ObjectInputStream</span><span class="pln"> ois </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+   ois </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ObjectInputStream</span><span class="pun">(</span><span class="pln">bais</span><span class="pun">);</span><span class="pln">
+   </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Ticket</span><span class="pln">  t </span><span class="pun">=</span><span class="pln"> </span><span class="pun">(</span><span class="typ">Ticket</span><span class="pun">)</span><span class="pln">ois</span><span class="pun">.</span><span class="pln">readObject</span><span class="pun">();</span><span class="pln"> 
+   </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">t </span><span class="pun">!=</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> getProxiedTicketInstance</span><span class="pun">(</span><span class="pln">t</span><span class="pun">);</span><span class="pln">
+   </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">catch</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> e</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    logger</span><span class="pun">.</span><span class="pln">error</span><span class="pun">(</span><span class="str">"Failed fetching {}. "</span><span class="pun">,</span><span class="pln"> ticketId</span><span class="pun">,</span><span class="pln"> e</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="kwd">finally</span><span class="pun">{</span><span class="pln">
+    jedis</span><span class="pun">.</span><span class="pln">close</span><span class="pun">();</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">null</span><span class="pun">;</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="com">/**
+  * {@inheritDoc}
+  * This operation is not supported.
+  *
+  * @throws UnsupportedOperationException if you try and call this operation.
+  */</span><span class="pln">
+ </span><span class="lit">@Override</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Collection</span><span class="pun">&lt;</span><span class="typ">Ticket</span><span class="pun">&gt;</span><span class="pln"> getTickets</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">throw</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">UnsupportedOperationException</span><span class="pun">(</span><span class="str">"GetTickets not supported."</span><span class="pun">);</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="com">/**
+  * Destroy the client and shut down.
+  *
+  * @throws Exception the exception
+  */</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> destroy</span><span class="pun">()</span><span class="pln"> </span><span class="kwd">throws</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   jedisPool</span><span class="pun">.</span><span class="pln">destroy</span><span class="pun">();</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="lit">@Override</span><span class="pln">
+ </span><span class="kwd">protected</span><span class="pln"> </span><span class="kwd">boolean</span><span class="pln"> needsCallback</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">;</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+  </span><span class="com">/**
+   * Gets the timeout value for the ticket.
+   *
+   * @param t the t
+   * @return the timeout
+   */</span><span class="pln">
+  </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> getTimeout</span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">Ticket</span><span class="pln"> t</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">t </span><span class="kwd">instanceof</span><span class="pln"> </span><span class="typ">TicketGrantingTicket</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+     </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">tgt_time</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln"> </span><span class="kwd">else</span><span class="pln"> </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">t </span><span class="kwd">instanceof</span><span class="pln"> </span><span class="typ">ServiceTicket</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+     </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">st_time</span><span class="pun">;</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+    </span><span class="kwd">throw</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">IllegalArgumentException</span><span class="pun">(</span><span class="str">"Invalid ticket type"</span><span class="pun">);</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setSt_time</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> st_time</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+   </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">st_time </span><span class="pun">=</span><span class="pln"> st_time</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setTgt_time</span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> tgt_time</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">tgt_time </span><span class="pun">=</span><span class="pln"> tgt_time</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+
+  </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setJedisSentinelPool</span><span class="pun">(</span><span class="typ">JedisSentinelPool</span><span class="pln"> jedisPool</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">this</span><span class="pun">.</span><span class="pln">jedisPool </span><span class="pun">=</span><span class="pln"> jedisPool</span><span class="pun">;</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>4.同理，仿照cas-server-integration-memcached编写测试用例RedisTicketRegistryTests，核心代码如下：</p>
+<pre class="prettyprint"><code><span class="lit">@Test</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> testWriteGetDelete</span><span class="pun">()</span><span class="pln"> </span><span class="kwd">throws</span><span class="pln"> </span><span class="typ">Exception</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="com">//对ticket执行增查删操作</span><span class="pln">
+  </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> id </span><span class="pun">=</span><span class="pln"> </span><span class="str">"ST-1234567890ABCDEFGHIJKL-crud"</span><span class="pun">;</span><span class="pln">
+  </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">ServiceTicket</span><span class="pln"> ticket </span><span class="pun">=</span><span class="pln"> 
+           mock</span><span class="pun">(</span><span class="typ">ServiceTicket</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">,</span><span class="pln"> withSettings</span><span class="pun">().</span><span class="pln">serializable</span><span class="pun">());</span><span class="pln">
+  </span><span class="kwd">when</span><span class="pun">(</span><span class="pln">ticket</span><span class="pun">.</span><span class="pln">getId</span><span class="pun">()).</span><span class="pln">thenReturn</span><span class="pun">(</span><span class="pln">id</span><span class="pun">);</span><span class="pln">
+  registry</span><span class="pun">.</span><span class="pln">addTicket</span><span class="pun">(</span><span class="pln">ticket</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">ServiceTicket</span><span class="pln"> ticketFromRegistry </span><span class="pun">=</span><span class="pln"> 
+                </span><span class="pun">(</span><span class="typ">ServiceTicket</span><span class="pun">)</span><span class="pln"> registry</span><span class="pun">.</span><span class="pln">getTicket</span><span class="pun">(</span><span class="pln">id</span><span class="pun">);</span><span class="pln">
+  </span><span class="typ">Assert</span><span class="pun">.</span><span class="pln">assertNotNull</span><span class="pun">(</span><span class="pln">ticketFromRegistry</span><span class="pun">);</span><span class="pln">
+  </span><span class="typ">Assert</span><span class="pun">.</span><span class="pln">assertEquals</span><span class="pun">(</span><span class="pln">id</span><span class="pun">,</span><span class="pln"> ticketFromRegistry</span><span class="pun">.</span><span class="pln">getId</span><span class="pun">());</span><span class="pln">
+  registry</span><span class="pun">.</span><span class="pln">deleteTicket</span><span class="pun">(</span><span class="pln">id</span><span class="pun">);</span><span class="pln">
+  </span><span class="typ">Assert</span><span class="pun">.</span><span class="pln">assertNull</span><span class="pun">(</span><span class="pln">registry</span><span class="pun">.</span><span class="pln">getTicket</span><span class="pun">(</span><span class="pln">id</span><span class="pun">));</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>相应的配置文件ticketRegistry-test.xml定义如下：</p>
+<pre class="prettyprint"><code><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"poolConfig"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"redis.clients.jedis.JedisPoolConfig"</span><span class="tag">&gt;</span><span class="pln">  
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxTotal"</span><span class="pln">  </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"4096"</span><span class="tag">/&gt;</span><span class="pln">  
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxIdle"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"200"</span><span class="tag">/&gt;</span><span class="pln">  
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxWaitMillis"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"3000"</span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"testOnBorrow"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"testOnReturn"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/bean&gt;</span><span class="pln">  
+
+</span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"jedisSentinelPool"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"redis.clients.jedis.JedisSentinelPool"</span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"0"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"mymaster"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"1"</span><span class="tag">&gt;</span><span class="pln">
+   </span><span class="tag">&lt;set&gt;</span><span class="pln">  
+    </span><span class="tag">&lt;value&gt;</span><span class="pln">192.168.1.111:26379</span><span class="tag">&lt;/value&gt;</span><span class="pln">  
+   </span><span class="tag">&lt;/set&gt;</span><span class="pln"> 
+ </span><span class="tag">&lt;/constructor-arg&gt;</span><span class="pln">
+ </span><span class="tag">&lt;constructor-arg</span><span class="pln"> </span><span class="atn">index</span><span class="pun">=</span><span class="atv">"2"</span><span class="pln"> </span><span class="atn">ref</span><span class="pun">=</span><span class="atv">"poolConfig"</span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/bean&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"testCase1"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"org.jasig.cas.ticket.registry.RedisTicketRegistry"</span><span class="pln"> </span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"jedisSentinelPool"</span><span class="pln"> </span><span class="atn">ref</span><span class="pun">=</span><span class="atv">"jedisSentinelPool"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"st_time"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"10"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"tgt_time"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"1200"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/bean&gt;</span></code></pre>
+<p>测试用例通过，至此，支持redis票据存储的插件开发完毕。然后我们利用mvn install把该插件安装到本地仓储。<br>
+<img title="《SSOCAS单点系列》之大型互联网应用基于CAS的SSO架构(精华)_" 图片4="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/569748540001ac7e06400230.png" alt="q3"><br>
+下面我们开始在cas-server-webapp工程中使用该插件。</p>
+<p>5.修改cas-server-webapp工程中ticketRegistry.xml文件，替换掉DefaultTicketRegistry，同时注释掉ticketRegistryCleaner相关所有定义(为什么注释掉前文有讨论)。</p>
+<pre class="prettyprint"><code><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"ticketRegistry"</span><span class="pln"> 
+   </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"org.jasig.cas.ticket.registry.RedisTicketRegistry"</span><span class="pln"> </span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"jedisSentinelPool"</span><span class="pln"> </span><span class="atn">ref</span><span class="pun">=</span><span class="atv">"jedisSentinelPool"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"st_time"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"10"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"tgt_time"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"1200"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/bean&gt;</span></code></pre>
+<p>6.在POM.xml中添加cas-server-integration-redis模块：</p>
+<pre class="prettyprint"><code><span class="tag">&lt;dependency&gt;</span><span class="pln">
+ </span><span class="tag">&lt;groupId&gt;</span><span class="pln">org.jasig.cas</span><span class="tag">&lt;/groupId&gt;</span><span class="pln">
+ </span><span class="tag">&lt;artifactId&gt;</span><span class="pln">cas-server-integration-redis</span><span class="tag">&lt;/artifactId&gt;</span><span class="pln">
+ </span><span class="tag">&lt;version&gt;</span><span class="pln">${project.version}</span><span class="tag">&lt;/version&gt;</span><span class="pln">
+ </span><span class="tag">&lt;scope&gt;</span><span class="pln">compile</span><span class="tag">&lt;/scope&gt;</span><span class="pln">
+</span><span class="tag">&lt;/dependency&gt;</span></code></pre>
+<p>7.本地启动redis，重新build工程,然后tomcat7:run运行CAS Server。直接登录认证中心，观察redis中数据变化。<br>
+<img title="《SSOCAS单点系列》之大型互联网应用基于CAS的SSO架构(精华)_" 图片5="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/569748850001988904980063.png" alt="q4"><br>
+我们看到TGT存到redis中了，做登出操作，会观察到TGT已消失。从应用系统登录，会发现ST也在redis中。<br>
+<img title="《SSOCAS单点系列》之大型互联网应用基于CAS的SSO架构(精华)_" 图片6="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/5697489b0001eae907060409.png" alt="q5"><br>
+<img title="《SSOCAS单点系列》之大型互联网应用基于CAS的SSO架构(精华)_" 图片7="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/569748ad00015a3306400129.png" alt="q"><br>
+<img title="《SSOCAS单点系列》之大型互联网应用基于CAS的SSO架构(精华)_" 图片8="" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/569748b50001d8cd06830512.png" alt="qq"></p>
+<div class="anchor-list"> <a name="parent_1" class="lemma-anchor para-title"></a></div> <strong style="display:block;font-size:25px;padding-bottom:8px">本文为慕课网作者原创，转载请标明【原文作者及本文链接地址】。侵权必究，谢谢合作!</strong>
+        </div>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/3" target="_blank">JAVA</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/27" target="_blank">WebApp</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/39" target="_blank">数据结构</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/1173052/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/54afbad600017cc101800180-100-100.jpg" title="javawnb">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1225949/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/54cdefa400015e7f01000100-100-100.jpg" title="大周Big_Zhou">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1309168/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/54feda0b000140a701000100-100-100.jpg" title="若_北冥">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1392448/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/54586870000183e302200220-100-100.jpg" title="笑笑笑笑笑">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1963021/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/5555907d0001cc6001000100-100-100.jpg" title="ssg">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2074962/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/54584ee0000179f302200220-100-100.jpg" title="wz5891">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2546405/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/545847aa0001063202200220-100-100.jpg" title="爱吃豆角的虫子">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2820666/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/569862bd00015db001000100-100-100.jpg" title="海饼干_1">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2900716/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/545869390001b87802200220-100-100.jpg" title="大飞007">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4176059/articles">                                                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/545863e80001889e02200220-100-100.jpg" title="慕粉2153048853">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">13</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292609830">
+                                    <a href="http://www.imooc.com/article/3957#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/3957#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/3957#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="3957" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <h2>相关阅读</h2><ul><li><a href="http://www.imooc.com/article/3564" title="《SSO CAS单点系列》之  自己动手实现一个属于自己的SSO认证服务器！"><h3>《SSO CAS单点系列》之  自己动手实现一个属于自己的SSO认证服务器！</h3></a></li><li><a href="http://www.imooc.com/article/3720" title="《SSO CAS单点系列》之 实操！轻松玩转SSO CAS就这么简单(相识篇)"><h3>《SSO CAS单点系列》之 实操！轻松玩转SSO CAS就这么简单(相识篇)</h3></a></li><li><a href="http://www.imooc.com/article/3729" title="《SSO CAS单点系列》之 实操！轻松玩转SSO CAS就这么简单(相知篇)"><h3>《SSO CAS单点系列》之 实操！轻松玩转SSO CAS就这么简单(相知篇)</h3></a></li><li><a href="http://www.imooc.com/article/3930" title="《Redis系列专题》 之 大规模互联网应用Redis架构要点(精华)"><h3>《Redis系列专题》 之 大规模互联网应用Redis架构要点(精华)</h3></a></li><li><a href="http://www.imooc.com/article/4017" title="《SSO CAS单点系列》之 支持Web应用跨域登录CAS (千斤干货)"><h3>《SSO CAS单点系列》之 支持Web应用跨域登录CAS (千斤干货)</h3></a></li></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title" style="display: none;">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list" style="display: none;">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i>5</i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list">
+            
+        <div id="js-feedback-list"><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/3868432/articles"><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/57bc51340001f33102000200-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/3868432/articles" target="_blank">赶鸭子上天台</a><span class="com-floor r">5F</span></div><div class="feed-list-content"><p></p><p>和我想像中的一个样子，哈哈！！　果然没被我猜错。　　</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-08-23 21:47:12</span><span class="reply-btn" data-commentid="31441" data-uid="3868432" data-username="赶鸭子上天台">回复</span><span class="agree-with r" data-commentid="31441" data-uid="3868432" data-username="赶鸭子上天台"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3957" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="3868432" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/3302526/articles"><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/5458674e0001e87402200220-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/3302526/articles" target="_blank">Thinkman</a><span class="com-floor r">4F</span></div><div class="feed-list-content"><p></p><p>updateTicket 方法中应该使用：</p><p>jedis.setex(ticketId.getBytes(), this.getTimeout(ticket), bos.toByteArray());</p><p><br></p><p>因为票据对应的值也需要更新，否则会导致子系统收不到退出通知。</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-06-15 10:02:48</span><span class="reply-btn" data-commentid="25547" data-uid="3302526" data-username="Thinkman">回复</span><span class="agree-with r" data-commentid="25547" data-uid="3302526" data-username="Thinkman"><b>赞同</b><em>1</em></span></div></div></div><div class="reply-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2245641/articles"><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/2245641/articles" class="from-user">手插口袋_</a> 回复 <a href="http://www.imooc.com/u/3302526/articles" class="to-user">Thinkman</a>：<span class="feed-list-time r"> 2016-06-21 10:44:45</span><p>谢谢补充！</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="25547" data-uid="2245641" data-username="手插口袋_">回复</span></div></div></div></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3957" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="3302526" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/1952153/articles"><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/5458464a00013eb602200220-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/1952153/articles" target="_blank">程序婊一枚</a><span class="com-floor r">3F</span></div><div class="feed-list-content"><p>楼主写得太好</p><div class="comment-footer"><span class="feed-list-times"> 2016-01-15 11:36:59</span><span class="reply-btn" data-commentid="9153" data-uid="1952153" data-username="程序婊一枚">回复</span><span class="agree-with r" data-commentid="9153" data-uid="1952153" data-username="程序婊一枚"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3957" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="1952153" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/464327/articles"><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/54475d840001927701800180-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/464327/articles" target="_blank">灬断弦Abc</a><span class="com-floor r">2F</span></div><div class="feed-list-content"><p>丰富的</p><div class="comment-footer"><span class="feed-list-times"> 2016-01-15 08:27:06</span><span class="reply-btn" data-commentid="9129" data-uid="464327" data-username="灬断弦Abc">回复</span><span class="agree-with r" data-commentid="9129" data-uid="464327" data-username="灬断弦Abc"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3957" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="464327" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2616645/articles"><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/5333a1a90001c8d802000200-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/2616645/articles" target="_blank">天才小喵</a><span class="com-floor r">1F</span></div><div class="feed-list-content"><p>满屏的干货，我要给你一百个赞</p><div class="comment-footer"><span class="feed-list-times"> 2016-01-14 16:22:30</span><span class="reply-btn" data-commentid="8982" data-uid="2616645" data-username="天才小喵">回复</span><span class="agree-with r" data-commentid="8982" data-uid="2616645" data-username="天才小喵"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2245641/articles"><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/2245641/articles" class="from-user">手插口袋_</a> 回复 <a href="http://www.imooc.com/u/2616645/articles" class="to-user">天才小喵</a>：<span class="feed-list-time r"> 2016-01-14 17:21:32</span><p>分享是一种态度，获赞是一种认可，也是动力！谢谢</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="8982" data-uid="2245641" data-username="手插口袋_">回复</span></div></div></div><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2836996/articles"><img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/54584e120001811202200220-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/2836996/articles" class="from-user">paneer</a> 回复 <a href="http://www.imooc.com/u/2245641/articles" class="to-user">手插口袋_</a>：<span class="feed-list-time r"> 2016-01-22 17:18:35</span><p>不错,说得有道理</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="8982" data-uid="2836996" data-username="paneer">回复</span></div></div></div></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3957" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="2616645" class="release-reply-btn">提交</div></div></div></div></div></div></div></div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page" style="display: none;"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/2245641/articles" class="l" title="手插口袋_" target="_blank">
+                <img src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/2245641/articles" title="手插口袋_" target="_blank">
+            手插口袋_
+            </a>
+                                    <i class="user-icon great" title="认证作者"></i>
+                   
+                    </p>
+       
+        <span class="user-job">JAVA开发工程师</span>
+        <span class="user-desc">
+            人生为棋，我愿为卒，行动虽慢，可谁曾见我后退一步。
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/2245641/articles" target="_blank" class="article-num r-bor l">
+                <span>26</span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/2245641/articles?type=praise" target="_blank" class="article-recom l">
+                <span>29</span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/7799" title="《Docker系列专题》之 描述篇"><h3>《Docker系列专题》之 描述篇</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">9386浏览</span>
+                    <span class="spacer l spacer-2">69推荐</span>
+                    <span class="spacer l" href="">23评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/12401" title="《java websocket》之 实现"><h3>《java websocket》之 实现</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">4232浏览</span>
+                    <span class="spacer l spacer-2">53推荐</span>
+                    <span class="spacer l" href="">13评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4797" title="《杂文》 之 教大家如何写一份特别的简历"><h3>《杂文》 之 教大家如何写一份特别的简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">1993浏览</span>
+                    <span class="spacer l spacer-2">21推荐</span>
+                    <span class="spacer l" href="">44评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4807" title="《杂   文》 之 教你制作一份属于自己的简历"><h3>《杂   文》 之 教你制作一份属于自己的简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">3048浏览</span>
+                    <span class="spacer l spacer-2">57推荐</span>
+                    <span class="spacer l" href="">7评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/3585" title="《Redis系列专题》之 20分钟快速了解Redis"><h3>《Redis系列专题》之 20分钟快速了解Redis</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">27610浏览</span>
+                    <span class="spacer l spacer-2">50推荐</span>
+                    <span class="spacer l" href="">11评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img border="0" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/21.gif" width="20" height="20"></a>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/user"></script><script type="text/javascript" src="./《SSO CAS单点系列》之 大型互联网应用基于CAS的SSO架构(精华)_慕课手记_files/iplookup.php"></script>
+
+
+<div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div></body></html>

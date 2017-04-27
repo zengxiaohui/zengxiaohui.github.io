@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://www.imooc.com/article/10913 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+redis入门：介绍、特点、安装、各类型常用操作_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="一、redis介绍 Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。 Redis支持多种类型的数据结构，如 字符串（strin">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/moco.min.css" type="text/css">
+
+<script src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/push.js.下载"></script><script type="text/javascript" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "10913",
+    praiseNum:"49"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '315791'
+}
+</script>
+
+<link rel="stylesheet" href="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/moco.min.js.下载"></script><script charset="utf-8" async="" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/mo.min.js.下载"></script><script src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/share.js.下载"></script><link rel="stylesheet" href="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/share_style0_16.css"><link id="syntaxhighlighter_css" rel="stylesheet" type="text/css" href="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/shCoreDefault.css"><script id="syntaxhighlighter_js" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/shCore.js.下载" type="text/javascript" defer="defer"></script></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/10913#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/10913#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>redis入门：介绍、特点、安装、各类型常用操作</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        redis入门：介绍、特点、安装、各类型常用操作
+        <span class="type">原创</span>        </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2016-07-23 15:46:50</span>
+                <span class="spacer l spacer-2">3013浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/10913#comment">4评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <strong style="display:block;font-size:22px;margin:22px 0 10px">一、redis介绍</strong>
+<p>Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。</p>
+<p>Redis支持多种类型的数据结构，如 字符串（strings）， 散列（hashes）， 列表（lists）， 集合（sets）， 有序集合（sorted sets） ， bitmaps（一串连续的2进制数字）， hyperloglogs （一个概率统计的数据结构，可以被用来估计一个集合的基数）和 地理空间（geospatial） 索引半径查询。 </p>
+<p>Redis 内置了 复制（replication），LUA脚本（Lua scripting）， LRU驱动事件（LRU eviction），事务（transactions） 和不同级别的 磁盘持久化（persistence）， 并通过 Redis哨兵（Sentinel）和自动 分区（Cluster）提供高可用性（high availability）。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">二、redis特点</strong>
+<p>通过上面的介绍可以看到，Redis有以下特点：</p>
+<p>1、支持丰富的数据结构和命令</p>
+<p>2、支持数据持久化（硬盘上）</p>
+<p>3、支持事务</p>
+<p>4、值最大可到512M</p>
+<p>5、支持集群部署（3.0开始自带）</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">三、ubuntu下安装</strong>
+<p>由于 redis 主要用来作服务器上的缓存和消息队列，主要也是针对linux系统开发的，所以这里也只介绍如何在linux系统（本文用的是ubuntu环境）下安装（windows系统上也是可以安装的，可自行google）</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com"># apt-get install redis-server</span></code></pre>
+<p>安装完成后，redis会自动启动，我们可以通过下面的命令查看：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com"># ps -aux  grep redis</span><span class="pln">
+root      </span><span class="lit">2846</span><span class="pln">  </span><span class="lit">0.0</span><span class="pln">  </span><span class="lit">0.0</span><span class="pln">  </span><span class="lit">11740</span><span class="pln">   </span><span class="lit">936</span><span class="pln"> pts</span><span class="pun">/</span><span class="lit">0</span><span class="pln">    S</span><span class="pun">+</span><span class="pln">   </span><span class="lit">00</span><span class="pun">:</span><span class="lit">59</span><span class="pln">   </span><span class="lit">0</span><span class="pun">:</span><span class="lit">00</span><span class="pln"> grep </span><span class="pun">--</span><span class="pln">color</span><span class="pun">=</span><span class="kwd">auto</span><span class="pln"> redis
+redis    </span><span class="lit">17170</span><span class="pln">  </span><span class="lit">0.0</span><span class="pln">  </span><span class="lit">0.3</span><span class="pln">  </span><span class="lit">39844</span><span class="pln">  </span><span class="lit">7184</span><span class="pln"> </span><span class="pun">?</span><span class="pln">        </span><span class="typ">Ssl</span><span class="pln">  </span><span class="typ">Jun12</span><span class="pln">  </span><span class="lit">15</span><span class="pun">:</span><span class="lit">31</span><span class="pln"> </span><span class="pun">/</span><span class="pln">usr</span><span class="pun">/</span><span class="pln">bin</span><span class="pun">/</span><span class="pln">redis</span><span class="pun">-</span><span class="pln">server </span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span></code></pre>
+<p>还可以通过netstat查看6379（redis默认端口）端口监听情况：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com"># netstat -nlt  grep 6379</span><span class="pln">
+tcp        </span><span class="lit">0</span><span class="pln">      </span><span class="lit">0</span><span class="pln"> </span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pln">          </span><span class="lit">0.0</span><span class="pun">.</span><span class="lit">0.0</span><span class="pun">:*</span><span class="pln">               LISTEN</span></code></pre>
+<p>通过以上命令我们可以看到redis已经正确实装并启用了。</p>
+<p>安装了redis服务端后，会自带安装一个命令行客户端程序 redis-cli，直接输入 redis-cli就可以启动：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com"># redis-cli</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span></code></pre>
+<p>以下内容中的代码部分就可以在这里验证。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">四、各类型常用操作</strong>
+<p><strong>1、String类型常用操作</strong></p>
+<p>Strings 数据结构是简单的key-value类型，value其实不仅是String，也可以是数字，常用的命令有：</p>
+<ul>
+<li>set：新增或修改记录</li>
+<li>get：查看获取（打印）记录</li>
+<li>decr：原子递减（此时value为数字）</li>
+<li>incr：原子递增（此时value为数字）</li>
+<li>mset：批量写入</li>
+<li>mget：批量读取</li>
+</ul>
+<p>部分命令演示：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com"># redis-cli</span><span class="pln">
+</span><span class="com">//新增记录</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">set</span><span class="pln"> name imooc
+OK
+</span><span class="com">//读取记录</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> name
+</span><span class="str">"imooc"</span><span class="pln">
+</span><span class="com">//修改记录</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">set</span><span class="pln"> name imooc2
+OK
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> name
+</span><span class="str">"imooc2"</span><span class="pln">
+</span><span class="com">//value也可以是数字</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">set</span><span class="pln"> age </span><span class="lit">20</span><span class="pln">
+OK
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">get</span><span class="pln"> age
+</span><span class="str">"20"</span><span class="pln">
+</span><span class="com">//原子递减</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> decr age
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">19</span><span class="pln">
+</span><span class="com">//原子递增</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> incr age
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">20</span><span class="pln">
+</span><span class="com">//批量新增</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> mset sex man city wuhan 
+OK
+</span><span class="com">//批量读取</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> mget sex city
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"man"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"wuhan"</span></code></pre>
+<p><strong>2、hash类型常用操作</strong></p>
+<p>Redis的Hash实际是内部存储的Value为一个HashMap，并提供了直接存取这个Map成员的接口，常用的命令有：</p>
+<ul>
+<li>hset key field value：将哈希表 key 中的字段 field 的值设为 value </li>
+<li>hget key field：获取存储在哈希表中指定字段的值</li>
+<li>hdel key field2 [field2]：删除一个或多个哈希表字段</li>
+<li>hkeys key：获取所有哈希表中的字段</li>
+<li>hvals key：获取哈希表中所有值</li>
+<li>hexists key field：查看哈希表 key 中，指定的字段是否存在</li>
+<li>hgetall key：获取在哈希表中指定 key 的所有字段和值</li>
+<li>hlen key：获取哈希表中字段的数量</li>
+<li>hmset key field1 value1 [field2 value2 ]：同时将多个 field-value (域-值)对设置到哈希表 key 中</li>
+<li>hmget key field1 [field2]：获取所有给定字段的值</li>
+</ul>
+<p>部分命令演示：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com">//新增HASH</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> hset user1 name atwal
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">0</span><span class="pln">
+</span><span class="com">//获取HASH值</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> hget user1 name
+</span><span class="str">"atwal"</span><span class="pln">
+</span><span class="com">//增加HASH值</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> hset user1 city wuhan
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+</span><span class="com">//批量增加HASH值</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> hmset user1 work coder language php
+OK
+</span><span class="com">//获取所有HASH字段和值</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> hgetall user1
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"name"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"atwal"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"city"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"wuhan"</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> </span><span class="str">"work"</span><span class="pln">
+</span><span class="lit">6</span><span class="pun">)</span><span class="pln"> </span><span class="str">"coder"</span><span class="pln">
+</span><span class="lit">7</span><span class="pun">)</span><span class="pln"> </span><span class="str">"language"</span><span class="pln">
+</span><span class="lit">8</span><span class="pun">)</span><span class="pln"> </span><span class="str">"php"</span><span class="pln">
+</span><span class="com">//删除某个字段</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> hdel user1 language
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> hgetall user1
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"name"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"atwal"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"city"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"wuhan"</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> </span><span class="str">"work"</span><span class="pln">
+</span><span class="lit">6</span><span class="pun">)</span><span class="pln"> </span><span class="str">"coder"</span></code></pre>
+<p><strong>3、list类型常用操作</strong></p>
+<p>Redis list的实现为一个双向链表，即可以支持反向查找和遍历，更方便操作，不过带来了部分额外的内存开销，常用命令：</p>
+<ul>
+<li>lpop key：移出并获取列表的第一个元素</li>
+<li>lpush key value1 [value2]：将一个或多个值插入到列表头部</li>
+<li>lpushx key value：将值value插入到列表key的表头，当且仅当key存在并且是一个列表</li>
+<li>rpop key：移除并获取列表最后一个元素</li>
+<li>rpush key value1 [value2]：在列表中添加一个或多个值</li>
+<li>rpushx key value：为已存在的列表添加值</li>
+<li>lrange key start stop：获取列表指定范围内的元素，lrange key 0 -1 表示输出所有元素</li>
+<li>lrem key count value：根据参数count的值（count &gt; 0:从表头向表尾搜索，数量为count，count &lt; 0从表尾向表头搜索，数量为count的绝对值，count = 0 移除表中所有与value相等的值），移除列表中与参数value相等的元素</li>
+<li>lset key index value：通过索引设置列表元素的值</li>
+<li>lindex key index：通过索引获取列表中的元素</li>
+<li>llen key：获取列表长度</li>
+</ul>
+<p>部分命令演示：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com">//加个多个元素到列表msg</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lpush msg m i d e h k
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">6</span><span class="pln">
+</span><span class="com">//向列表头部添加a元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lpushx msg a
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">7</span><span class="pln">
+</span><span class="com">//输出列表</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lrange msg </span><span class="lit">0</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"a"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"k"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"h"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"e"</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> </span><span class="str">"d"</span><span class="pln">
+</span><span class="lit">6</span><span class="pun">)</span><span class="pln"> </span><span class="str">"i"</span><span class="pln">
+</span><span class="lit">7</span><span class="pun">)</span><span class="pln"> </span><span class="str">"m"</span><span class="pln">
+</span><span class="com">//移除列表第一个元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lpop msg
+</span><span class="str">"a"</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lrange msg </span><span class="lit">0</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"k"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"h"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"e"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"d"</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> </span><span class="str">"i"</span><span class="pln">
+</span><span class="lit">6</span><span class="pun">)</span><span class="pln"> </span><span class="str">"m"</span><span class="pln">
+</span><span class="com">//移除列表最后一个元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> rpop msg
+</span><span class="str">"m"</span><span class="pln">
+</span><span class="com">//向列表尾部添加rm元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> rpush msg rm
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">6</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lrange msg </span><span class="lit">0</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"k"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"h"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"e"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"d"</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> </span><span class="str">"i"</span><span class="pln">
+</span><span class="lit">6</span><span class="pun">)</span><span class="pln"> </span><span class="str">"rm"</span><span class="pln">
+</span><span class="com">//删除值为d的元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lrem msg </span><span class="lit">0</span><span class="pln"> d
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lrange msg </span><span class="lit">0</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"k"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"h"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"e"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"i"</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> </span><span class="str">"rm"</span><span class="pln">
+</span><span class="com">//修改第二个元素为hello</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lset msg </span><span class="lit">1</span><span class="pln"> hello
+OK
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lrange msg </span><span class="lit">0</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"k"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"hello"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"e"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"i"</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> </span><span class="str">"rm"</span><span class="pln">
+</span><span class="com">//获取第二个位置元素值</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> lindex msg </span><span class="lit">1</span><span class="pln">
+</span><span class="str">"hello"</span><span class="pln">
+</span><span class="com">//获取列表元素个数</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> llen msg
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">5</span></code></pre>
+<p><strong>4、set类型常用操作</strong></p>
+<p>Set是string类型的无序集合。集合成员是唯一的。常用命令：</p>
+<ul>
+<li>sadd key member1 [member2]：向集合添加一个或多个成员</li>
+<li>sdiff key1 [key2]：返回给定所有集合的差集</li>
+<li>sdiffstore destination key1 [key2]：返回给定所有集合的差集并存储在 destination 中</li>
+<li>sinter key1 [key2]：返回给定所有集合的交集</li>
+<li>sinterstore destination key1 [key2]：返回给定所有集合的交集并存储在 destination 中</li>
+<li>sunion key1 [key2]：返回所有给定集合的并集</li>
+<li>sunionstore destination key1 [key2]：所有给定集合的并集存储在 destination 集合中</li>
+<li>smove source destination member：将 member 元素从 source 集合移动到 destination 集合</li>
+<li>spop key：移除并返回集合中的一个随机元素</li>
+<li>srandmember key [count]：返回集合中一个或多个随机数</li>
+<li>srem key member1 [member2]：移除集合中一个或多个成员</li>
+<li>smembers key：返回集合中的所有成员</li>
+<li>sismember key member：判断 member 元素是否是集合 key 的成员</li>
+<li>scard key：获取集合的成员数</li>
+</ul>
+<p>部分命令演示：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com">//添加a b c d到follow集合中</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> sadd follow a b c d
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">4</span><span class="pln">
+</span><span class="com">//添加c d e f到fans集合中</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> sadd fans c d e f
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">4</span><span class="pln">
+</span><span class="com">//计算follow集合与fans集合的差集</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> sdiff follow fans
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"a"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"b"</span><span class="pln">
+</span><span class="com">//计算follow集合与fans集合的交集</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> sinter follow fans
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"d"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"c"</span><span class="pln">
+</span><span class="com">//计算follow集合与fans集合的并集</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> sunion follow fans
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"f"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"d"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"b"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"a"</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> </span><span class="str">"e"</span><span class="pln">
+</span><span class="lit">6</span><span class="pun">)</span><span class="pln"> </span><span class="str">"c"</span><span class="pln">
+</span><span class="com">//从follow集合中随机删除一个元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> spop follow
+</span><span class="str">"a"</span><span class="pln">
+</span><span class="com">//从follow集合中随机删除一个元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> spop follow
+</span><span class="str">"b"</span><span class="pln">
+</span><span class="com">//follow集合的所有元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> smembers follow
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"d"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"c"</span><span class="pln">
+</span><span class="com">//fans集合的所有元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> smembers fans
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"e"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"f"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"d"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"c"</span></code></pre>
+<p><strong>5、Sorted Set类型常用操作</strong></p>
+<p>Sorted Set和Set一样也是string类型元素的集合,且不允许重复的成员。不同的是Sorted Set每个元素都会关联一个double类型的分数。redis正是通过分数来为集合中的成员进行从小到大的排序。常用命令：</p>
+<ul>
+<li>zadd key score1 member1 [score2 member2]：向有序集合添加一个或多个成员，或者更新已存在成员的分数</li>
+<li>zcard key：获取有序集合的成员数</li>
+<li>zcount key min max：计算在有序集合中指定区间分数的成员数</li>
+<li>zrange key start stop [withscores]：通过索引区间返回有序集合成指定区间内的成员</li>
+<li>zremrange key start stop [withscores]：返回有序集中指定区间内的成员，通过索引，分数从高到底</li>
+<li>zrangebyscore key min max [withscores] [limit]：通过分数返回有序集合指定区间内的成员</li>
+<li>zremrangebyscore key min max：移除有序集合中给定的分数区间的所有成员</li>
+<li>zrank key member：返回有序集合中指定成员的索引</li>
+<li>zrevrank key member：返回有序集合中指定成员的排名，有序集成员按分数值递减(从大到小)排序</li>
+<li>zrem key member [member ...]：移除有序集合中的一个或多个成员</li>
+<li>zremrangebyrank key start stop：移除有序集合中给定的排名区间的所有成员</li>
+<li>zrevrangebyscore key max min [withscores]：返回有序集中指定分数区间内的成员，分数从高到低排序</li>
+<li>zscore key member：返回有序集中，成员的分数值</li>
+</ul>
+<p>部分命令演示：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com">//创建有序列表score</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> zadd score </span><span class="lit">90</span><span class="pln"> jim </span><span class="lit">95</span><span class="pln"> lily
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">2</span><span class="pln">
+</span><span class="com">//获取成员数</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> zcard score
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">2</span><span class="pln">
+</span><span class="com">//获取 0 到 100 分之间的元素个数</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> zcount score </span><span class="lit">0</span><span class="pln"> </span><span class="lit">100</span><span class="pln">
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">2</span><span class="pln">
+</span><span class="com">//获取lily索引</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> zrank score lily
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+</span><span class="com">//获取jim分数</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> zscore score jim
+</span><span class="str">"90"</span><span class="pln">
+</span><span class="com">//获取索引0 1之间的带分数元素</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> zrange score </span><span class="lit">0</span><span class="pln"> </span><span class="lit">1</span><span class="pln"> withscores
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"jim"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"90"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"lily"</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="str">"95"</span></code></pre>
+<p><strong>6、Pub/Sub类型常用操作</strong></p>
+<p>Pub/Sub（发布/订阅）是一种消息通信模式：发送者(pub)发送消息，订阅者(sub)接收消息，可用于实时消息系统。常用命令：</p>
+<ul>
+<li>subscribe channel [channel ...]：订阅给定的一个或多个频道的信息。</li>
+<li>unsubscribe [channel [channel ...]]：指退订给定的频道。</li>
+<li>publish channel message：将信息发送到指定的频道。</li>
+<li>pubsub subcommand [argument [argument ...]]：查看订阅与发布系统状态。</li>
+</ul>
+<p>命令演示：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com">//先在终端1上订阅频道im</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> subscribe im 
+</span><span class="typ">Reading</span><span class="pln"> messages</span><span class="pun">...</span><span class="pln"> </span><span class="pun">(</span><span class="pln">press </span><span class="typ">Ctrl</span><span class="pun">-</span><span class="pln">C to quit</span><span class="pun">)</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"subscribe"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"im"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+
+</span><span class="com">//在终端2上im频道上发布消息</span><span class="pln">
+</span><span class="com"># redis-cli</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> publish im hello
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> publish im hi
+</span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">1</span><span class="pln">
+
+</span><span class="com">//终端1上显示收到的消息</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"message"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"im"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"hello"</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> </span><span class="str">"message"</span><span class="pln">
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> </span><span class="str">"im"</span><span class="pln">
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="str">"hi"</span></code></pre>
+<p><strong>7、Transactions事务</strong></p>
+<p>Transactions可以一次执行多个命令， 并且带有以下两个重要的保证：</p>
+<ul>
+<li>事务是一个单独的隔离操作：事务中的所有命令都会序列化、按顺序地执行。事务在执行的过程中，不会被其他客户端发送来的命令请求所打断。</li>
+<li>事务是一个原子操作：事务中的命令要么全部被执行，要么全部都不执行。</li>
+</ul>
+<p>一个事务从开始到执行会经历以下三个阶段：</p>
+<ul>
+<li>开始事务。</li>
+<li>命令入队。</li>
+<li>执行事务。</li>
+</ul>
+<p>常用命令：</p>
+<ul>
+<li>multi：标记一个事务块的开始。</li>
+<li>exec：执行所有事务块内的命令。</li>
+<li>discard：取消事务，放弃执行事务块内的所有命令。</li>
+<li>watch key [key ...]：监视一个(或多个) key ，如果在事务执行之前这个(或这些) key 被其他命令所改动，那么事务将被打断。</li>
+<li>unwatch：取消 WATCH 命令对所有 key 的监视。</li>
+</ul>
+<p>命令演示：</p>
+<pre class="prettyprint"><code><span class="pln">
+</span><span class="com">//开始一个事务</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> multi
+OK
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">set</span><span class="pln"> name imooc
+QUEUED
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">set</span><span class="pln"> age </span><span class="lit">20</span><span class="pln">
+QUEUED
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> incr age
+QUEUED
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> incr age
+QUEUED
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> hmset user1 name atwal city wuhan
+QUEUED
+</span><span class="com">//执行上面事务块内的所有命令</span><span class="pln">
+</span><span class="lit">127.0</span><span class="pun">.</span><span class="lit">0.1</span><span class="pun">:</span><span class="lit">6379</span><span class="pun">&gt;</span><span class="pln"> </span><span class="kwd">exec</span><span class="pln">
+</span><span class="lit">1</span><span class="pun">)</span><span class="pln"> OK
+</span><span class="lit">2</span><span class="pun">)</span><span class="pln"> OK
+</span><span class="lit">3</span><span class="pun">)</span><span class="pln"> </span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">21</span><span class="pln">
+</span><span class="lit">4</span><span class="pun">)</span><span class="pln"> </span><span class="pun">(</span><span class="pln">integer</span><span class="pun">)</span><span class="pln"> </span><span class="lit">22</span><span class="pln">
+</span><span class="lit">5</span><span class="pun">)</span><span class="pln"> OK</span></code></pre>
+<p>以上只是redis的基本用法，redis还有很多高级用法，如数据的备份恢复，安全，在PHP中使用等等，这些内容留在下次再分享吧:)</p>
+        </div>
+                <p class="original">本文原创发布于慕课网 ，转载请注明出处，谢谢合作！</p>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/20" target="_blank">Linux</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/291215/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/545847490001582602200220-100-100.jpg" title="realmoon">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1231828/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/545861e40001199702200220-100-100.jpg" title="奋斗IT">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2120966/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/54584c86000151a502200220-100-100.jpg" title="himly">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2418122/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/5611323900017dec06400640-100-100.jpg" title="大长脸">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2456615/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/5628de14000129f102790279-100-100.jpg" title="Mr_lan">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2627668/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/545850a00001fdd002200220-100-100.jpg" title="feiyanger">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3575248/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/57725a7400010d6901000100-100-100.jpg" title="qq_逃跑计划_23575248">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3580665/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/5333a17a0001592502000200-100-100.jpg" title="jiexunniao">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3895455/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/54584d7300011cfa02200220-100-100.jpg" title="慕粉1950426779">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/5034745/articles">                                                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/54584c5e0001491102200220-100-100.jpg" title="慕粉1556308088">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">49</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292554045">
+                                    <a href="http://www.imooc.com/article/10913#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/10913#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/10913#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="10913" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <ul></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title" style="display: none;">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list" style="display: none;">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i>4</i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list">
+            
+        <div id="js-feedback-list"><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/297132/articles"><img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/567287fd0001c8b201180120-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/297132/articles" target="_blank">AverageJoeWang</a><span class="com-floor r">4F</span></div><div class="feed-list-content"><p></p><p>类似ps -aux grep redis这样的grep前面应该有|符号<br></p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-12-13 14:25:06</span><span class="reply-btn" data-commentid="34163" data-uid="297132" data-username="AverageJoeWang">回复</span><span class="agree-with r" data-commentid="34163" data-uid="297132" data-username="AverageJoeWang"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/10913" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="297132" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/433163/articles"><img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/5436690400018a0001000100-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/433163/articles" target="_blank">风刃</a><span class="com-floor r">3F</span></div><div class="feed-list-content"><p></p><p dir="ltr">不错，谢谢分享。。。。。</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-07-27 23:54:57</span><span class="reply-btn" data-commentid="29135" data-uid="433163" data-username="风刃">回复</span><span class="agree-with r" data-commentid="29135" data-uid="433163" data-username="风刃"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/10913" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="433163" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/261388/articles"><img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/53e4937800015f4501000100-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/261388/articles" target="_blank">晚安</a><span class="com-floor r">2F</span></div><div class="feed-list-content"><p></p><p>血的经验和教训，一定要禁用远程端口连接，要设置密码。不要问我被勒索了几个比特币</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-07-26 23:24:32</span><span class="reply-btn" data-commentid="28897" data-uid="261388" data-username="晚安">回复</span><span class="agree-with r" data-commentid="28897" data-uid="261388" data-username="晚安"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/10913" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="261388" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/315791/articles"><img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/56dd24430001385119201080-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/315791/articles" target="_blank">atwal</a><i class="user-icon great" title="认证作者"></i><span class="com-floor r">1F</span></div><div class="feed-list-content"><p></p><p>markdown格式还是有些问题，代码段首行跟段落一样有缩进，列表间隔太大，看起来很不舒服，希望能尽快改进</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-07-23 15:51:05</span><span class="reply-btn" data-commentid="28675" data-uid="315791" data-username="atwal">回复</span><span class="agree-with r" data-commentid="28675" data-uid="315791" data-username="atwal"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/3602692/articles"><img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/578d93110001ba3802560256-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/3602692/articles" class="from-user">手记慕慕酱</a> 回复 <a href="http://www.imooc.com/u/315791/articles" class="to-user">atwal</a>：<span class="feed-list-time r"> 2016-07-25 12:54:04</span><p>记下了，这个问题我们已经反馈给产品部了，正在调整升级！</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="28675" data-uid="3602692" data-username="手记慕慕酱">回复</span></div></div></div></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/10913" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="315791" class="release-reply-btn">提交</div></div></div></div></div></div></div></div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page" style="display: none;"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/315791/articles" class="l" title="atwal" target="_blank">
+                <img src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/56dd24430001385119201080-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/315791/articles" title="atwal" target="_blank">
+            atwal
+            </a>
+                                    <i class="user-icon great" title="认证作者"></i>
+                   
+                    </p>
+       
+        <span class="user-job">全栈工程师</span>
+        <span class="user-desc">
+            coder
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/315791/articles" target="_blank" class="article-num r-bor l">
+                <span></span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/315791/articles?type=praise" target="_blank" class="article-recom l">
+                <span></span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/6451" title="别再抱怨了，国内这么多优秀的Android资源你都知道吗？"><h3>别再抱怨了，国内这么多优秀的Android资源你都知道吗？</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">11498浏览</span>
+                    <span class="spacer l spacer-2">181推荐</span>
+                    <span class="spacer l" href="">18评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/5047" title="android中的AIDL学习笔记"><h3>android中的AIDL学习笔记</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">3088浏览</span>
+                    <span class="spacer l spacer-2">26推荐</span>
+                    <span class="spacer l" href="">3评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4905" title="lua基础知识笔记"><h3>lua基础知识笔记</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">1601浏览</span>
+                    <span class="spacer l spacer-2">28推荐</span>
+                    <span class="spacer l" href="">0评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/11205" title="Redis进阶：数据持久化，安全，在PHP中使用"><h3>Redis进阶：数据持久化，安全，在PHP中使用</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">2031浏览</span>
+                    <span class="spacer l spacer-2">21推荐</span>
+                    <span class="spacer l" href="">2评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/5463" title="android中的文件（图片）上传"><h3>android中的文件（图片）上传</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">4392浏览</span>
+                    <span class="spacer l spacer-2">21推荐</span>
+                    <span class="spacer l" href="">0评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img border="0" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/21.gif" width="20" height="20"></a>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/user"></script><script type="text/javascript" src="./redis入门：介绍、特点、安装、各类型常用操作_慕课手记_files/iplookup.php"></script>
+
+
+<div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div></body></html>

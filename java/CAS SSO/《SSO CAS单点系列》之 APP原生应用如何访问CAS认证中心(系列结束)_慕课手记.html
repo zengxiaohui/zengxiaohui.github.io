@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://www.imooc.com/article/4200 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="作者： 常明，Java架构师 [请尊重原创，盗版必究，转载请指明出处] 一个系列结束了，也到了快过年了，提前半个月祝大家新年快乐，万事大吉，年后回来年前程序无BUG，跳槽薪资翻倍。">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/moco.min.css" type="text/css">
+
+<script src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/push.js.下载"></script><script type="text/javascript" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "4200",
+    praiseNum:"14"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '2245641'
+}
+</script>
+
+<link rel="stylesheet" href="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/moco.min.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/mo.min.js.下载"></script><script src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/share.js.下载"></script><link id="syntaxhighlighter_css" rel="stylesheet" type="text/css" href="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/shCoreDefault.css"><script id="syntaxhighlighter_js" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/shCore.js.下载" type="text/javascript" defer="defer"></script><link rel="stylesheet" href="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/share_style0_16.css"></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/4200#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/4200#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)
+                </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2016-01-20 18:09:02</span>
+                <span class="spacer l spacer-2">15100浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/4200#comment">7评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <p>作者： 常明，Java架构师<br>
+[请尊重原创，盗版必究，转载请指明出处]</p>
+<p>一个系列结束了，也到了快过年了，提前半个月祝大家新年快乐，万事大吉，年后回来年前程序无BUG，跳槽薪资翻倍。早日找到女朋友。。。。。。</p>
+<p><img title="《SSOCAS单点系列》之APP原生应用如何访问CAS认证中心(系列结束)_" 图片1="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/569f5b6f0001402516461050.jpg" alt="图片描述"></p>
+<hr>
+<p>前面系列文章讨论的CAS，确切地说是Web SSO解决方案，应用系统是Web系统，即B/S模式。</p>
+<p>在移动互联网应用大趋势下，传统互联网应用都在向移动化方向延伸。</p>
+<p>移动应用不仅包括移动Web应用(触屏版、H5应用)，更多的是Native APP原生应用(安卓、苹果等APP)，即软件架构是C/S模式。</p>
+<p>对于CAS认证中心管控的Web应用群，如何将这些原生APP应用纳入其中？</p>
+<p>由于没有Web应用浏览器天然所具有的处理Cookie、处理HTTP重定向能力，原生APP的登录会话管理一般采用自主开发。</p>
+<p>在服务器端创建并保持会话，将会话句柄返给APP客户端持有，后续需要登录后访问的API均需带上这个会话句柄作为请求的一个参数。这个会话句柄和我们Java Web应用的jsessionid很类似。</p>
+<p>上述是Native APP登录管理的实现方式，那如何接入CAS认证中心呢？可以有两种方式：一种是APP直接访问CAS认证中心，先得到TGT，再得到ST。APP拿到ST后，就可以访问配置成CAS Client的移动服务端应用，服务端和认证中心验证过ST后，即可按上述方式建立起本地会话。</p>
+<p>另一种方式可采用服务端代理模式，即APP先向移动服务端应用提交登录请求，服务端再向CAS认证中心登录认证。这种方式将CAS认证中心的非浏览器登录接口只暴露给移动服务端应用，起到很好的安全防护功能。本文将采用第二种方式给大家示范。</p>
+<p>CAS提供了一个支持RESTful风格API的插件，4.1.1新版是cas-server-support-rest，老版是cas-server-integration-restlet 可以获得TGT和ST。</p>
+<p>这里我们使用另外一种方式，不用CAS插件，思路和《<a href="http://www.imooc.com/article/4017" target="_blank" rel="nofollow">支持Web应用跨域登录CAS</a>》文章介绍类似，通过修改login-webflow流程返回JSON格式View。由于是服务端代理模式，不必返回ST，认证成功即可建立本地会话了。</p>
+<p>下面，我们就一步步加以实现:</p>
+<p>1.改造login-webflow.xml，增加Native APP登录处理流程分支(在基于前面文章增加rlogin流程基础上修改)</p>
+<p>在流程初始化处理完成后，增加一新节点mode，它首先来检查登录请求中是否包含一个变量mode,并且mode的值为app。如果没有，就继续走原常规流程。如果有，说明是Native APP登录处理情况。<code>&lt;on-start&gt;</code> 后加入如下分支流程定义：</p>
+<pre class="prettyprint"><code><span class="tag">&lt;action-state</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"mode"</span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;evaluate</span><span class="pln"> </span><span class="atn">expression</span><span class="pun">=</span><span class="atv">"modeCheckAction.check(flowRequestContext)"</span><span class="tag">/&gt;</span><span class="pln">   
+ </span><span class="tag">&lt;transition</span><span class="pln"> </span><span class="atn">on</span><span class="pun">=</span><span class="atv">"rlogin"</span><span class="pln"> </span><span class="atn">to</span><span class="pun">=</span><span class="atv">"serviceAuthorizationCheckR"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;transition</span><span class="pln"> </span><span class="atn">on</span><span class="pun">=</span><span class="atv">"app"</span><span class="pln"> </span><span class="atn">to</span><span class="pun">=</span><span class="atv">"serviceAuthorizationCheckR"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;transition</span><span class="pln"> </span><span class="atn">on</span><span class="pun">=</span><span class="atv">"normal"</span><span class="pln"> </span><span class="atn">to</span><span class="pun">=</span><span class="atv">"ticketGrantingTicketCheck"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln"> 
+</span><span class="tag">&lt;/action-state&gt;</span></code></pre>
+<p>产生lt后，我们要做个判断，看是app情况还是rlogin情况，app走app处理流程。</p>
+<pre class="prettyprint"><code><span class="tag">&lt;action-state</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"generateLoginTicketR"</span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;evaluate</span><span class="pln"> </span><span class="atn">expression</span><span class="pun">=</span><span class="atv">"generateLoginTicketAction.generate(flowRequestContext)"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;transition</span><span class="pln"> </span><span class="atn">on</span><span class="pun">=</span><span class="atv">"generated"</span><span class="pln"> </span><span class="atn">to</span><span class="pun">=</span><span class="atv">"modeCheckForLt"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/action-state&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;decision-state</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"modeCheckForLt"</span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;if</span><span class="pln"> </span><span class="atn">test</span><span class="pun">=</span><span class="atv">"flowScope.mode != null &amp;&amp; flowScope.mode == 'rlogin'"</span><span class="pln"> </span><span class="atn">then</span><span class="pun">=</span><span class="atv">"rLoginTicket"</span><span class="pln"> </span><span class="atn">else</span><span class="pun">=</span><span class="atv">"appLoginTicket"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/decision-state&gt;</span></code></pre>
+<p>增加appLoginTicket，注意它的输出视图是appLoginTicket。这和rlogin情况的输出视图不同。</p>
+<pre class="prettyprint"><code><span class="tag">&lt;view-state</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"appLoginTicket"</span><span class="pln"> </span><span class="atn">view</span><span class="pun">=</span><span class="atv">"appLoginTicket"</span><span class="pln">  </span><span class="atn">model</span><span class="pun">=</span><span class="atv">"credential"</span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;binder&gt;</span><span class="pln">
+  </span><span class="tag">&lt;binding</span><span class="pln"> </span><span class="atn">property</span><span class="pun">=</span><span class="atv">"username"</span><span class="pln"> </span><span class="atn">required</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+  </span><span class="tag">&lt;binding</span><span class="pln"> </span><span class="atn">property</span><span class="pun">=</span><span class="atv">"password"</span><span class="pln"> </span><span class="atn">required</span><span class="pun">=</span><span class="atv">"true"</span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;/binder&gt;</span><span class="pln">
+ </span><span class="tag">&lt;on-entry&gt;</span><span class="pln">
+  </span><span class="tag">&lt;set</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"viewScope.commandName"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"'credential'"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;/on-entry&gt;</span><span class="pln">
+ </span><span class="tag">&lt;transition</span><span class="pln"> </span><span class="atn">on</span><span class="pun">=</span><span class="atv">"submit"</span><span class="pln"> </span><span class="atn">bind</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"> </span><span class="atn">validate</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"> </span><span class="atn">to</span><span class="pun">=</span><span class="atv">"realSubmitWithRLogin"</span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;evaluate</span><span class="pln"> </span><span class="atn">expression</span><span class="pun">=</span><span class="atv">"authenticationViaRFormAction.doBind(flowRequestContext, flowScope.credential)"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;/transition&gt;</span><span class="pln">
+</span><span class="tag">&lt;/view-state&gt;</span></code></pre>
+<p>登录认证信息提交后,需要根据mode返回不同的VIEW，app模式返回appRes,rlogin模式返回rLoginRes，故修改节点如下：</p>
+<pre class="prettyprint"><code><span class="tag">&lt;action-state</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"sendTicketGrantingTicketR"</span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;evaluate</span><span class="pln"> </span><span class="atn">expression</span><span class="pun">=</span><span class="atv">"sendTicketGrantingTicketAction"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+ </span><span class="tag">&lt;transition</span><span class="pln"> </span><span class="atn">on</span><span class="pun">=</span><span class="atv">"success"</span><span class="pln"> </span><span class="atn">to</span><span class="pun">=</span><span class="atv">"modeCheck"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/action-state&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;decision-state</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"modeCheck"</span><span class="tag">&gt;</span><span class="pln">
+ </span><span class="tag">&lt;if</span><span class="pln"> </span><span class="atn">test</span><span class="pun">=</span><span class="atv">"flowScope.mode != null &amp;&amp; flowScope.mode == 'rlogin'"</span><span class="pln"> </span><span class="atn">then</span><span class="pun">=</span><span class="atv">"rLoginRes"</span><span class="pln"> </span><span class="atn">else</span><span class="pun">=</span><span class="atv">"appRes"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;/decision-state&gt;</span><span class="pln">
+
+</span><span class="tag">&lt;end-state</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"rLoginRes"</span><span class="pln"> </span><span class="atn">view</span><span class="pun">=</span><span class="atv">"rLoginRes"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+</span><span class="tag">&lt;end-state</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"appRes"</span><span class="pln"> </span><span class="atn">view</span><span class="pun">=</span><span class="atv">"appRes"</span><span class="pln"> </span><span class="tag">/&gt;</span></code></pre>
+<p>2.增加appLoginTicket和appRes新视图</p>
+<p>在nebula_views.properties中添加(原始是default_views.properties)：</p>
+<pre class="prettyprint"><code><span class="pln">appLoginTicket</span><span class="pun">.(</span><span class="kwd">class</span><span class="pun">)=</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">view</span><span class="pun">.</span><span class="typ">JstlView</span><span class="pln">
+appLoginTicket</span><span class="pun">.</span><span class="pln">url</span><span class="pun">=</span><span class="str">/WEB-INF/</span><span class="pln">view</span><span class="pun">/</span><span class="pln">jsp</span><span class="pun">/</span><span class="pln">nebula</span><span class="pun">/</span><span class="pln">ui</span><span class="pun">/</span><span class="pln">appLoginTicket</span><span class="pun">.</span><span class="pln">jsp
+
+appRes</span><span class="pun">.(</span><span class="kwd">class</span><span class="pun">)=</span><span class="pln">org</span><span class="pun">.</span><span class="pln">springframework</span><span class="pun">.</span><span class="pln">web</span><span class="pun">.</span><span class="pln">servlet</span><span class="pun">.</span><span class="pln">view</span><span class="pun">.</span><span class="typ">JstlView</span><span class="pln">
+appRes</span><span class="pun">.</span><span class="pln">url</span><span class="pun">=</span><span class="str">/WEB-INF/</span><span class="pln">view</span><span class="pun">/</span><span class="pln">jsp</span><span class="pun">/</span><span class="pln">nebula</span><span class="pun">/</span><span class="pln">ui</span><span class="pun">/</span><span class="pln">appRes</span><span class="pun">.</span><span class="pln">jsp</span></code></pre>
+<p>同时在相应目录下创建这两个文件，文件内容如下：</p>
+<p>appLoginTicket.jsp</p>
+<pre class="prettyprint"><code><span class="pun">&lt;%@</span><span class="pln"> page contentType</span><span class="pun">=</span><span class="str">"text/html; charset=UTF-8"</span><span class="pln">%&gt;
+</span><span class="pun">&lt;%</span><span class="kwd">out</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">(</span><span class="str">"{\"lt\":\""</span><span class="pun">);</span><span class="pln">%&gt;${loginTicket}</span><span class="pun">&lt;%</span><span class="kwd">out</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">(</span><span class="str">"\",\"execution\":\""</span><span class="pun">);</span><span class="pln">%&gt;${flowExecutionKey}</span><span class="pun">&lt;%</span><span class="kwd">out</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">(</span><span class="str">"\"}"</span><span class="pun">);</span><span class="pln">%&gt;</span></code></pre>
+<p>appLoginRes.jsp</p>
+<pre class="prettyprint"><code><span class="pun">&lt;%@</span><span class="pln"> page contentType</span><span class="pun">=</span><span class="str">"text/html; charset=UTF-8"</span><span class="pln">%&gt;
+</span><span class="pun">&lt;%</span><span class="kwd">out</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">(</span><span class="str">"{\"ret\":\""</span><span class="pun">);</span><span class="pln">%&gt;${ret}</span><span class="pun">&lt;%</span><span class="kwd">out</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">(</span><span class="str">"\",\"msg\":\""</span><span class="pun">);</span><span class="pln">%&gt;${msg}</span><span class="pun">&lt;%</span><span class="kwd">out</span><span class="pun">.</span><span class="kwd">print</span><span class="pun">(</span><span class="str">"\"}"</span><span class="pun">);</span><span class="pln">%&gt;</span></code></pre>
+<p>3.修改modeCheckAction内容，增加处理app情况，核心代码如下：</p>
+<pre class="prettyprint"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">ModeCheckAction</span><span class="pun">{</span><span class="pln">  
+
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> NORMAL </span><span class="pun">=</span><span class="pln"> </span><span class="str">"normal"</span><span class="pun">;</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> APP </span><span class="pun">=</span><span class="pln"> </span><span class="str">"app"</span><span class="pun">;</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> RLOGIN </span><span class="pun">=</span><span class="pln"> </span><span class="str">"rlogin"</span><span class="pun">;</span><span class="pln">
+
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">ModeCheckAction</span><span class="pun">()</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="typ">Event</span><span class="pln"> check</span><span class="pun">(</span><span class="kwd">final</span><span class="pln"> </span><span class="typ">RequestContext</span><span class="pln"> context</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">final</span><span class="pln"> </span><span class="typ">HttpServletRequest</span><span class="pln"> request </span><span class="pun">=</span><span class="pln"> </span><span class="typ">WebUtils</span><span class="pun">.</span><span class="pln">getHttpServletRequest</span><span class="pun">(</span><span class="pln">context</span><span class="pun">);</span><span class="pln">
+
+   </span><span class="com">//根据mode判断请求模式，如mode=rlogin，是AJAX远程登录模式，</span><span class="pln">
+   </span><span class="com">//app是app登录模式，不存在是原模式，认证中心本地登录</span><span class="pln">
+   </span><span class="typ">String</span><span class="pln"> mode </span><span class="pun">=</span><span class="pln"> request</span><span class="pun">.</span><span class="pln">getParameter</span><span class="pun">(</span><span class="str">"mode"</span><span class="pun">);</span><span class="pln">
+   </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">mode</span><span class="pun">!=</span><span class="kwd">null</span><span class="pun">&amp;&amp;</span><span class="pln">mode</span><span class="pun">.</span><span class="pln">equals</span><span class="pun">(</span><span class="str">"rlogin"</span><span class="pun">)){</span><span class="pln">
+    context</span><span class="pun">.</span><span class="pln">getFlowScope</span><span class="pun">().</span><span class="pln">put</span><span class="pun">(</span><span class="str">"mode"</span><span class="pun">,</span><span class="pln"> mode</span><span class="pun">);</span><span class="pln">
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Event</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">,</span><span class="pln"> RLOGIN</span><span class="pun">);</span><span class="pln">
+   </span><span class="pun">}</span><span class="pln">
+   </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">mode</span><span class="pun">!=</span><span class="kwd">null</span><span class="pun">&amp;&amp;</span><span class="pln">mode</span><span class="pun">.</span><span class="pln">equals</span><span class="pun">(</span><span class="str">"app"</span><span class="pun">)){</span><span class="pln">
+    context</span><span class="pun">.</span><span class="pln">getFlowScope</span><span class="pun">().</span><span class="pln">put</span><span class="pun">(</span><span class="str">"mode"</span><span class="pun">,</span><span class="pln"> mode</span><span class="pun">);</span><span class="pln">
+     </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Event</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">,</span><span class="pln"> APP</span><span class="pun">);</span><span class="pln">
+   </span><span class="pun">}</span><span class="pln">
+   </span><span class="kwd">return</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Event</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">,</span><span class="pln"> NORMAL</span><span class="pun">);</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>至此，CAS认证中心改造完成！</p>
+<p>4.开发支持APP登录的移动服务端接口。接收APP登录请求，采用HttpClient转发至CAS认证中心登录，返回json数据解析并最终返回给客户端。本地会话采用redis维护,登录成功，返回access_token。</p>
+<p>接口定义：url: /login.json<br>
+入参： username  string<br>
+password  string<br>
+出参： ret  string<br>
+msg  string<br>
+access_token string</p>
+<p>核心代码如下：</p>
+<pre class="prettyprint"><code><span class="lit">@RequestMapping</span><span class="pun">(</span><span class="str">"/login.json"</span><span class="pun">)</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="lit">@ResponseBody</span><span class="pln"> </span><span class="typ">ResultBean</span><span class="pln"> login</span><span class="pun">(</span><span class="typ">HttpServletRequest</span><span class="pln"> request</span><span class="pun">,</span><span class="pln"> 
+                     </span><span class="typ">HttpServletResponse</span><span class="pln"> response</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+ </span><span class="typ">ResultBean</span><span class="pln"> resultBean </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ResultBean</span><span class="pun">();</span><span class="pln">
+ </span><span class="typ">String</span><span class="pln"> username </span><span class="pun">=</span><span class="pln"> request</span><span class="pun">.</span><span class="pln">getParameter</span><span class="pun">(</span><span class="str">"username"</span><span class="pun">);</span><span class="pln">
+ </span><span class="typ">String</span><span class="pln"> password </span><span class="pun">=</span><span class="pln"> request</span><span class="pun">.</span><span class="pln">getParameter</span><span class="pun">(</span><span class="str">"password"</span><span class="pun">);</span><span class="pln">
+
+ </span><span class="typ">HttpClient</span><span class="pln"> httpClient </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">DefaultHttpClient</span><span class="pun">();</span><span class="pln">
+
+ </span><span class="typ">String</span><span class="pln"> url </span><span class="pun">=</span><span class="pln"> SSO_SERVER_URL </span><span class="pun">+</span><span class="pln"> </span><span class="str">"?mode=app&amp;service="</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> SSO_CLIENT_SERVICE</span><span class="pun">;</span><span class="pln">
+
+ </span><span class="typ">HttpGet</span><span class="pln"> httpGet </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">HttpGet</span><span class="pun">(</span><span class="pln">url</span><span class="pun">);</span><span class="pln"> 
+ </span><span class="kwd">try</span><span class="pun">{</span><span class="pln">
+  </span><span class="typ">HttpResponse</span><span class="pln"> httpClientResponse </span><span class="pun">=</span><span class="pln"> httpClient</span><span class="pun">.</span><span class="pln">execute</span><span class="pun">(</span><span class="pln">httpGet</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">int</span><span class="pln"> statusCode </span><span class="pun">=</span><span class="pln"> httpClientResponse</span><span class="pun">.</span><span class="pln">getStatusLine</span><span class="pun">().</span><span class="pln">getStatusCode</span><span class="pun">();</span><span class="pln">
+  </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">statusCode </span><span class="pun">==</span><span class="pln"> </span><span class="typ">HttpStatus</span><span class="pun">.</span><span class="pln">SC_OK</span><span class="pun">){</span><span class="pln">
+   </span><span class="typ">String</span><span class="pln"> result </span><span class="pun">=</span><span class="pln"> </span><span class="typ">EntityUtils</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">(</span><span class="pln">httpClientResponse</span><span class="pun">.</span><span class="pln">getEntity</span><span class="pun">(),</span><span class="pln">
+              </span><span class="str">"utf-8"</span><span class="pun">).</span><span class="pln">replace</span><span class="pun">(</span><span class="str">'\r'</span><span class="pun">,</span><span class="pln"> </span><span class="str">' '</span><span class="pun">).</span><span class="pln">replace</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">,</span><span class="pln"> </span><span class="str">' '</span><span class="pun">).</span><span class="pln">trim</span><span class="pun">();</span><span class="pln">
+   </span><span class="com">//解析json数据</span><span class="pln">
+   </span><span class="typ">ObjectMapper</span><span class="pln"> objectMapper </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ObjectMapper</span><span class="pun">();</span><span class="pln">
+   </span><span class="typ">LtBean</span><span class="pln"> ltBean </span><span class="pun">=</span><span class="pln"> objectMapper</span><span class="pun">.</span><span class="pln">readValue</span><span class="pun">(</span><span class="pln">result</span><span class="pun">,</span><span class="pln"> </span><span class="typ">LtBean</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">);</span><span class="pln">
+   </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">NameValuePair</span><span class="pun">&gt;</span><span class="pln"> formparams </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ArrayList</span><span class="pun">&lt;</span><span class="typ">NameValuePair</span><span class="pun">&gt;();</span><span class="pln">
+   formparams</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BasicNameValuePair</span><span class="pun">(</span><span class="str">"username"</span><span class="pun">,</span><span class="pln"> username</span><span class="pun">));</span><span class="pln">
+   formparams</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BasicNameValuePair</span><span class="pun">(</span><span class="str">"password"</span><span class="pun">,</span><span class="pln"> password</span><span class="pun">));</span><span class="pln">
+   formparams</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BasicNameValuePair</span><span class="pun">(</span><span class="str">"lt"</span><span class="pun">,</span><span class="pln"> ltBean</span><span class="pun">.</span><span class="pln">getLt</span><span class="pun">()));</span><span class="pln">
+   formparams</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BasicNameValuePair</span><span class="pun">(</span><span class="str">"execution"</span><span class="pun">,</span><span class="pln"> ltBean</span><span class="pun">.</span><span class="pln">getExecution</span><span class="pun">()));</span><span class="pln">
+   formparams</span><span class="pun">.</span><span class="pln">add</span><span class="pun">(</span><span class="kwd">new</span><span class="pln"> </span><span class="typ">BasicNameValuePair</span><span class="pun">(</span><span class="str">"_eventId"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"submit"</span><span class="pun">));</span><span class="pln">
+
+   </span><span class="typ">UrlEncodedFormEntity</span><span class="pln"> entity </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">UrlEncodedFormEntity</span><span class="pun">(</span><span class="pln">formparams</span><span class="pun">,</span><span class="pln"> </span><span class="str">"UTF-8"</span><span class="pun">);</span><span class="pln">
+   </span><span class="typ">HttpPost</span><span class="pln"> httpPost </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">HttpPost</span><span class="pun">(</span><span class="pln">SSO_SERVER_URL</span><span class="pun">);</span><span class="pln">
+   httpPost</span><span class="pun">.</span><span class="pln">setEntity</span><span class="pun">(</span><span class="pln">entity</span><span class="pun">);</span><span class="pln">
+
+   httpClientResponse </span><span class="pun">=</span><span class="pln"> httpClient</span><span class="pun">.</span><span class="pln">execute</span><span class="pun">(</span><span class="pln">httpPost</span><span class="pun">);</span><span class="pln">
+   statusCode </span><span class="pun">=</span><span class="pln"> httpClientResponse</span><span class="pun">.</span><span class="pln">getStatusLine</span><span class="pun">().</span><span class="pln">getStatusCode</span><span class="pun">();</span><span class="pln">
+
+   </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">statusCode </span><span class="pun">==</span><span class="pln"> </span><span class="typ">HttpStatus</span><span class="pun">.</span><span class="pln">SC_OK</span><span class="pun">){</span><span class="pln">
+     result </span><span class="pun">=</span><span class="pln"> </span><span class="typ">EntityUtils</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">(</span><span class="pln">httpClientResponse</span><span class="pun">.</span><span class="pln">getEntity</span><span class="pun">(),</span><span class="pln"> </span><span class="str">"utf-8"</span><span class="pun">)</span><span class="pln">
+                </span><span class="pun">.</span><span class="pln">replace</span><span class="pun">(</span><span class="str">'\r'</span><span class="pun">,</span><span class="pln"> </span><span class="str">' '</span><span class="pun">).</span><span class="pln">replace</span><span class="pun">(</span><span class="str">'\n'</span><span class="pun">,</span><span class="pln"> </span><span class="str">' '</span><span class="pun">).</span><span class="pln">trim</span><span class="pun">();</span><span class="pln">
+
+     objectMapper </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ObjectMapper</span><span class="pun">();</span><span class="pln">
+     resultBean </span><span class="pun">=</span><span class="pln"> objectMapper</span><span class="pun">.</span><span class="pln">readValue</span><span class="pun">(</span><span class="pln">result</span><span class="pun">,</span><span class="pln"> </span><span class="typ">ResultBean</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">);</span><span class="pln">
+     </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">resultBean</span><span class="pun">.</span><span class="pln">getRet</span><span class="pun">().</span><span class="pln">equals</span><span class="pun">(</span><span class="str">""</span><span class="pun">)){</span><span class="pln">
+      </span><span class="typ">String</span><span class="pln"> access_token </span><span class="pun">=</span><span class="pln"> UUID</span><span class="pun">.</span><span class="pln">randomUUID</span><span class="pun">().</span><span class="pln">toString</span><span class="pun">();</span><span class="pln"> </span><span class="com">//会话句柄</span><span class="pln">
+      </span><span class="typ">TokenUtil</span><span class="pun">.</span><span class="pln">setAccess_token</span><span class="pun">(</span><span class="pln">access_token</span><span class="pun">,</span><span class="pln"> username</span><span class="pun">);</span><span class="pln"> </span><span class="com">//放入redis</span><span class="pln">
+      resultBean</span><span class="pun">.</span><span class="pln">setRet</span><span class="pun">(</span><span class="str">"0"</span><span class="pun">);</span><span class="pln">
+      resultBean</span><span class="pun">.</span><span class="pln">setMsg</span><span class="pun">(</span><span class="str">"登录成功"</span><span class="pun">);</span><span class="pln">
+      resultBean</span><span class="pun">.</span><span class="pln">setAccess_token</span><span class="pun">(</span><span class="pln">access_token</span><span class="pun">);</span><span class="pln">
+     </span><span class="pun">}</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+  </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="pun">}</span><span class="kwd">catch</span><span class="pun">(</span><span class="typ">Exception</span><span class="pln"> e</span><span class="pun">){</span><span class="pln">
+  e</span><span class="pun">.</span><span class="pln">printStackTrace</span><span class="pun">();</span><span class="pln">
+  resultBean</span><span class="pun">.</span><span class="pln">setRet</span><span class="pun">(</span><span class="str">"-2"</span><span class="pun">);</span><span class="pln">
+  resultBean</span><span class="pun">.</span><span class="pln">setMsg</span><span class="pun">(</span><span class="str">"系统服务错误，请稍后再试!"</span><span class="pun">);</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> resultBean</span><span class="pun">;</span><span class="pln"> 
+ </span><span class="pun">}</span><span class="kwd">finally</span><span class="pun">{</span><span class="pln">
+  httpClient</span><span class="pun">.</span><span class="pln">getConnectionManager</span><span class="pun">().</span><span class="pln">shutdown</span><span class="pun">();</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> resultBean</span><span class="pun">;</span><span class="pln">  
+</span><span class="pun">}</span></code></pre>
+<ol>
+<li>开发app客户端登录</li>
+</ol>
+<p>APP开发不是本文重点，这里略。<br>
+<img title="《SSOCAS单点系列》之APP原生应用如何访问CAS认证中心(系列结束)_" 图片2="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/569f5c5100015a3306400129.png" alt="图片描述"><br>
+<img title="《SSOCAS单点系列》之APP原生应用如何访问CAS认证中心(系列结束)_" 图片3="" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/569f5c4a0001d8cd06830512.png" alt="图片描述"></p>
+        </div>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/3" target="_blank">JAVA</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/27" target="_blank">WebApp</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/39" target="_blank">数据结构</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/1143786/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/54a2017d0001115601000100-100-100.jpg" title="cj965115189">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1173052/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/54afbad600017cc101800180-100-100.jpg" title="javawnb">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1197448/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/54bd316f0001767d01800180-100-100.jpg" title="世界一个我">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1345769/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/550d6a2a0001cebc01800180-100-100.jpg" title="weibo_暖暖大太阳qi_0">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1392448/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/54586870000183e302200220-100-100.jpg" title="笑笑笑笑笑">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1972779/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/545868f30001886f02200220-100-100.jpg" title="游走灵魂">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2193371/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/573c292000017feb01000100-100-100.jpg" title="lt331029">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3302526/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/5458674e0001e87402200220-100-100.jpg" title="Thinkman">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4625178/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/5857904200018b1906400640-100-100.jpg" title="遗落在长岛的冰茶">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4837200/articles">                                                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/589d64a900015c0401000100-100-100.jpg" title="暴走的五花肉">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">14</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292729524">
+                                    <a href="http://www.imooc.com/article/4200#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/4200#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/4200#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="4200" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <ul></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i></i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/2245641/articles" class="l" title="手插口袋_" target="_blank">
+                <img src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/2245641/articles" title="手插口袋_" target="_blank">
+            手插口袋_
+            </a>
+                                    <i class="user-icon great" title="认证作者"></i>
+                   
+                    </p>
+       
+        <span class="user-job">JAVA开发工程师</span>
+        <span class="user-desc">
+            人生为棋，我愿为卒，行动虽慢，可谁曾见我后退一步。
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/2245641/articles" target="_blank" class="article-num r-bor l">
+                <span></span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/2245641/articles?type=praise" target="_blank" class="article-recom l">
+                <span></span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/7799" title="《Docker系列专题》之 描述篇"><h3>《Docker系列专题》之 描述篇</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">9386浏览</span>
+                    <span class="spacer l spacer-2">69推荐</span>
+                    <span class="spacer l" href="">23评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/12401" title="《java websocket》之 实现"><h3>《java websocket》之 实现</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">4232浏览</span>
+                    <span class="spacer l spacer-2">53推荐</span>
+                    <span class="spacer l" href="">13评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4797" title="《杂文》 之 教大家如何写一份特别的简历"><h3>《杂文》 之 教大家如何写一份特别的简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">1993浏览</span>
+                    <span class="spacer l spacer-2">21推荐</span>
+                    <span class="spacer l" href="">44评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4807" title="《杂   文》 之 教你制作一份属于自己的简历"><h3>《杂   文》 之 教你制作一份属于自己的简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">3048浏览</span>
+                    <span class="spacer l spacer-2">57推荐</span>
+                    <span class="spacer l" href="">7评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/3585" title="《Redis系列专题》之 20分钟快速了解Redis"><h3>《Redis系列专题》之 20分钟快速了解Redis</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">27610浏览</span>
+                    <span class="spacer l spacer-2">50推荐</span>
+                    <span class="spacer l" href="">11评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/h.js.下载" type="text/javascript"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/user"></script><script type="text/javascript" src="./《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)_慕课手记_files/iplookup.php"></script><div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div>
+
+
+</body></html>

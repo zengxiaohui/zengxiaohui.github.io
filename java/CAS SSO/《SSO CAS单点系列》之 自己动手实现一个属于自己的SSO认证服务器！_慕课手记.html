@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<!-- saved from url=(0033)http://www.imooc.com/article/3564 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+《SSO CAS单点系列》之  自己动手实现一个属于自己的SSO认证服务器！_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="作者： 常明，Java架构师 [请尊重原创，盗版必究，转载请指明出处] 上篇《实现一个SSO认证服务器是这样的》中，我们详细讲述了实现SSO的基本思路，本篇我们按照这个思路，亲自动">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/moco.min.css" type="text/css">
+
+<script src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/push.js.下载"></script><script type="text/javascript" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "3564",
+    praiseNum:"16"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '2245641'
+}
+</script>
+
+<link rel="stylesheet" href="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/moco.min.js.下载"></script><script charset="utf-8" async="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/mo.min.js.下载"></script><script src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/share.js.下载"></script><link rel="stylesheet" href="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/share_style0_16.css"></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/3564#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/3564#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>《SSO CAS单点系列》之  自己动手实现一个属于自己的SSO认证服务器！</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        《SSO CAS单点系列》之  自己动手实现一个属于自己的SSO认证服务器！
+                </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2016-01-08 14:02:01</span>
+                <span class="spacer l spacer-2">12103浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/3564#comment">8评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <p><img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片1="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f56560001402516461050.jpg" alt="图片描述"></p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">作者： 常明，Java架构师<br>
+[请尊重原创，盗版必究，转载请指明出处]</strong>
+<p>上篇《<strong><a href="http://www.imooc.com/article/3558" target="_blank" rel="nofollow">实现一个SSO认证服务器是这样的</a></strong>》中，我们详细讲述了实现SSO的基本思路，本篇我们按照这个思路，亲自动手实现一个轻量级的SSO认证中心。<br>
+除了认证中心，我们还要改造系统应用的登录登出部分，使之与认证中心交互，共同完成SSO。</p>
+<p>因此我们的实现分成两大部分，一个是SSO Server，代表认证中心，另一个是SSO Client，代表使用SSO系统应用的登录登出组件。我们给我们实现的这个SSO工程起个名字，叫Nebula。</p>
+<p><img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片2="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f4cdb0001fdc107230032.png" alt="图片描述"><br>
+我们先讨论下Nebula中几个关键问题的实现：</p>
+<p><strong>1. 登录令牌token的实现</strong></p>
+<p>前面我们讨论了，系统把用户重定向导向认证中心并登录后，认证中心要把登录成功信息通过令牌方式告诉给应用系统。认证中心会记录下来自某个应用系统的某个用户本次通过了认证中心的认证所涉及的基本信息，并生成一个登录令牌token，认证中心需要通过URL参数的形式把token传递回应用系统，由于经过客户端浏览器，故令牌token的安全性很重要。</p>
+<p>因此令牌token的实现要满足三个条件：</p>
+<p>首先，token具有唯一性，它代表着来自某应用系统用户的一次成功登录。我们可以利用java util包工具直接生成一个32位唯一字符串来实现。</p>
+<pre class="prettyprint"><code><span class="typ">String</span><span class="pln"> token </span><span class="pun">=</span><span class="pln"> UUID</span><span class="pun">.</span><span class="pln">randomUUID</span><span class="pun">().</span><span class="pln">toString</span><span class="pun">();</span></code></pre>
+<p>同时，我们定义一个javabean， TokenInfo 来承载token所表示的具体内容，即某个应用系统来的某个用户本次通过了认证中心</p>
+<pre class="prettyprint"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">TokenInfo</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">int</span><span class="pln"> userId</span><span class="pun">;</span><span class="pln">   </span><span class="com">//用户唯一标识ID</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> username</span><span class="pun">;</span><span class="pln">  </span><span class="com">//用户登录名</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> ssoClient</span><span class="pun">;</span><span class="pln">  </span><span class="com">//来自登录请求的某应用系统标识</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">String</span><span class="pln"> globalId</span><span class="pun">;</span><span class="pln">  </span><span class="com">//本次登录成功的全局会话sessionId</span><span class="pln">
+ </span><span class="pun">...</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>token和tokenInfo形成了一个&lt;key,value&gt;形式的键值对，后续应用系统向认证中心验证token时还会用到。</p>
+<p>其次，token存在的有效期间不能过长，这是出于安全的角度，例如token生存最大时长为60秒。</p>
+<p>我们可以直接利用redis特性来实现这一功能。redis本质就是&lt;key,value&gt;键值对形式的内存数据库，并且这个键值对可以设置有效时长。</p>
+<p>第三，token只能使用一次，用完即作废，不能重复使用。这也是保证系统安全性。</p>
+<p>我们可以定义一个TokenUtil工具类，来实现&lt;token,tokenInfo&gt;键值对在redis中的操作，主要接口如下：</p>
+<pre class="prettyprint"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">TokenUtil</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="pun">...</span><span class="pln">
+ </span><span class="com">// 存储临时令牌到redis中，存活期60秒</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setToken</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> tokenId</span><span class="pun">,</span><span class="pln"> </span><span class="typ">TokenInfo</span><span class="pln"> tokenInfo</span><span class="pun">){</span><span class="pln">
+  </span><span class="pun">...</span><span class="pln">  
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="com">//根据token键取TokenInfo</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="typ">TokenInfo</span><span class="pln"> getToken</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> tokenId</span><span class="pun">){</span><span class="pln">
+ </span><span class="pun">...</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+ </span><span class="com">//删除某个 token键值</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> delToken</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> tokenId</span><span class="pun">){</span><span class="pln">
+ </span><span class="pun">...</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p><strong>2. 全局会话和本地会话的实现</strong><br>
+用户登录成功后，在浏览器用户和认证中心之间会建立全局会话，浏览器用户与访问的应用系统之间，会建立本地局部会话。</p>
+<p>为简便，可以使用web应用服务器(如tomcat)提供的session功能来直接实现。</p>
+<p>这里需要注意的是，我们需要根据会话ID(即sessionId)能访问到这个session。因为根据前面登出流程说明，认证中心的登出请求不是直接来自连接的浏览器用户，可能来自某应用系统。认证中心也会通知注册的系统应用进行登出。</p>
+<p>这些请求，都是系统之间的交互，不经过用户浏览器。系统要有根据sessionId访问session的能力。同时，在认证中心中，还需要维护全局会话ID和已登录系统本地局部会话ID的关系，以便认证中心能够通知已登录的系统进行登出处理。</p>
+<p>为了安全，目前的web应用服务器，如tomcat，是不提供根据sessionId访问session的能力的，那是容器级范围内的能力。我们需要在自己的应用中，自己维护一个sessionId和session直接的对应关系，我们把它放到一个Map中，方便需要时根据sessionId找到对应的session。同时，我们借助web容器提供的session事件监听能力，程序来维护这种对应关系。</p>
+<p>认证中心涉及到两个类，GlobalSessions和GlobalSessionListener，相关代码如下：</p>
+<pre class="prettyprint"><code><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">GlobalSessions</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+ </span><span class="com">//存放所有全局会话</span><span class="pln">
+ </span><span class="kwd">private</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="typ">Map</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="pln"> </span><span class="typ">HttpSession</span><span class="pun">&gt;</span><span class="pln"> sessions </span><span class="pun">=</span><span class="pln">
+        </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">HashMap</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">,</span><span class="typ">HttpSession</span><span class="pun">&gt;();</span><span class="pln">
+
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> addSession</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> sessionId</span><span class="pun">,</span><span class="pln">
+                      </span><span class="typ">HttpSession</span><span class="pln"> session</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  sessions</span><span class="pun">.</span><span class="pln">put</span><span class="pun">(</span><span class="pln">sessionId</span><span class="pun">,</span><span class="pln"> session</span><span class="pun">);</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> delSession</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> sessionId</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  sessions</span><span class="pun">.</span><span class="pln">remove</span><span class="pun">(</span><span class="pln">sessionId</span><span class="pun">);</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="com">//根据id得到session</span><span class="pln">
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="typ">HttpSession</span><span class="pln"> getSession</span><span class="pun">(</span><span class="typ">String</span><span class="pln"> sessionId</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+  </span><span class="kwd">return</span><span class="pln"> sessions</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="pln">sessionId</span><span class="pun">);</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">GlobalSessionListener</span><span class="pln"> </span><span class="kwd">implements</span><span class="pln">
+                    </span><span class="typ">HttpSessionListener</span><span class="pun">{</span><span class="pln">
+
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> sessionCreated</span><span class="pun">(</span><span class="typ">HttpSessionEvent</span><span class="pln"> httpSessionEvent</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">  
+  </span><span class="typ">GlobalSessions</span><span class="pun">.</span><span class="pln">addSession</span><span class="pun">(</span><span class="pln">
+         httpSessionEvent</span><span class="pun">.</span><span class="pln">getSession</span><span class="pun">().</span><span class="pln">getId</span><span class="pun">(),</span><span class="pln">
+         httpSessionEvent</span><span class="pun">.</span><span class="pln">getSession</span><span class="pun">());</span><span class="pln">  
+ </span><span class="pun">}</span><span class="pln">
+
+ </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> sessionDestroyed</span><span class="pun">(</span><span class="typ">HttpSessionEvent</span><span class="pln"> httpSessionEvent</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">  
+ </span><span class="typ">GlobalSessions</span><span class="pun">.</span><span class="pln">delSession</span><span class="pun">(</span><span class="pln">httpSessionEvent</span><span class="pun">.</span><span class="pln">getSession</span><span class="pun">().</span><span class="pln">getId</span><span class="pun">());</span><span class="pln">
+ </span><span class="pun">}</span><span class="pln">  
+
+</span><span class="pun">}</span></code></pre>
+<p>SSO Client对应的是LocalSessions和LocalSessionListener,实现方式同上。</p>
+<p><strong>3. 应用系统和认证中心之间的通信</strong><br>
+根据SSO实现流程，应用系统和认证中心之间需要直接通信。如应用系统需要向认证中心验证令牌token的真伪，应用系统通知认证中心登出，认证中心通知所有已注册应用系统登出等。这是Server之间的通信，如何实现呢？我们可以使用HTTP进行通信，返回的消息应答格式可采用JSON格式。</p>
+<p>Java的net包，提供了http访问服务器的能力。这里，我们使用apache提供的一个更强大的开源框架，httpclient，来实现应用系统和认证中心之间的直接通信。JSON和JavaBean之间的转换，目前常用的有两个工具包，一个是json-lib，还有一个是Jackson，Jackson效率较高，依赖包少，社区活跃度大，这里我们使用Jackson这个工具包。</p>
+<p>如应用系统向认证中心发送token验证请求的代码片段如下：</p>
+<pre class="prettyprint"><code><span class="com">//向认证中心发送验证token请求  </span><span class="pln">
+</span><span class="typ">String</span><span class="pln"> verifyURL </span><span class="pun">=</span><span class="pln"> </span><span class="str">"http://"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> server
+                 </span><span class="pun">+</span><span class="pln"> </span><span class="typ">PropertiesConfigUtil</span><span class="pun">.</span><span class="pln">getProperty</span><span class="pun">(</span><span class="str">"sso.server.verify"</span><span class="pun">);</span><span class="pln">
+
+</span><span class="typ">HttpClient</span><span class="pln"> httpClient </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">DefaultHttpClient</span><span class="pun">();</span><span class="pln">
+
+</span><span class="com">//serverName作为本应用标识</span><span class="pln">
+</span><span class="typ">HttpGet</span><span class="pln"> httpGet </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">HttpGet</span><span class="pun">(</span><span class="pln">verifyURL </span><span class="pun">+</span><span class="pln"> </span><span class="str">"?token="</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> token  
+               </span><span class="pun">+</span><span class="pln"> </span><span class="str">"&amp;localId="</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> request</span><span class="pun">.</span><span class="pln">getSession</span><span class="pun">().</span><span class="pln">getId</span><span class="pun">());</span><span class="pln">
+</span><span class="kwd">try</span><span class="pun">{</span><span class="pln">
+ </span><span class="typ">HttpResponse</span><span class="pln"> httpResponse </span><span class="pun">=</span><span class="pln"> httpClient</span><span class="pun">.</span><span class="pln">execute</span><span class="pun">(</span><span class="pln">httpGet</span><span class="pun">);</span><span class="pln">
+ </span><span class="kwd">int</span><span class="pln"> statusCode </span><span class="pun">=</span><span class="pln"> httpResponse</span><span class="pun">.</span><span class="pln">getStatusLine</span><span class="pun">().</span><span class="pln">getStatusCode</span><span class="pun">();</span><span class="pln">
+
+ </span><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">statusCode </span><span class="pun">==</span><span class="pln"> </span><span class="typ">HttpStatus</span><span class="pun">.</span><span class="pln">SC_OK</span><span class="pun">){</span><span class="pln">
+  </span><span class="typ">String</span><span class="pln"> result </span><span class="pun">=</span><span class="pln"> </span><span class="typ">EntityUtils</span><span class="pun">.</span><span class="pln">toString</span><span class="pun">(</span><span class="pln">httpResponse</span><span class="pun">.</span><span class="pln">getEntity</span><span class="pun">(),</span><span class="pln"> </span><span class="str">"utf-8"</span><span class="pun">);</span><span class="pln">
+  </span><span class="com">//解析json数据</span><span class="pln">
+  </span><span class="typ">ObjectMapper</span><span class="pln"> objectMapper </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">ObjectMapper</span><span class="pun">();</span><span class="pln">
+  </span><span class="typ">VerifyBean</span><span class="pln"> verifyResult </span><span class="pun">=</span><span class="pln"> objectMapper</span><span class="pun">.</span><span class="pln">readValue</span><span class="pun">(</span><span class="pln">result</span><span class="pun">,</span><span class="pln"> 
+                                   </span><span class="typ">VerifyBean</span><span class="pun">.</span><span class="kwd">class</span><span class="pun">);</span><span class="pln">
+
+  </span><span class="com">//验证通过,应用返回浏览器需要验证的页面</span><span class="pln">
+  </span><span class="kwd">if</span><span class="pun">(</span><span class="pln">verifyResult</span><span class="pun">.</span><span class="pln">getRet</span><span class="pun">().</span><span class="pln">equals</span><span class="pun">(</span><span class="str">"0"</span><span class="pun">)){</span><span class="pln">
+    </span><span class="typ">Auth</span><span class="pln"> auth </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Auth</span><span class="pun">();</span><span class="pln">
+    auth</span><span class="pun">.</span><span class="pln">setUserId</span><span class="pun">(</span><span class="pln">verifyResult</span><span class="pun">.</span><span class="pln">getUserId</span><span class="pun">());</span><span class="pln">
+    auth</span><span class="pun">.</span><span class="pln">setUsername</span><span class="pun">(</span><span class="pln">verifyResult</span><span class="pun">.</span><span class="pln">getUsername</span><span class="pun">());</span><span class="pln">
+    auth</span><span class="pun">.</span><span class="pln">setGlobalId</span><span class="pun">(</span><span class="pln">verifyResult</span><span class="pun">.</span><span class="pln">getGlobalId</span><span class="pun">());</span><span class="pln">
+    request</span><span class="pun">.</span><span class="pln">getSession</span><span class="pun">().</span><span class="pln">setAttribute</span><span class="pun">(</span><span class="str">"auth"</span><span class="pun">,</span><span class="pln"> auth</span><span class="pun">);</span><span class="pln"> </span><span class="com">//建立本地会话</span><span class="pln">
+
+    </span><span class="kwd">return</span><span class="pln"> </span><span class="str">"redirect:http://"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> returnURL</span><span class="pun">;</span><span class="pln">  
+ </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span><span class="kwd">catch</span><span class="pun">(</span><span class="typ">Exception</span><span class="pln"> e</span><span class="pun">){</span><span class="pln">
+ </span><span class="kwd">return</span><span class="pln"> </span><span class="str">"redirect:"</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> loginURL</span><span class="pun">;</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p><img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片3="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f4dc90001b7b007100034.png" alt="图片描述"><br>
+核心实现细节讨论清楚了，我们就可以根据上篇登录登出操作流程，定义Nebula Server和Nebula Client所提供的接口。为了解释方便，我们把上篇刻画的登录登出时系统之间调用的时序交互图重新展示在这里：</p>
+<p>首次登录时：<br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片4="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f4e33000183f306510478.png" alt="图片描述"><br>
+系统登出时：<br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片5="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f4e490001e7ef06910434.png" alt="图片描述"><br>
+Nebula Server认证中心包含四个重要相关接口，分别如下：<br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片6="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f4e75000170f306910192.png" alt="图片描述"><br>
+说明：此接口主要接受来自应用系统的认证请求，此时，returnURL参数需加上，用以向认证中心标识是哪个应用系统，以及返回该应用的URL。如用户没有登录，应用中心向浏览器用户显示登录页面。如已登录，则产生临时令牌token，并重定向回该系统。上面登录时序交互图中的2和此接口有关。</p>
+<p>当然，该接口也同时接受用户直接向认证中心登录，此时没有returnURL参数，认证中心直接返回登录页面。<br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片7="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f4e620001c5b007150229.png" alt="图片描述"><br>
+说明： 处理浏览器用户登录认证请求。如带有returnURL参数，认证通过后，将产生临时认证令牌token，并携带此token重定向回系统。如没有带returnURL参数，说明用户是直接从认证中心发起的登录请求，认证通过后，返回认证中心首页提示用户已登录。上面登录时序交互图中的3和此接口有关。<br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片8="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f4f20000155db07170344.png" alt="图片描述"><br>
+说明：认证应用系统来的token是否有效，如有效，应用系统向认证中心注册，同时认证中心会返回该应用系统登录用户的相关信息，如ID,username等。上面登录时序交互图中的4和此接口有关。<br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片9="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f4f330001202707160189.png" alt="图片描述"><br>
+说明：登出接口处理两种情况，一是直接从认证中心登出，一是来自应用重定向的登出请求。这个根据gId来区分，无gId参数说明直接从认证中心注销，有，说明从应用中来。接口首先取消当前全局登录会话，其次根据注册的已登录应用，通知它们进行登出操作。上面登出时序交互图中的2和4与此接口有关。</p>
+<hr>
+<p>Nebula Client连接组件包含两个重要接口：<br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片10="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f50330001b6f907210195.png" alt="图片描述"><br>
+说明：接收来自认证中心携带临时令牌token的重定向，向认证中心/auth/verify接口去验证此token的有效性，如有效，即建立本地会话，根据returnURL返回浏览器用户的实际请求。如验证失败，再重定向到认证中心登录页面。上面登录时序交互图中的4与此接口有关。<br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片11="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f500b000175a407110169.png" alt="图片描述"><br>
+说明：处理两种情况，一种是浏览器向本应用接口发出的直接登出请求，应用会消除本地会话，调用认证服务器/auth/logout接口，通知认证中心删除全局会话和其它已登录应用的本地会话。 如果是从认证中心来的登出请求，此时带有localId参数，接口实现会直接删除本地会话，返回字符串"ok"。上面登出时序交互图中的1和2与此接口有关。</p>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">至此，我们把整个Nebula Server和Nebula Client实现细节都介绍清楚了。有了核心代码片段、有了详细接口说明，我想你能够自己动手实现这个Nebula。当然，笔者后续会整理相关工程代码，以某种适当形式开放给本社群会员们！有什么问题可直接给本公众号发消息，笔者收集后会统一回答。<br>
+<strong>接下来，我们介绍业界影响最大、使用最多的SSO开源解决方案，CAS。</strong><br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片12="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f507e0001384e07240380.png" alt="图片描述"><br>
+<img title="《SSOCAS单点系列》之自己动手实现一个属于自己的SSO认证服务器！_" 图片13="" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568f508b0001d8cd06830512.png" alt="图片描述"></strong>
+<strong style="display:block;font-size:22px;margin:22px 0 10px">本文出自慕课网，转载请注明出处，侵权必究。</strong>
+        </div>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/3" target="_blank">JAVA</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/27" target="_blank">WebApp</a>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/39" target="_blank">数据结构</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/280945/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/53f6df1e0001724401000100-100-100.jpg" title="Nameless">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/447657/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/543e18c200010bc419201200-100-100.jpg" title="鬼球_">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/448075/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/5333a2b70001a5a802000200-100-100.jpg" title="jiyiren">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1864581/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/568dc2bb0001b79c06400640-100-100.jpg" title="Oaktree">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1966718/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/587254860001e0df04190419-100-100.jpg" title="乐子瞻">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2259640/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/55d02cf90001190710241024-100-100.jpg" title="法布雷加斯科尔糖">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/3092880/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/56f347dc00018e3012800720-100-100.jpg" title="醒33">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4091702/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/5333a1920001d36402200220-100-100.jpg" title="慕粉4091702">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4176059/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/545863e80001889e02200220-100-100.jpg" title="慕粉2153048853">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4560210/articles">                                                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/5847f3b10001901b01000100-100-100.jpg" title="常思己过">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">16</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292677327">
+                                    <a href="http://www.imooc.com/article/3564#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/3564#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/3564#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="3564" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <h2>相关阅读</h2><ul><li><a href="http://www.imooc.com/article/3558" title="《SSO CAS单点系列》之  实现一个SSO认证服务器是这样的！"><h3>《SSO CAS单点系列》之  实现一个SSO认证服务器是这样的！</h3></a></li><li><a href="http://www.imooc.com/article/3720" title="《SSO CAS单点系列》之 实操！轻松玩转SSO CAS就这么简单(相识篇)"><h3>《SSO CAS单点系列》之 实操！轻松玩转SSO CAS就这么简单(相识篇)</h3></a></li><li><a href="http://www.imooc.com/article/4017" title="《SSO CAS单点系列》之 支持Web应用跨域登录CAS (千斤干货)"><h3>《SSO CAS单点系列》之 支持Web应用跨域登录CAS (千斤干货)</h3></a></li><li><a href="http://www.imooc.com/article/4200" title="《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)"><h3>《SSO CAS单点系列》之 APP原生应用如何访问CAS认证中心(系列结束)</h3></a></li><li><a href="http://www.imooc.com/article/15347" title="SSO-登陆登出流程接口"><h3>SSO-登陆登出流程接口</h3></a></li></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title" style="display: none;">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list" style="display: none;">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i>8</i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list">
+            
+        <div id="js-feedback-list"><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2879419/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/545847e20001163c02200220-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/2879419/articles" target="_blank">ove123456</a><span class="com-floor r">8F</span></div><div class="feed-list-content"><p></p><p>大神，有个问题：假如按上述方式完成对A应用的免登入，如果此时B应用是通过地址栏访问的，这时可是没有token信息的</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-11-27 17:56:34</span><span class="reply-btn" data-commentid="33894" data-uid="2879419" data-username="ove123456">回复</span><span class="agree-with r" data-commentid="33894" data-uid="2879419" data-username="ove123456"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2245641/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/2245641/articles" class="from-user">手插口袋_</a> 回复 <a href="http://www.imooc.com/u/2879419/articles" class="to-user">ove123456</a>：<span class="feed-list-time r"> 2016-12-02 11:57:08</span><p>同一浏览器下是有的，除非弄错了方式，不过现在的全局会话有TGT的。</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="33894" data-uid="2245641" data-username="手插口袋_">回复</span></div></div></div></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3564" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="2879419" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/4091702/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/5333a1920001d36402200220-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/4091702/articles" target="_blank">慕粉4091702</a><span class="com-floor r">7F</span></div><div class="feed-list-content"><p></p><p>高手，请问源码分享了吗？求地址，或者xuxiaoweisd@163.com，万分感谢</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-09-29 16:52:11</span><span class="reply-btn" data-commentid="32784" data-uid="4091702" data-username="慕粉4091702">回复</span><span class="agree-with r" data-commentid="32784" data-uid="4091702" data-username="慕粉4091702"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2245641/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/2245641/articles" class="from-user">手插口袋_</a> 回复 <a href="http://www.imooc.com/u/4091702/articles" class="to-user">慕粉4091702</a>：<span class="feed-list-time r"> 2016-10-17 10:16:46</span><p>没源码哟亲，源码已经成项目了哟，亲！</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="32784" data-uid="2245641" data-username="手插口袋_">回复</span></div></div></div><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/4091702/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/5333a1920001d36402200220-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/4091702/articles" class="from-user">慕粉4091702</a> 回复 <a href="http://www.imooc.com/u/2245641/articles" class="to-user">手插口袋_</a>：<span class="feed-list-time r"> 2016-10-17 16:39:28</span><p>感谢大神回复，正在努力学习另一篇跨域登录CAS，感谢分享</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="32784" data-uid="4091702" data-username="慕粉4091702">回复</span></div></div></div><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2245641/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg" width="40"></a></div><div class="feed-list-content"><a href="http://www.imooc.com/u/2245641/articles" class="from-user">手插口袋_</a> 回复 <a href="http://www.imooc.com/u/4091702/articles" class="to-user">慕粉4091702</a>：<span class="feed-list-time r"> 2016-10-21 11:33:14</span><p>有帮助就好。</p><div class="comment-footer clearfix"><span class="reply-btn reply-btns" data-commentid="32784" data-uid="2245641" data-username="手插口袋_">回复</span></div></div></div></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3564" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="4091702" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/3865829/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/533e4bec0001ae5302000200-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/3865829/articles" target="_blank">慕粉3865829</a><span class="com-floor r">6F</span></div><div class="feed-list-content"><p></p><p>大神，有源码吗，求分享，419057292@qq.com<br></p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-08-23 11:16:57</span><span class="reply-btn" data-commentid="31428" data-uid="3865829" data-username="慕粉3865829">回复</span><span class="agree-with r" data-commentid="31428" data-uid="3865829" data-username="慕粉3865829"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3564" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="3865829" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2272676/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/55d59f120001d79801000100-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/2272676/articles" target="_blank">qq_飘忽不定_0</a><span class="com-floor r">5F</span></div><div class="feed-list-content"><p></p><p>大神，求一份DEMO源码啊 不甚感激</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-07-14 10:04:22</span><span class="reply-btn" data-commentid="27861" data-uid="2272676" data-username="qq_飘忽不定_0">回复</span><span class="agree-with r" data-commentid="27861" data-uid="2272676" data-username="qq_飘忽不定_0"><b>赞同</b><em>1</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3564" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="2272676" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/3514112/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/576162020001e0a001000100-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/3514112/articles" target="_blank">qq_Moving_13514112</a><span class="com-floor r">4F</span></div><div class="feed-list-content"><p></p><p>请问一下有没有demo源码？我想参考下。QQ邮箱 &nbsp;296272939@qq.com&nbsp;</p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-06-15 22:16:24</span><span class="reply-btn" data-commentid="25629" data-uid="3514112" data-username="qq_Moving_13514112">回复</span><span class="agree-with r" data-commentid="25629" data-uid="3514112" data-username="qq_Moving_13514112"><b>赞同</b><em>1</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3564" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="3514112" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/3514112/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/576162020001e0a001000100-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/3514112/articles" target="_blank">qq_Moving_13514112</a><span class="com-floor r">3F</span></div><div class="feed-list-content"><p></p><p>&nbsp;想问一个问题：</p><p>同一个用户在server端的globalSessionId和多个client端的LocalSessionId存在一对多的关系(logout时需要逐一通知)，这个一对多的关系在sever端怎么存储，存在哪里？&nbsp;</p><p>期待你的回答！</p><p><br></p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-06-15 22:14:58</span><span class="reply-btn" data-commentid="25627" data-uid="3514112" data-username="qq_Moving_13514112">回复</span><span class="agree-with r" data-commentid="25627" data-uid="3514112" data-username="qq_Moving_13514112"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3564" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="3514112" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/3092880/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/56f347dc00018e3012800720-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/3092880/articles" target="_blank">醒33</a><span class="com-floor r">2F</span></div><div class="feed-list-content"><p></p><p>大神，有没有demo源码啊？我想参考下。QQ邮箱624412479@qq.com <br></p><p></p><div class="comment-footer"><span class="feed-list-times"> 2016-06-03 16:52:09</span><span class="reply-btn" data-commentid="24593" data-uid="3092880" data-username="醒33">回复</span><span class="agree-with r" data-commentid="24593" data-uid="3092880" data-username="醒33"><b>赞同</b><em>1</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3564" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="3092880" class="release-reply-btn">提交</div></div></div></div></div></div><div class="comment-box"><div class="comment clearfix"><div class="feed-author l"><a href="http://www.imooc.com/u/2546405/articles"><img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/545847aa0001063202200220-100-100.jpg" width="40"></a><a class="nick" href="http://www.imooc.com/u/2546405/articles" target="_blank">爱吃豆角的虫子</a><span class="com-floor r">1F</span></div><div class="feed-list-content"><p>大牛，有没有demo源码啊？我想研究研究。QQ邮箱1006059906@qq.com ，谢谢了，嘿嘿。</p><div class="comment-footer"><span class="feed-list-times"> 2016-02-29 16:44:48</span><span class="reply-btn" data-commentid="14109" data-uid="2546405" data-username="爱吃豆角的虫子">回复</span><span class="agree-with r" data-commentid="14109" data-uid="2546405" data-username="爱吃豆角的虫子"><b>赞同</b><em>0</em></span></div></div></div><div class="reply-box"></div><div class="release-reply"><a href="http://www.imooc.com/u//articles" class="user-head"><img src="http://www.imooc.com/article/3564" alt=""></a><a href="http://www.imooc.com/u//articles" class="nick"></a><div class="replay-con"><div class="textarea-wrap"><textarea placeholder="写下你的回复..."></textarea></div><p class="errtip"></p><div class="reply-ctrl clearfix"><div class="verify-code"></div><div class="btn-wrap"><div class="cancel-btn">取消</div><div data-comment-uid="2546405" class="release-reply-btn">提交</div></div></div></div></div></div></div></div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page" style="display: none;"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/2245641/articles" class="l" title="手插口袋_" target="_blank">
+                <img src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/55c9d46b0001eeff01000100-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/2245641/articles" title="手插口袋_" target="_blank">
+            手插口袋_
+            </a>
+                                    <i class="user-icon great" title="认证作者"></i>
+                   
+                    </p>
+       
+        <span class="user-job">JAVA开发工程师</span>
+        <span class="user-desc">
+            人生为棋，我愿为卒，行动虽慢，可谁曾见我后退一步。
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/2245641/articles" target="_blank" class="article-num r-bor l">
+                <span>26</span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/2245641/articles?type=praise" target="_blank" class="article-recom l">
+                <span>29</span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/7799" title="《Docker系列专题》之 描述篇"><h3>《Docker系列专题》之 描述篇</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">9386浏览</span>
+                    <span class="spacer l spacer-2">69推荐</span>
+                    <span class="spacer l" href="">23评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/12401" title="《java websocket》之 实现"><h3>《java websocket》之 实现</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">4232浏览</span>
+                    <span class="spacer l spacer-2">53推荐</span>
+                    <span class="spacer l" href="">13评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4797" title="《杂文》 之 教大家如何写一份特别的简历"><h3>《杂文》 之 教大家如何写一份特别的简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">1993浏览</span>
+                    <span class="spacer l spacer-2">21推荐</span>
+                    <span class="spacer l" href="">44评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/4807" title="《杂   文》 之 教你制作一份属于自己的简历"><h3>《杂   文》 之 教你制作一份属于自己的简历</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">3048浏览</span>
+                    <span class="spacer l spacer-2">57推荐</span>
+                    <span class="spacer l" href="">7评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/3585" title="《Redis系列专题》之 20分钟快速了解Redis"><h3>《Redis系列专题》之 20分钟快速了解Redis</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">27610浏览</span>
+                    <span class="spacer l spacer-2">50推荐</span>
+                    <span class="spacer l" href="">11评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img border="0" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/21.gif" width="20" height="20"></a>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./《SSO CAS单点系列》之 自己动手实现一个属于自己的SSO认证服务器！_慕课手记_files/user"></script><script type="text/javascript" src="http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js"></script>
+
+
+<div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div></body></html>

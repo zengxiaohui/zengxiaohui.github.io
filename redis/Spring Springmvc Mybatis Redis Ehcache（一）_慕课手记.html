@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://www.imooc.com/article/17313 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="做一个关于Spring Springmvc Mybatis Redis Ehcache集成的简单CRUD的例子 在Eclipse中建立Dynamic web项目，并选择生成web.">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/moco.min.css" type="text/css">
+
+<script src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/push.js.下载"></script><script type="text/javascript" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "17313",
+    praiseNum:"1"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '2639778'
+}
+</script>
+
+<link rel="stylesheet" href="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/moco.min.js.下载"></script><script charset="utf-8" async="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/mo.min.js.下载"></script><script src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/share.js.下载"></script><link rel="stylesheet" href="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/share_style0_16.css"></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/17313#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/17313#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>Spring Springmvc Mybatis Redis Ehcache（一）</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        Spring Springmvc Mybatis Redis Ehcache（一）
+                </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2017-03-31 21:36:42</span>
+                <span class="spacer l spacer-2">104浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/17313#comment">0评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <p><strong>做一个关于Spring Springmvc Mybatis Redis Ehcache集成的简单CRUD的例子</strong></p>
+<ol>
+<li>在Eclipse中建立Dynamic web项目，并选择生成web.xml文件<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片1="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de07570001454b04620257.png" alt="新建的项目图片"></li>
+<li>在webContent目录下新增welcome.jsp,在web.xml中修改welcome-file-list标签内容<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片2="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de084400017feb04730309.png" alt="welcome.jsp"><br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片3="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de089e0001fb8408070171.png" alt="web.xml"></li>
+<li>此时用Tomcat运行项目，可以看到网站中welcome的字样，一个简单的web项目成功搭建。<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片4="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de097f0001aca805650182.png" alt="图片描述"></li>
+</ol>
+<hr>
+<p>1.在WEB-INF/lib中放入用到的一些jar包<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片5="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de0c6500010e3103670336.png" alt="图片描述"></p>
+<p>2.新建com.laozhang.entity包，新建2个JavaBean，Student类和Address类<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片6="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de0dfa00012f3902360091.png" alt="图片描述"><img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片7="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de0e0c0001462a04400251.png" alt="图片描述"><img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片8="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de0e130001955704700177.png" alt="图片描述"><br>
+3.在类名上加注@Component注解表示这是一个Spring组件，注解要用到Spring-context包<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片9="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de0e8f000122aa05520060.png" alt="图片描述"><br>
+4.构建数据库，在MySQL中建立表结构如下图<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片10="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de0fb70001574c02350067.png" alt="图片描述"><br>
+Student表结构：<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片11="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de0fcc00013d9e06200054.png" alt="图片描述"><br>
+Address表结构：<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片12="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de0fde00015ff902110050.png" alt="图片描述"></p>
+<hr>
+<ol>
+<li>web.xml 的加载顺序是：ServletContext -&gt; context-param -&gt; listener -&gt; filter -&gt; servlet ，而同个类型之间的实际程序调用的时候的顺序是根据对应的 mapping 的顺序进行调用的。<br>
+修改web.xml，增加springDispatcherServlet，用到Spring-mvc包，&lt;url-pattern&gt;标签中"/"表示拦截所有请求，<code>&lt;param-value&gt;classpath:spring-mvc.xml&lt;/param-value&gt;</code>表示引入classpath也就是src路径下的spring-mvc.xml文件
+<pre class="prettyprint"><code><span class="tag">&lt;servlet&gt;</span><span class="pln">
+    </span><span class="tag">&lt;servlet-name&gt;</span><span class="pln">springDispatcherServlet</span><span class="tag">&lt;/servlet-name&gt;</span><span class="pln">
+    </span><span class="tag">&lt;servlet-class&gt;</span><span class="pln">org.springframework.web.servlet.DispatcherServlet</span><span class="tag">&lt;/servlet-class&gt;</span><span class="pln">
+    </span><span class="tag">&lt;init-param&gt;</span><span class="pln">
+        </span><span class="tag">&lt;param-name&gt;</span><span class="pln">contextConfigLocation</span><span class="tag">&lt;/param-name&gt;</span><span class="pln">
+        </span><span class="tag">&lt;param-value&gt;</span><span class="pln">classpath:spring-mvc.xml</span><span class="tag">&lt;/param-value&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/init-param&gt;</span><span class="pln">
+    </span><span class="tag">&lt;load-on-startup&gt;</span><span class="pln">1</span><span class="tag">&lt;/load-on-startup&gt;</span><span class="pln">
+</span><span class="tag">&lt;/servlet&gt;</span><span class="pln">
+</span><span class="tag">&lt;servlet-mapping&gt;</span><span class="pln">
+    </span><span class="tag">&lt;servlet-name&gt;</span><span class="pln">springDispatcherServlet</span><span class="tag">&lt;/servlet-name&gt;</span><span class="pln">
+    </span><span class="tag">&lt;url-pattern&gt;</span><span class="pln">/</span><span class="tag">&lt;/url-pattern&gt;</span><span class="pln">
+</span><span class="tag">&lt;/servlet-mapping&gt;</span></code></pre></li>
+</ol>
+<p>2.web.xml中增加ContextLoaderListener，contextConfigLocation参数定义了要装入的 Spring 配置文件，如果想装入多个配置文件，可以在 &lt;param-value&gt;标记中用逗号作分隔符。</p>
+<pre class="prettyprint"><code><span class="pln">        </span><span class="tag">&lt;context-param&gt;</span><span class="pln">
+        </span><span class="tag">&lt;param-name&gt;</span><span class="pln">contextConfigLocation</span><span class="tag">&lt;/param-name&gt;</span><span class="pln">
+        </span><span class="tag">&lt;param-value&gt;</span><span class="pln">classpath:spring-beans.xml</span><span class="tag">&lt;/param-value&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/context-param&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;listener&gt;</span><span class="pln">
+        </span><span class="tag">&lt;listener-class&gt;</span><span class="pln">org.springframework.web.context.ContextLoaderListener</span><span class="tag">&lt;/listener-class&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/listener&gt;</span></code></pre>
+<p>3.web.xml中增加阿里的数据源druid相关配置来实行WEB方式监控配置。<br>
+Druid内置提供了一个StatViewServlet用于展示Druid的统计信息。<br>
+这个StatViewServlet的用途包括：提供监控信息展示的html页面,提供监控信息的JSON API。<br>
+使用StatViewServlet，建议使用druid 0.2.6以上版本<br>
+<strong>在项目的URL中加上druid/即可跳转到监控页面。</strong></p>
+<p><a href="https://github.com/alibaba/druid" target="_blank" rel="nofollow">druid 文档</a></p>
+<pre class="prettyprint"><code><span class="tag">&lt;filter&gt;</span><span class="pln">
+        </span><span class="tag">&lt;filter-name&gt;</span><span class="pln">druidFilter</span><span class="tag">&lt;/filter-name&gt;</span><span class="pln">
+        </span><span class="tag">&lt;filter-class&gt;</span><span class="pln">com.alibaba.druid.support.http.WebStatFilter</span><span class="tag">&lt;/filter-class&gt;</span><span class="pln">
+        </span><span class="tag">&lt;init-param&gt;</span><span class="pln">
+            </span><span class="tag">&lt;param-name&gt;</span><span class="pln">exclusion</span><span class="tag">&lt;/param-name&gt;</span><span class="pln">
+            </span><span class="tag">&lt;param-value&gt;</span><span class="pln">*.js,*.css,*.jsp</span><span class="tag">&lt;/param-value&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/init-param&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/filter&gt;</span><span class="pln">
+    </span><span class="tag">&lt;filter-mapping&gt;</span><span class="pln">
+        </span><span class="tag">&lt;filter-name&gt;</span><span class="pln">druidFilter</span><span class="tag">&lt;/filter-name&gt;</span><span class="pln">
+        </span><span class="tag">&lt;url-pattern&gt;</span><span class="pln">/*</span><span class="tag">&lt;/url-pattern&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/filter-mapping&gt;</span><span class="pln">
+
+    </span><span class="tag">&lt;servlet&gt;</span><span class="pln">
+        </span><span class="tag">&lt;servlet-name&gt;</span><span class="pln">druidStatView</span><span class="tag">&lt;/servlet-name&gt;</span><span class="pln">
+        </span><span class="tag">&lt;servlet-class&gt;</span><span class="pln">com.alibaba.druid.support.http.StatViewServlet</span><span class="tag">&lt;/servlet-class&gt;</span><span class="pln">
+        </span><span class="tag">&lt;init-param&gt;</span><span class="pln">
+            </span><span class="tag">&lt;param-name&gt;</span><span class="pln">resetEnable</span><span class="tag">&lt;/param-name&gt;</span><span class="pln">
+            </span><span class="tag">&lt;param-value&gt;</span><span class="pln">false</span><span class="tag">&lt;/param-value&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/init-param&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/servlet&gt;</span><span class="pln">
+    </span><span class="tag">&lt;servlet-mapping&gt;</span><span class="pln">
+        </span><span class="tag">&lt;servlet-name&gt;</span><span class="pln">druidStatView</span><span class="tag">&lt;/servlet-name&gt;</span><span class="pln">
+        </span><span class="tag">&lt;url-pattern&gt;</span><span class="pln">/druid/*</span><span class="tag">&lt;/url-pattern&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/servlet-mapping&gt;</span></code></pre>
+<p>4.处理字符集，同个filter之间的实际程序调用的时候的顺序是根据对应的 mapping 的顺序进行调用，所以encodingFilter要放在其他filter的前面。</p>
+<pre class="prettyprint"><code><span class="pln">        </span><span class="tag">&lt;filter&gt;</span><span class="pln">
+        </span><span class="tag">&lt;filter-name&gt;</span><span class="pln">encodingFilter</span><span class="tag">&lt;/filter-name&gt;</span><span class="pln">
+        </span><span class="tag">&lt;filter-class&gt;</span><span class="pln">org.springframework.web.filter.CharacterEncodingFilter</span><span class="tag">&lt;/filter-class&gt;</span><span class="pln">
+        </span><span class="tag">&lt;init-param&gt;</span><span class="pln">
+            </span><span class="tag">&lt;param-name&gt;</span><span class="pln">encoding</span><span class="tag">&lt;/param-name&gt;</span><span class="pln">
+            </span><span class="tag">&lt;param-value&gt;</span><span class="pln">UTF-8</span><span class="tag">&lt;/param-value&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/init-param&gt;</span><span class="pln">
+        </span><span class="tag">&lt;init-param&gt;</span><span class="pln">
+            </span><span class="tag">&lt;param-name&gt;</span><span class="pln">forceEncoding</span><span class="tag">&lt;/param-name&gt;</span><span class="pln">
+            </span><span class="tag">&lt;param-value&gt;</span><span class="pln">true</span><span class="tag">&lt;/param-value&gt;</span><span class="pln">
+        </span><span class="tag">&lt;/init-param&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/filter&gt;</span><span class="pln">
+    </span><span class="tag">&lt;filter-mapping&gt;</span><span class="pln">
+        </span><span class="tag">&lt;filter-name&gt;</span><span class="pln">encodingFilter</span><span class="tag">&lt;/filter-name&gt;</span><span class="pln">
+        </span><span class="tag">&lt;url-pattern&gt;</span><span class="pln">/*</span><span class="tag">&lt;/url-pattern&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/filter-mapping&gt;</span></code></pre>
+<p>到此web.xml的配置告一段落。接下来就要建立相应的配置文件。</p>
+<hr>
+<ol>
+<li>先建立在web.xml引用的spring-beans.xml和spring-mvc.xml，右击src，选新建文件的other，弹出对话框，选择Spring Bean Configuration File，如图中所示<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片13="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de47130001fd7b06080505.png" alt="图片描述"><br>
+点击next，输入文件名后点击finish即可建立一个新的Springxml配置文件。<br>
+用上面的方法在src目录下建立spring-beans.xml和spring-mvc.xml<br>
+<img title="SpringSpringmvcMybatisRedisEhcache（一）_" 图片14="" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/58de47c7000126b602110100.png" alt="图片描述"><br>
+2.在src目录下新建db.properties文件，里面记录数据库连接信息，写一些简单的必需信息<br>
+<a href="http://docs.oracle.com/javase/8/docs/api/java/util/Properties.html" target="_blank" rel="nofollow">properties Java文档</a></li>
+</ol>
+<pre class="prettyprint"><code><span class="pln">driver</span><span class="pun">=</span><span class="pln">com</span><span class="pun">.</span><span class="pln">mysql</span><span class="pun">.</span><span class="pln">jdbc</span><span class="pun">.</span><span class="typ">Driver</span><span class="pln">
+url</span><span class="pun">=</span><span class="pln">jdbc\:mysql\:</span><span class="com">//localhost\:3306/sss</span><span class="pln">
+user</span><span class="pun">=</span><span class="pln">root
+password</span><span class="pun">=</span><span class="pln">root</span></code></pre>
+<p>3.编辑spring-beans.xml</p>
+<pre class="prettyprint"><code><span class="com">&lt;!-- 引入db.properties文件 --&gt;</span><span class="pln">
+    </span><span class="tag">&lt;context:property-placeholder</span><span class="pln"> </span><span class="atn">location</span><span class="pun">=</span><span class="atv">"classpath:db.properties"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+
+    </span><span class="com">&lt;!-- druid 数据源 --&gt;</span><span class="pln">
+    </span><span class="tag">&lt;bean</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"dataSource"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"com.alibaba.druid.pool.DruidDataSource"</span><span class="pln">
+        </span><span class="atn">init-method</span><span class="pun">=</span><span class="atv">"init"</span><span class="pln"> </span><span class="atn">destroy-method</span><span class="pun">=</span><span class="atv">"close"</span><span class="tag">&gt;</span><span class="pln">
+        </span><span class="com">&lt;!-- 基本配置项 --&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"driverClassName"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${db.driver}"</span><span class="tag">&gt;&lt;/property&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"url"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${db.url}"</span><span class="tag">&gt;&lt;/property&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"username"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${db.user}"</span><span class="tag">&gt;&lt;/property&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"password"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"${db.password}"</span><span class="tag">&gt;&lt;/property&gt;</span><span class="pln">
+        </span><span class="com">&lt;!-- 配置初始化大小、最小、最大 --&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"initialSize"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"1"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"minIdle"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"1"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxActive"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"20"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+
+        </span><span class="com">&lt;!-- 配置获取连接等待超时的时间 --&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"maxWait"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"60000"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+
+        </span><span class="com">&lt;!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 --&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"timeBetweenEvictionRunsMillis"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"60000"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+
+        </span><span class="com">&lt;!-- 配置一个连接在池中最小生存的时间，单位是毫秒 --&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"minEvictableIdleTimeMillis"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"300000"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"validationQuery"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"SELECT 'x'"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"testWhileIdle"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"true"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"testOnBorrow"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"false"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"testOnReturn"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"false"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+
+        </span><span class="com">&lt;!-- 配置监控统计拦截的filters --&gt;</span><span class="pln">
+        </span><span class="tag">&lt;property</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"filters"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"stat"</span><span class="pln"> </span><span class="tag">/&gt;</span><span class="pln">
+    </span><span class="tag">&lt;/bean&gt;</span></code></pre>
+<p>&lt;待续&gt;...</p>
+        </div>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/3" target="_blank">JAVA</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/2639778/articles">                                                <img src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/565d97f80001594402000200-100-100.jpg" title="Img_cache">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">1</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292546672">
+                                    <a href="http://www.imooc.com/article/17313#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/17313#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/17313#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="17313" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <h2>相关阅读</h2><ul><li><a href="http://www.imooc.com/article/10337" title="Hibernate整合struts2学习项目笔记"><h3>Hibernate整合struts2学习项目笔记</h3></a></li><li><a href="http://www.imooc.com/article/10439" title="javaee开发之jsp学习复习笔记（上）"><h3>javaee开发之jsp学习复习笔记（上）</h3></a></li><li><a href="http://www.imooc.com/article/15037" title="MyEclipse10傻瓜式创建Maven工程（从下载maven到helloWorld，貌似最完整）"><h3>MyEclipse10傻瓜式创建Maven工程（从下载maven到helloWorld，貌似最完整）</h3></a></li><li><a href="http://www.imooc.com/article/15084" title="Hibernate 容易出错的十种地方（纯图为证）"><h3>Hibernate 容易出错的十种地方（纯图为证）</h3></a></li><li><a href="http://www.imooc.com/article/16459" title="SpringBoot@Component注解"><h3>SpringBoot@Component注解</h3></a></li></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title" style="display: none;">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list" style="display: none;">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i>0</i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list"><p class="feedback-none">暂无评论</p></div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/2639778/articles" class="l" title="Img_cache" target="_blank">
+                <img src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/565d97f80001594402000200-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/2639778/articles" title="Img_cache" target="_blank">
+            Img_cache
+            </a>
+                               
+                    </p>
+       
+        <span class="user-job">JAVA开发工程师</span>
+        <span class="user-desc">
+            变强变强！
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/2639778/articles" target="_blank" class="article-num r-bor l">
+                <span>1</span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/2639778/articles?type=praise" target="_blank" class="article-recom l">
+                <span>3</span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/h.js.下载" type="text/javascript"></script><a href="http://tongji.baidu.com/hm-web/welcome/ico?s=f0cfcccd7b1393990c78efdeebff3968" target="_blank"><img border="0" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/21.gif" width="20" height="20"></a>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/user"></script><script type="text/javascript" src="./Spring Springmvc Mybatis Redis Ehcache（一）_慕课手记_files/iplookup.php"></script>
+
+
+<div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div></body></html>

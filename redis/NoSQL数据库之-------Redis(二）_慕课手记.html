@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<!-- saved from url=(0034)http://www.imooc.com/article/16621 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>
+NoSQL数据库之-------Redis(二）_慕课手记
+</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="renderer" content="webkit">
+<meta property="qc:admins" content="77103107776157736375">
+<meta property="wb:webmaster" content="c4f857219bfae3cb">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
+<meta http-equiv="Cache-Control" content="no-transform ">
+<meta http-equiv="Content-Security-Policy" content="script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *.imooc.com *.mukewang.com *.baidu.com *.sina.com.cn *.bootcss.com">
+
+
+
+<meta name="Description" content="上文（http://www.imooc.com/article/16523）介绍了Redis概念，以及数据类型，安装等，此文将会介绍Java操作redis数据库的数据类型的一些实例">
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="./NoSQL数据库之-------Redis(二）_慕课手记_files/moco.min.css" type="text/css">
+
+<script src="./NoSQL数据库之-------Redis(二）_慕课手记_files/push.js.下载"></script><script type="text/javascript" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/rt.js.下载"></script><script type="text/javascript">
+
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('!4(){3 6=a;3 l=4(){3 b,e=9 y("(^| )"+"c=([^;]*)(;|$)");j(b=h.g.z(e)){k w(b[2])}x{k a}};3 8=4(t){3 f=l();3 7=9 o();7.A(7.d()+B*i*i*r);h.g="c="+t+";s="+7.M()+";N=/;L=O.m";j(t&&t!=f){Q.P.G()}};3 5=9 E();5.H=4(){K(6);6=a;8(0)};5.J=4(){8(1)};6=I(4(){5.n="";8(1)},F);5.n=\'R://p.u.m/p/v/q/D.C?t=\'+9 o().d()}()',54,54,'|||var|function|imgobj|timer|exp|setcookie|new|null|arr|IMCDNS|getTime|reg|_0|cookie|document|60|if|return|getcookie|com|src|Date|static|common|1000|expires||mukewang|img|unescape|else|RegExp|match|setTime|24|png|logo|Image|3000|reload|onload|setTimeout|onerror|clearTimeout|domain|toGMTString|path|imooc|location|window|http'.split('|'),0,{}))
+
+</script>
+
+
+<script type="text/javascript">
+
+var OP_CONFIG={"module":"article","page":"details"};
+var isLogin = 0;
+var is_choice = "";
+var seajsTimestamp="v=201704261343";
+var _msg_unread = 0; 
+var _not_unread = 0; 
+var _cart_num = 0;
+</script>
+
+
+
+
+
+<script>
+var pageInfo = {
+    id: "16621",
+    praiseNum:"8"
+}
+var user = {
+    uid : "",
+    img : "",
+    nickname : ""
+}
+var authorUid = {
+    uid : '1323320'
+}
+</script>
+
+<link rel="stylesheet" href="./NoSQL数据库之-------Redis(二）_慕课手记_files/saved_resource" type="text/css">
+<script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/jquery.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/seajs-text.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/common.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/string.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/userinfo.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/cart.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/cookie.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/suggest.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/store.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/json.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/im.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/details.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/socket.io.min.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/prettify.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./NoSQL数据库之-------Redis(二）_慕课手记_files/prettify.css"><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/ueditor.parse.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/layer.min.js.下载"></script><link charset="utf-8" rel="stylesheet" href="./NoSQL数据库之-------Redis(二）_慕课手记_files/layer.css"><link charset="utf-8" rel="stylesheet" href="./NoSQL数据库之-------Redis(二）_慕课手记_files/ueditor.css"><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/addCopy.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/imgPreview.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/praise.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/verify-code.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/moco.min.js.下载"></script><script charset="utf-8" async="" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/mo.min.js.下载"></script><script src="./NoSQL数据库之-------Redis(二）_慕课手记_files/share.js.下载"></script><link id="syntaxhighlighter_css" rel="stylesheet" type="text/css" href="./NoSQL数据库之-------Redis(二）_慕课手记_files/shCoreDefault.css"><script id="syntaxhighlighter_js" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/shCore.js.下载" type="text/javascript" defer="defer"></script><link rel="stylesheet" href="./NoSQL数据库之-------Redis(二）_慕课手记_files/share_style0_16.css"></head>
+<body>
+
+<div id="header">
+    <div class="page-container" id="nav">
+        <div id="logo" class="logo"><a href="http://www.imooc.com/" target="_self" class="hide-text" title="首页">慕课网</a></div>
+
+
+        <button type="button" class="navbar-toggle visible-xs-block js-show-menu">
+            <i class="icon-menu"></i>
+        </button>
+        <ul class="nav-item">
+                        <li class="set-btn visible-xs-block"><a href="http://www.imooc.com/user/newlogin" target="_self">登录</a> / <a href="http://www.imooc.com/user/newsignup" target="_self">注册</a></li>
+                        
+            <li>
+                <a href="http://www.imooc.com/course/list" target="_self">课程</a>
+            </li>
+            <li><a href="http://class.imooc.com/" class="program-nav " target="_self">职业路径<i class="icn-new"></i></a></li>
+            <li>
+                <a href="http://coding.imooc.com/" target="_self">实战</a>
+            </li>
+            <li><a href="http://www.imooc.com/wenda" target="_self">猿问</a></li>
+            <li><a href="http://www.imooc.com/article" class="active" target="_self">手记</a></li>
+            
+        </ul>
+                <div id="login-area">
+            <ul class="header-unlogin clearfix">
+                <li class="shop-cart" id="shop-cart">
+                    <a href="http://order.imooc.com/pay/cart" class="shop-cart-icon" target="_blank">
+                        <span class="icon-shopping-cart js-endcart"></span>
+                        <span class="shopping_icon js-cart-num" data-ordernum="0" data-cartnum="0" style="display: none">0</span>
+                        <span>购物车</span>
+                    </a>
+                    <div class="my-cart" id="js-my-cart"><div class="cart-title-box clearfix">                                        <h2 class="l">我的购物车</h2>                                        <h5 class="r">已加入<span class="js-incart-num">0</span>门课程</h5>                                    </div>                                    <div class="cart-wrap">                                        <div class="clear-cart">                                            <span class="cartIcon icon-shopping-cart"></span>                                            <h3>购物车里空空如也</h3>                                            <div class="text">快去这里选购你中意的课程</div>                                            <p><a class="go-link" href="http://coding.imooc.com/" target="_blank">实战课程</a></p>                                            <p><a class="go-link" href="http://www.imooc.com/course/program" target="_blank">职业路径</a></p>                                        </div>                                    </div>                                    <div class="more-box clearfix">                                        <div class="l show-box">                                            <span class="text"><a href="http://order.imooc.com/myorder" target="_blank">我的订单中心</a></span>                                        </div>                                        <a href="http://order.imooc.com/pay/cart" target="_blank" class="r moco-btn moco-btn-red go-cart">去购物车</a>                                    </div></div>
+                </li>
+                <li class="header-signin">
+                    <a href="http://www.imooc.com/article/16621#" id="js-signin-btn">登录</a>
+                </li>
+                <li class="header-signup">
+                    <a href="http://www.imooc.com/article/16621#" id="js-signup-btn">注册</a>
+                </li>
+            </ul>
+        </div>
+                <div class="search-warp clearfix" style="min-width: 32px; height: 60px;">
+                            <div class="pa searchTags">
+                                    <a href="http://class.imooc.com/sc/20" target="_blank">前端小白</a>
+                                    <a href="http://class.imooc.com/sc/22" target="_blank">PHP入门</a>
+                                </div>
+            
+            <div class="search-area" data-search="top-banner">
+                <input class="search-input" data-suggest-trigger="suggest-trigger" type="text" autocomplete="off">
+                <input type="hidden" class="btn_search" data-search-btn="search-btn">
+                <ul class="search-area-result" data-suggest-result="suggest-result">
+                </ul>
+            </div>
+            <div class="showhide-search" data-show="no"><i class="icon-search"></i></div>
+        </div>
+    </div>
+</div>
+
+<div class="bindHintBox js-bindHintBox hide">
+    <div class="pr">
+        为了账号安全，请及时绑定邮箱和手机<a href="http://www.imooc.com/user/setbindsns" class="ml20 color-red" target="_blank">立即绑定</a>
+        <button class="closeBindHint js-closeBindHint" type="button"></button>
+        <div class="arrow"> </div>
+    </div>
+</div>
+
+
+<script>
+var isLogin=0
+</script>
+<div class="opus-wrap clearfix">
+
+<div class="detail-left l">
+    <!-- 面包屑 -->
+    <div class="detail-path">
+        <a href="http://www.imooc.com/article">手记</a> \
+        <span>NoSQL数据库之-------Redis(二）</span>
+    </div>
+    <!-- 面包屑end -->
+    <!-- 手记详情 -->
+    <div class="detail-content-wrap">
+        <h1 class="detail-title">
+        NoSQL数据库之-------Redis(二）
+        <span class="type">原创</span>        </h1>
+        <div class="dc-addon clearfix">
+            <div class="dc-profile clearfix">
+                <span class="spacer l">2017-02-26 20:19:30</span>
+                <span class="spacer l spacer-2">421浏览</span>
+                <a class="spacer l" href="http://www.imooc.com/article/16621#comment">0评论</a>
+                            </div>
+        </div>
+
+        <div class="detail-content ">
+            <p>上文（<a href="http://www.imooc.com/article/16523%EF%BC%89%E4%BB%8B%E7%BB%8D%E4%BA%86Redis%E6%A6%82%E5%BF%B5%EF%BC%8C%E4%BB%A5%E5%8F%8A%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%EF%BC%8C%E5%AE%89%E8%A3%85%E7%AD%89%EF%BC%8C%E6%AD%A4%E6%96%87%E5%B0%86%E4%BC%9A%E4%BB%8B%E7%BB%8DJava%E6%93%8D%E4%BD%9Credis%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AE%9E%E4%BE%8B" target="_blank" rel="nofollow">http://www.imooc.com/article/16523）介绍了Redis概念，以及数据类型，安装等，此文将会介绍Java操作redis数据库的数据类型的一些实例</a>。<br>
+Redis支持五种数据类型：string（字符串），hash（哈希），list（列表），set（集合）及zset(sorted set：有序集合)。<br>
+下面将会给出实例：<br>
+1.Java操作Redis键（key）</p>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">redis1</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">util</span><span class="pun">.</span><span class="typ">List</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> redis</span><span class="pun">.</span><span class="pln">clients</span><span class="pun">.</span><span class="pln">jedis</span><span class="pun">.</span><span class="typ">Jedis</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com">/**
+ * Redis keys实例
+ * @author dell
+ *
+ */</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">RedisKeys</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> args</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">//连接redis本地服务</span><span class="pln">
+        </span><span class="typ">Jedis</span><span class="pln"> jedis </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Jedis</span><span class="pun">(</span><span class="str">"127.0.0.1"</span><span class="pun">);</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"redis本地服务连接成功！"</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">/*Redis Bgsave 命令用于在后台异步保存当前数据库的数据到磁盘。
+          BGSAVE 命令执行之后立即返回 OK ，然后 Redis fork 出一个新子进程，
+                       原来的 Redis 进程(父进程)继续处理客户端请求，而子进程则负责将数据保存到磁盘，然后退出。
+        */</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">bgsave</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">//Redis Echo 命令用于打印给定的字符串。</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">echo</span><span class="pun">(</span><span class="str">"redis"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">//Redis Flushall 命令用于清空整个 Redis 服务器的数据(删除所有数据库的所有 key )。</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">flushAll</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">//Redis Flushdb 命令用于清空当前数据库中的所有 key。</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">flushDB</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">/*
+         Redis Ping 命令使用客户端向 Redis 服务器发送一个 PING ，如果服务器运作正常的话，会返回一个 PONG 。
+                     通常用于测试与服务器的连接是否仍然生效，或者用于测量延迟值。
+         */</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">ping</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">//Redis Info 命令以一种易于理解和阅读的格式，返回关于 Redis 服务器的各种信息和统计数值。</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"\ninfo-----&gt;"</span><span class="pun">+</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">info</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">//Redis RANDOMKEY 命令从当前数据库中随机返回一个 key 。</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">randomKey</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">//Redis Save 命令执行一个同步保存操作，将当前 Redis 实例的所有数据快照(snapshot)以 RDB 文件的形式保存到硬盘。</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">save</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">//Redis Unwatch 命令用于取消 WATCH 命令对所有 key 的监视。</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">unwatch</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">/*
+          Redis Multi 命令用于标记一个事务块的开始。
+                      事务块内的多条命令会按照先后顺序被放进一个队列当中，最后由 EXEC 命令原子性(atomic)地执行。
+         */</span><span class="pln">
+
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">multi</span><span class="pun">());</span><span class="pln">
+        </span><span class="com">/*Redis Quit 命令用于关闭与当前客户端与redis服务的连接。
+        一旦所有等待中的回复(如果有的话)顺利写入到客户端，连接就会被关闭。*/</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">quit</span><span class="pun">());</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+<p>2.Java操作Redis列表（list）</p>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">redis1</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">util</span><span class="pun">.</span><span class="typ">List</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> redis</span><span class="pun">.</span><span class="pln">clients</span><span class="pun">.</span><span class="pln">jedis</span><span class="pun">.</span><span class="typ">BinaryClient</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> redis</span><span class="pun">.</span><span class="pln">clients</span><span class="pun">.</span><span class="pln">jedis</span><span class="pun">.</span><span class="typ">Jedis</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com">/**
+ * redis list数据类型
+ * 
+ * @author dell
+ *
+ */</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">RedisList</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> args</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">// 连接本地的 Redis 服务</span><span class="pln">
+        </span><span class="typ">Jedis</span><span class="pln"> jedis </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Jedis</span><span class="pun">(</span><span class="str">"localhost"</span><span class="pun">);</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"redis本地服务连接成功！"</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">/*
+         * lpush 表示从list的头部插入元素 rpush 表示从list的尾部插入元素 linsert 在列表的某个元素前或者后插入元素
+         * index 表示列表中index位置的元素 llen 返回列表的长度 lpop list 0 -1
+         * 表示从mylist列表的头部开始删除所有元素 rpop list 0 -1 表示从mylist列表的尾部开始删除所有元素 lrange
+         * list 0 -1 //使用lrange取出元素 0表示从头部第一个元素，-1表示从尾部第一个元素取出，lrange mylist 0
+         * -1 表示取出mylist中的所有数据
+         */</span><span class="pln">
+        </span><span class="com">// 存储数据到列表中</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">lpush</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Redis"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">lpush</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Mongodb"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">lpush</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Mysql"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">linsert</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="typ">BinaryClient</span><span class="pun">.</span><span class="pln">LIST_POSITION</span><span class="pun">.</span><span class="pln">BEFORE</span><span class="pun">,</span><span class="pln"> </span><span class="str">"MySql"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"java"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">rpush</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"SqlServer"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">rpush</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Oracle"</span><span class="pun">);</span><span class="pln">
+
+        jedis</span><span class="pun">.</span><span class="pln">linsert</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="typ">BinaryClient</span><span class="pun">.</span><span class="pln">LIST_POSITION</span><span class="pun">.</span><span class="pln">BEFORE</span><span class="pun">,</span><span class="pln"> </span><span class="str">"MySql"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"java"</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">// Redis Lpushx 将一个或多个值插入到已存在的列表头部，列表不存在时操作无效。</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">lpushx</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"Redis1"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">// 获取存储的数据并输出</span><span class="pln">
+        </span><span class="typ">List</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> list </span><span class="pun">=</span><span class="pln"> jedis</span><span class="pun">.</span><span class="pln">lrange</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">);</span><span class="pln">
+        </span><span class="kwd">for</span><span class="pln"> </span><span class="pun">(</span><span class="kwd">int</span><span class="pln"> i </span><span class="pun">=</span><span class="pln"> </span><span class="lit">0</span><span class="pun">;</span><span class="pln"> i </span><span class="pun">&lt;</span><span class="pln"> list</span><span class="pun">.</span><span class="pln">size</span><span class="pun">();</span><span class="pln"> i</span><span class="pun">++)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+            </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"Stored string in redis:: "</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> list</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="pln">i</span><span class="pun">));</span><span class="pln">
+        </span><span class="pun">}</span><span class="pln">
+
+        </span><span class="com">// 获得列表的长度</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"redis列表长度为："</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> jedis</span><span class="pun">.</span><span class="pln">llen</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">// 删除列表中的元素</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="kwd">del</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">);</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"删除了redis列表！"</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">// 获得列表的长度</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"redis列表长度为："</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> jedis</span><span class="pun">.</span><span class="pln">llen</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">// 列表下标从0开始</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"redis列表下标为5的元素是："</span><span class="pln"> </span><span class="pun">+</span><span class="pln"> jedis</span><span class="pun">.</span><span class="pln">lindex</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="lit">5</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">/*
+         * Redis Ltrim 对一个列表进行修剪(trim)，就是说，让列表只保留指定区间内的元素，不在指定区间之内的元素都将被删除。 下标 0
+         * 表示列表的第一个元素，以 1 表示列表的第二个元素，以此类推。 你也可以使用负数下标，以 -1 表示列表的最后一个元素， -2
+         * 表示列表的倒数第二个元素，以此类推。
+         */</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">ltrim</span><span class="pun">(</span><span class="str">"SQL"</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="lit">4</span><span class="pun">));</span><span class="pln">
+
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+<p>3.Java操作Redis集合（set）</p>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">redis1</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> java</span><span class="pun">.</span><span class="pln">util</span><span class="pun">.</span><span class="typ">Set</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> redis</span><span class="pun">.</span><span class="pln">clients</span><span class="pun">.</span><span class="pln">jedis</span><span class="pun">.</span><span class="typ">Jedis</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com">/**
+ * Redis set数据类型
+ * @author dell
+ *
+ */</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">RedisSet</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> args</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="typ">Jedis</span><span class="pln"> jedis </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Jedis</span><span class="pun">(</span><span class="str">"127.0.0.1"</span><span class="pun">,</span><span class="lit">6379</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="com">//set方法用于向redis数据库中添加设置数据</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"k1"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"v1"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"k2"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"v2"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"k3"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"v3"</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">//get方法用于获取某个键所对应的值</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">"k3"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">//del方法用于删除某个键所对应的值</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="kwd">del</span><span class="pun">(</span><span class="str">"k1"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">//getSet方法用户获取某个键所对应的值，键不存在，返回null；键存在，返回对应的值</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">getSet</span><span class="pun">(</span><span class="str">"k4"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"v4"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">/*getrange(key, startOffset, endOffset)方法用于获取存在在key中字符串的子字符串
+         字符串的截取范围由start和end两个偏移量决定
+        */</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">getrange</span><span class="pun">(</span><span class="str">"k2"</span><span class="pun">,</span><span class="pln"> </span><span class="lit">1</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">//lpop方法用于移除并返回列表的第一个元素</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">lpop</span><span class="pun">(</span><span class="str">"k1"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">//rpop方法用于移除并返回列表的最后一个元素</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">rpop</span><span class="pun">(</span><span class="str">"k5"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">//返回集合的长度</span><span class="pln">
+        </span><span class="typ">Set</span><span class="pun">&lt;</span><span class="typ">String</span><span class="pun">&gt;</span><span class="pln"> sets </span><span class="pun">=</span><span class="pln"> jedis</span><span class="pun">.</span><span class="pln">keys</span><span class="pun">(</span><span class="str">"*"</span><span class="pun">);</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="pln">sets</span><span class="pun">.</span><span class="pln">size</span><span class="pun">());</span><span class="pln">
+
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+<p>4.Java操作Redis字符串（String）</p>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">redis1</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> redis</span><span class="pun">.</span><span class="pln">clients</span><span class="pun">.</span><span class="pln">jedis</span><span class="pun">.</span><span class="typ">Jedis</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com">/**
+ * Redis String数据类型
+ * @author dell
+ *
+ */</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">RedisString</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">static</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> main</span><span class="pun">(</span><span class="typ">String</span><span class="pun">[]</span><span class="pln"> args</span><span class="pun">)</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+        </span><span class="com">//连接本地redis服务</span><span class="pln">
+        </span><span class="typ">Jedis</span><span class="pln"> jedis </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Jedis</span><span class="pun">(</span><span class="str">"127.0.0.1"</span><span class="pun">);</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"redis服务连接成功！"</span><span class="pun">);</span><span class="pln">
+
+        </span><span class="com">//设置redis字符串数据</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="kwd">set</span><span class="pun">(</span><span class="str">"type"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"string"</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">//获取存储的数据并输出</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"redis存储的值为："</span><span class="pun">+</span><span class="pln">jedis</span><span class="pun">.</span><span class="kwd">get</span><span class="pun">(</span><span class="str">"type"</span><span class="pun">));</span><span class="pln">
+
+    </span><span class="pun">}</span><span class="pln">
+
+</span><span class="pun">}</span></code></pre>
+<p>5.Java 操作Redis排序</p>
+<pre class="prettyprint"><code><span class="kwd">package</span><span class="pln"> com</span><span class="pun">.</span><span class="pln">redis2</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">junit</span><span class="pun">.</span><span class="typ">Before</span><span class="pun">;</span><span class="pln">
+</span><span class="kwd">import</span><span class="pln"> org</span><span class="pun">.</span><span class="pln">junit</span><span class="pun">.</span><span class="typ">Test</span><span class="pun">;</span><span class="pln">
+
+</span><span class="kwd">import</span><span class="pln"> redis</span><span class="pun">.</span><span class="pln">clients</span><span class="pun">.</span><span class="pln">jedis</span><span class="pun">.</span><span class="typ">Jedis</span><span class="pun">;</span><span class="pln">
+
+</span><span class="com">/**
+ * Redis排序
+ * @author dell
+ *
+ */</span><span class="pln">
+</span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">class</span><span class="pln"> </span><span class="typ">Java_RedisTest</span><span class="pln"> </span><span class="pun">{</span><span class="pln">
+    </span><span class="kwd">private</span><span class="pln"> </span><span class="typ">Jedis</span><span class="pln"> jedis</span><span class="pun">;</span><span class="pln">
+
+    </span><span class="lit">@Before</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> setup</span><span class="pun">(){</span><span class="pln">
+        </span><span class="com">//连接redis服务器</span><span class="pln">
+        jedis </span><span class="pun">=</span><span class="pln"> </span><span class="kwd">new</span><span class="pln"> </span><span class="typ">Jedis</span><span class="pun">(</span><span class="str">"127.0.0.1"</span><span class="pun">,</span><span class="lit">6379</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">//权限认证</span><span class="pln">
+        </span><span class="com">//jedis.auth("admin");</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+
+    </span><span class="lit">@Test</span><span class="pln">
+    </span><span class="kwd">public</span><span class="pln"> </span><span class="kwd">void</span><span class="pln"> test</span><span class="pun">()</span><span class="pln"> </span><span class="kwd">throws</span><span class="pln"> </span><span class="typ">InterruptedException</span><span class="pun">{</span><span class="pln">
+        </span><span class="com">//jedis排序</span><span class="pln">
+        </span><span class="com">//注意，此处的rpush和lpush是List的操作。是一个双向链表（但从表现来看的）  </span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="kwd">del</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">);</span><span class="pln">   </span><span class="com">//先清除数据，在加入数据进行测试</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">rpush</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"1"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">rpush</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"6"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">rpush</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"4"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">rpush</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"2"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">rpush</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"5"</span><span class="pun">);</span><span class="pln">
+        jedis</span><span class="pun">.</span><span class="pln">rpush</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">,</span><span class="pln"> </span><span class="str">"3"</span><span class="pun">);</span><span class="pln">
+        </span><span class="com">//排序前</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"排序前："</span><span class="pun">+</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">lrange</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">//排序</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"排序："</span><span class="pun">+</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">sort</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">));</span><span class="pln">
+        </span><span class="com">//排序后</span><span class="pln">
+        </span><span class="typ">System</span><span class="pun">.</span><span class="kwd">out</span><span class="pun">.</span><span class="pln">println</span><span class="pun">(</span><span class="str">"排序后："</span><span class="pun">+</span><span class="pln">jedis</span><span class="pun">.</span><span class="pln">lrange</span><span class="pun">(</span><span class="str">"a"</span><span class="pun">,</span><span class="pln"> </span><span class="lit">0</span><span class="pun">,</span><span class="pln"> </span><span class="pun">-</span><span class="lit">1</span><span class="pun">));</span><span class="pln">
+    </span><span class="pun">}</span><span class="pln">
+</span><span class="pun">}</span></code></pre>
+<p>更多实例代码，在此不再一一列举，感兴趣的朋友，实例代码见：<br>
+<a href="https://github.com/JavaCodeMood/redis1" target="_blank" rel="nofollow">https://github.com/JavaCodeMood/redis1</a></p>
+<p>多谢各位朋友的支持！</p>
+        </div>
+                <p class="original">本文原创发布于慕课网 ，转载请注明出处，谢谢合作！</p>
+                <!-- 标签 -->
+        
+                <div class="cat-box">
+            <div class="cat-wrap clearfix">
+                <span class="l">相关标签：</span>
+                                                <a class="cat l" href="http://www.imooc.com/article/tag/3" target="_blank">JAVA</a>
+                            </div>
+        </div>
+            
+        <!-- 推荐 --> 
+                <div class="praise-box">
+            <button id="js-praise"><span class="icon-thumb_o"></span><div style="position: absolute; top: 50%; left: 50%; width: 230px; height: 230px; margin-left: -115px; margin-top: -115px; opacity: 0.6; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="15" rx="15" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="#F9B552" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div><div style="position: absolute; top: 50%; left: 50%; width: 180px; height: 180px; margin-left: -90px; margin-top: -90px; opacity: 0.6; display: none; transform: translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="90" cx="90" ry="0" rx="0" transform="rotate(0,90,90)" fill-opacity="transparent" stroke-linecap="" stroke-dashoffset="" fill="transparent" stroke-dasharray="" stroke-opacity="1" stroke-width="20" stroke="#F9B552"></ellipse></svg></div></button>
+        </div>
+                
+        <div class="show-praise-wrap">
+            <div class="show-praise-user clearfix">
+                <div class="praise-icon l">
+                    <ul id="js-praise-show" class="clearfix">
+                    <li class="l"><a target="_blank" href="http://www.imooc.com/u/105648/articles">                                                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/55a3387b0001126306000327-100-100.jpg" title="昵称无">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/465773/articles">                                                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/533e505f00011ad102000200-100-100.jpg" title="skythinking">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/1323320/articles">                                                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/5506d78e0001692e04800640-100-100.jpg" title="霜花似雪">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2732234/articles">                                                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/533e52b90001456f02000200-100-100.jpg" title="qq_罗非鱼_0">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/2750587/articles">                                                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/567ec6ae0001262101800180-100-100.jpg" title="连宏伟HW">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4009770/articles">                                                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/545846690001c92702200220-100-100.jpg" title="慕粉1474131801">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/4130788/articles">                                                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/57f627250001066d01000100-100-100.jpg" title="爱你不只是说说而已">                                                </a></li><li class="l"><a target="_blank" href="http://www.imooc.com/u/5024891/articles">                                                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/533e4bec0001ae5302000200-100-100.jpg" title="慕粉0809549899">                                                </a></li></ul>
+                </div>
+
+                <div class="praise-num l">
+                    <span class="num">8</span>
+                    <span class="person">人</span>推荐
+                </div>
+            </div>
+        </div>
+        
+        <!-- 推荐end -->
+
+        <!-- 分享&收藏 -->
+        <div class="active-box clearfix">
+            <div class="share-collect-wrap clearfix">
+                <div class="share-box l">
+                    <!-- 分享 -->
+                    <div class="share-rl-tips share-posi js-share-statue l" style="display: none;">
+                        <span>分享即可 +</span><strong>1积分</strong>
+                        <span class="rule-arrow"></span>
+                    </div>
+                    <div class="small-share l">
+                        <ul class="share-wrap">
+                            <li class="weichat-posi">
+                                <div class="bdsharebuttonbox weichat-style bdshare-button-style0-16" data-bd-bind="1493292513473">
+                                    <a href="http://www.imooc.com/article/16621#" class="bds_weixin icon-nav icon-share-weichat" data-cmd="weixin" title="分享到微信"></a>
+                                    <a href="http://www.imooc.com/article/16621#" class="bds_tsina icon-nav icon-share-weibo" data-cmd="tsina" title="分享到新浪微博"></a>
+                                    <a href="http://www.imooc.com/article/16621#" class="bds_qzone icon-nav icon-share-qq" data-cmd="qzone" title="分享到QQ空间"></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- 分享end -->
+                <!-- 收藏&举报 -->
+                <div class="r-box r">
+                                                            <span id="js-follow" data-id="16621" class="dc-follow l">
+                            <span>收藏</span>
+                        </span>
+                                                    </div>
+                <!-- 收藏&举报end -->
+            </div>
+        </div>
+        <!-- 分享&收藏 end -->
+    </div>
+    <!-- 手记详情end -->
+  
+    <!-- 相关阅读 -->
+    <div class="react-article">
+        <h2>相关阅读</h2><ul><li><a href="http://www.imooc.com/article/7939" title="模拟注册--登录--幸运抽奖---全过程（一步步实现）"><h3>模拟注册--登录--幸运抽奖---全过程（一步步实现）</h3></a></li><li><a href="http://www.imooc.com/article/10827" title="java第三季—图书馆查询系统"><h3>java第三季—图书馆查询系统</h3></a></li><li><a href="http://www.imooc.com/article/12869" title="答答租车      新手表示好难"><h3>答答租车      新手表示好难</h3></a></li><li><a href="http://www.imooc.com/article/14221" title="JAVA通讯录管理小项目"><h3>JAVA通讯录管理小项目</h3></a></li><li><a href="http://www.imooc.com/article/14951" title="菜鸟JAVA达达租车系统"><h3>菜鸟JAVA达达租车系统</h3></a></li></ul>
+    </div>
+    <!-- 相关阅读end -->
+
+
+    <div class="detail-feedback-wrap">
+        <!-- 评论框 -->
+        <div class="df-ipt-wrap" id="comment">
+                    <div class="feeds-author">
+                <span><img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/avatar_default.png" width="40" alt=""></span>
+            </div>
+            <div id="js-text-login" class="df-text df-text-login">
+                <textarea class="ipt" readonly="">请登录后，发表评论</textarea>
+                <div class="df-bottom clearfix">
+                    <button id="js-submit" class="btn btn-green disabled r">评论（Enter+Ctrl）</button>
+                </div>
+            </div>
+                </div>
+        <!-- 评论框end -->
+
+        <!-- 热门评论 -->
+        <div class="hot-df-title" style="display: none;">热门评论</div>
+        <div id="js-feedback-hot-list-wrap" class="feedback-list" style="display: none;">
+            <p class="feedback-loading">
+            评论加载中...
+            </p>
+        </div>
+        <!-- 评论 -->
+        <div class="df-title" id="all_comments">全部评论<span class="comment-num"><i>0</i>条</span></div>
+        <div id="js-feedback-list-wrap" class="feedback-list"><p class="feedback-none">暂无评论</p></div>
+        <!-- 分页页码  -->
+        <div class="qa-comment-page"></div>
+    </div>
+</div><!-- 左侧end -->
+
+<div class="detail-right r"><!-- 右侧start -->
+    <!-- 作者信息 -->
+        <div class="aside-author">
+        <div class="p clearfix">
+            <a href="http://www.imooc.com/u/1323320/articles" class="l" title="霜花似雪" target="_blank">
+                <img src="./NoSQL数据库之-------Redis(二）_慕课手记_files/5506d78e0001692e04800640-100-100.jpg">
+            </a>
+        </div>
+        <p class="u-nick-warp">
+         <a class="nick" href="http://www.imooc.com/u/1323320/articles" title="霜花似雪" target="_blank">
+            霜花似雪
+            </a>
+                               
+                    </p>
+       
+        <span class="user-job">学生</span>
+        <span class="user-desc">
+            要想能做大事，就必须要能屈能伸，只要能达到最终目的。过程可以有很多选择。
+学虽容易，学好不易，且学且珍惜。
+        </span>
+        <div class="btn-box clearfix">
+            <a href="http://www.imooc.com/u/1323320/articles" target="_blank" class="article-num r-bor l">
+                <span>58</span>篇手记
+            </a>
+            <a href="http://www.imooc.com/u/1323320/articles?type=praise" target="_blank" class="article-recom l">
+                <span>113</span>推荐
+            </a>
+        </div>
+    </div>
+        <!-- 作者信息end -->
+
+    <!-- 作者热门手记 -->
+        <div class="other-article">
+        <h2>作者的热门手记</h2>
+        <ul>
+                    <li>
+                <a href="http://www.imooc.com/article/8879" title="《将来的你，一定会感谢现在拼命写代码的你》"><h3>《将来的你，一定会感谢现在拼命写代码的你》</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">2602浏览</span>
+                    <span class="spacer l spacer-2">68推荐</span>
+                    <span class="spacer l" href="">13评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/14710" title="你的付出，时光不会辜负，梦想总会实现"><h3>你的付出，时光不会辜负，梦想总会实现</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">1287浏览</span>
+                    <span class="spacer l spacer-2">63推荐</span>
+                    <span class="spacer l" href="">12评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/8693" title="Web前端之CSS小知识点"><h3>Web前端之CSS小知识点</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">2473浏览</span>
+                    <span class="spacer l spacer-2">68推荐</span>
+                    <span class="spacer l" href="">5评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/9311" title="你还在为翻不了墙，进不了外国网站而发愁吗？"><h3>你还在为翻不了墙，进不了外国网站而发愁吗？</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">6435浏览</span>
+                    <span class="spacer l spacer-2">37推荐</span>
+                    <span class="spacer l" href="">18评论</span>
+                </div>
+            </li>
+                    <li>
+                <a href="http://www.imooc.com/article/15313" title="软件测试小知识点总结"><h3>软件测试小知识点总结</h3></a>
+                <div class="show-box clearfix">
+                    <span class="spacer l">1949浏览</span>
+                    <span class="spacer l spacer-2">42推荐</span>
+                    <span class="spacer l" href="">2评论</span>
+                </div>
+            </li>
+                </ul>
+    </div>
+        <!-- 作者热门手记end -->
+
+    <!-- 广告 -->
+                    <!-- 广告end -->
+  
+</div><!-- 右侧end -->
+
+<!-- 手记目录 -->
+<!-- 手记目录end -->
+
+
+</div><!--opus-wrap end-->
+
+<div id="main">
+
+</div>
+
+<div id="footer">
+    <div class="waper">
+        <div class="footerwaper clearfix">
+            <div class="followus r">
+                <a class="followus-weixin" href="javascript:;" target="_blank" title="微信">
+                    <div class="flw-weixin-box"></div>
+                </a>
+                <a class="followus-weibo" href="http://weibo.com/u/3306361973" target="_blank" title="新浪微博"></a>
+                <a class="followus-qzone" href="http://user.qzone.qq.com/1059809142/" target="_blank" title="QQ空间"></a>
+            </div>
+            <div class="footer_intro l">
+                <div class="footer_link">
+                    <ul>
+                        <li><a href="http://www.imooc.com/" target="_blank">网站首页</a></li>
+                        <li><a href="http://www.imooc.com/about/cooperate" target="_blank" title="企业合作">企业合作</a></li>
+                        <li><a href="http://www.imooc.com/about/job" target="_blank">人才招聘</a></li>
+                        <li> <a href="http://www.imooc.com/about/contact" target="_blank">联系我们</a></li>
+                        <li> <a href="http://www.imooc.com/about/recruit" target="_blank">讲师招募</a></li>
+                        <li> <a href="http://www.imooc.com/about/faq" target="_blank">常见问题</a></li>
+                        <li> <a href="http://www.imooc.com/user/feedback" target="_blank">意见反馈</a></li>
+                        <li><a href="http://daxue.imooc.com/" target="_blank">慕课大学</a></li>
+                        <li> <a href="http://www.imooc.com/about/friendly" target="_blank">友情链接</a></li>
+                       <!--  <li><a href="/corp/index" target="_blank">合作专区</a></li>
+                        <li><a href="/about/us" target="_blank">关于我们</a></li> -->
+                    </ul>
+                </div>
+                <p>Copyright © 2017 imooc.com All Rights Reserved | 京ICP备 13046642号-2</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="J_GotoTop" class="elevator">
+
+    <a href="http://www.imooc.com/user/feedback" class="elevator-msg" target="_blank">
+        <i class="icon-feedback"></i>
+        <span class="">意见反馈</span>
+    </a>
+    <a href="http://www.imooc.com/about/faq" class="elevator-faq" target="_blank">
+        <i class="icon-ques"></i>
+        <span class="">常见问题</span>
+    </a>
+    <a href="http://www.imooc.com/mobile/app" target="_blank" class="elevator-app">
+        <i class="icon-appdownload"></i>
+        <span class="">APP下载</span>
+        <div class="elevator-app-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-weixin no-goto" id="js-elevator-weixin">
+        <i class="icon-wxgzh"></i>
+        <span class="">官方微信</span>
+        <div class="elevator-weixin-box"></div>
+    </a>
+    <a href="javascript:void(0)" class="elevator-top no-goto" style="display:none" id="backTop">
+        <i class="icon-up2"></i>
+        <span class="">返回顶部</span>
+    </a>
+</div>
+
+
+
+<script type="text/javascript" charset="utf-8" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/ueditor.final.min.js.下载"></script>
+
+<!--script-->
+<script src="./NoSQL数据库之-------Redis(二）_慕课手记_files/ssologin.js.下载"></script>
+<script type="text/javascript" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/sea.js.下载"></script>
+<script type="text/javascript" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/sea_config.js.下载"></script>
+<script type="text/javascript">seajs.use("/static/page/"+OP_CONFIG.module+"/"+OP_CONFIG.page);</script>
+
+
+
+
+<div style="display: none">
+<script type="text/javascript">
+var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Ff0cfcccd7b1393990c78efdeebff3968' type='text/javascript'%3E%3C/script%3E"));
+(function (d) {
+window.bd_cpro_rtid="rHT4P1c";
+var s = d.createElement("script");s.type = "text/javascript";s.async = true;s.src = location.protocol + "//cpro.baidu.com/cpro/ui/rt.js";
+var s0 = d.getElementsByTagName("script")[0];s0.parentNode.insertBefore(s, s0);
+})(document);
+</script><script src="./NoSQL数据库之-------Redis(二）_慕课手记_files/h.js.下载" type="text/javascript"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    bp.src = '//push.zhanzhang.baidu.com/push.js';
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+</div><script type="text/javascript" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/user"></script><script type="text/javascript" src="./NoSQL数据库之-------Redis(二）_慕课手记_files/iplookup.php"></script><div class="moco-usercard-dialog js-moco-usercard-modal"></div><div></div><div style="position: absolute; top: 100px; left: 100px; width: 164px; height: 164px; margin-left: -82px; margin-top: -82px; opacity: 1; display: none; transform: rotate(0deg) translate(0px, 0px);"><svg style="position: absolute; width: 100%; height: 100%;"><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse><ellipse cy="0" cx="0" ry="7" rx="7" transform="rotate(0,0,0)" fill-opacity="1" stroke-linecap="" stroke-dashoffset="NaN " fill="deeppink" stroke-dasharray="NaN " stroke-opacity="1" stroke-width="0" stroke="transparent" style="opacity: 1; display: none;"></ellipse></svg></div>
+
+
+</body></html>
