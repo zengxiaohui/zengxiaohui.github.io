@@ -32,5 +32,15 @@
   	from t_origin_move AS o
 	WHERE
  	collinfo_id=826 AND origin_type=true
+
+ 	删除表
+	DROP TABLE  tbl_name;
+	或者是
+	DROP TABLE IF EXISTS tbl_name;
+	
+	显示用户权限：
+	show grants for lixiang@"192.168.1.230";
+	赋予用户执行存储过程的权限：
+	grant execute on report1.* to 'lixiang'@'192.168.1.230';
 </body>
 </html>
