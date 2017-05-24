@@ -1,0 +1,5 @@
+编码中文
+javac -encoding UTF-8 exePhoneToSha256.java
+
+运行jar包
+java -jar phoneToSha256.jar
