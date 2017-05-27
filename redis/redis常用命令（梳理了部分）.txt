@@ -1,0 +1,17 @@
+redis list学习
+增加数据命令
+lpush/rpush 在list头/尾插入数据（不存在创建）
+lpushx/rpushx 在list头/尾插入数据 （不存在直接报错）
+删除数据命令
+blpop/brpop 返回list头/尾的数据（不存在阻塞超时时间然后返回nil）
+lpop/rpop 返回list头/尾的数据 （不存在返回nil）
+lrem 移除列表元素
+改数据命令
+lset
+查询数据命令
+llen 查询列表长度
+lrange 列出列表指定范围值
+ltrim 截取列表范围内的值
+作者： 风之子ccf 
+链接：http://www.imooc.com/article/10905
+来源：慕课网
