@@ -10,3 +10,12 @@ CRON表达式    含义
 "0 0-5 14 * * ?"    每天14:00至14:05每分钟一次触发 
 "0 10,44 14 ? 3 WED"    三月的每周三的14：10和14：44触发 
 "0 15 10 ? * MON-FRI"    每个周一、周二、周三、周四、周五的10：15触发 
+
+500毫秒后打印退出
+Timer timer = new Timer();// 实例化Timer类
+timer.schedule(new TimerTask() {
+	public void run() {
+		System.out.println("退出");
+		this.cancel();
+	}
+}, 500);// 五百毫秒
