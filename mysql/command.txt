@@ -32,3 +32,5 @@ group by id
 方法2：
 select group_concat(list_name) from aa_list 
 
+mysql在表的某一位置增加一列的命令
+alter table customer add column qq varchar(20) DEFAULT NULL COMMENT '客户qq号' after customerTele;

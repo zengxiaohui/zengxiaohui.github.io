@@ -1,0 +1,12 @@
+tomcat安装到window服务中：
+C:\Tomcat-5.5.20-WEB\bin>service install tomcat
+
+C:\Tomcat-5.5.20-WEB\bin>service remove tomcat
+
+C:\Tomcat-5.5.20-WEB\bin>net start tomcat
+Apache Tomcat tomcat 服务正在启动 ..
+Apache Tomcat tomcat 服务已经启动成功。
+
+C:\Tomcat-5.5.20-WEB\bin>net stop tomcat
+Apache Tomcat tomcat 服务正在启动 ..
+Apache Tomcat tomcat 服务已经启动成功。
