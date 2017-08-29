@@ -1,0 +1,273 @@
+{% extends "./inc/base.html" %} {% block style %}
+
+
+
+ <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap-table.css"> 
+
+ 
+
+{% endblock %} {% block content %}
+<style type="text/css" media="screen">
+		#content{
+			padding-top: 80px;
+		}
+
+		.pill{
+			color:blue;
+			font-size: 18px
+
+		}
+		label{
+			font-size: 18px;
+		}
+		form span{
+			font-size: 18px;
+			color: blue;
+
+		}
+</style>
+
+
+<!-- <div>elm:{{elm.name+elm.userId+elm}}
+    <br>
+    object:{{userList}}
+ <ul>
+
+{% for elm1 in userList %}
+  <li>{{ elm1.userId }}</li>
+{% else %}
+  <li>This would display if the 'item' collection were empty</li>
+{% endfor %}
+</ul>
+</div> -->
+<script type="text/javascript" src="/static/assets/js/bootstrap-table.js"></script>
+<div id="content">
+		
+		
+		<div id="content-body"  >
+				<br>
+				
+			<h3 style="text-align: center; color: red">订单详细信息</h3>
+			<div id="reportTableDiv" class="span10" style="height:700px; width: 80% ; margin-left: 25%; margin-right: 25% ">
+				<br>
+				<form class="form-horizontal" >
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">订单号：</label>
+    <div class="col-sm-10">
+      
+    	<span >{{inforbill.orderId}}</span>
+
+    </div>
+  </div>
+  <div class="form-group form-inline" >
+    <label for="inputPassword3" class="col-sm-2 control-label">订单日期:</label>
+    <div class="col-sm-10">
+      <span>{{sendDate1}}</span>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">检测项目:</label>
+    <div class="col-sm-10">
+      <span id="itemName">{{itemName1}}</span><span style="color: red">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp{{itemName1Num}}件</span><br>
+      {% if itemName2 !=undefined %}
+      <span>{{itemName2}}&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span><span style="color: red">{{itemName2Num}}件</span><br>
+       {%endif%}
+      
+      {% if itemName2 !=undefined %}
+      <span>{{itemName3}} &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp </span><span style="color: red">{{itemName3Num}}件</span>
+       {%endif%}
+       
+    </div>
+
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">总价格:</label>
+    <div class="col-sm-10">
+      
+      ￥<span style="color: red">{{inforbill.orderAmt}}</span>
+     
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">订单状况:</label>
+    <div class="col-sm-10">
+      {% if  inforbill.testStatus ==6%}
+						<span>等待工作人员联系
+						{% elif inforbill.testStatus == 5%}
+						<span>最终报告已经出具
+						{% elif inforbill.testStatus == 4%}
+						<span>自动报告已经生成
+						{% elif inforbill.testStatus == 3%}
+						<span>完成检测
+						{% elif inforbill.testStatus == 2%}
+						<span>正在处理
+						{% elif inforbill.testStatus == 1%}
+
+						<span>收到样本
+						
+
+						
+						</span>
+						{%endif%}
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">付费状况:</label>
+    <div class="col-sm-10">
+     
+						{% if inforbill.feeStatus == 1%}
+						<span id="state">未缴费
+						{%  elif inforbill.feeStatus == 2%}
+						<span id="state">部分缴费
+						{% elif inforbill.feeStatus == 3%}
+						<span id="state">已缴费
+						
+						{%endif%}
+						</span>
+
+    </div>
+  </div>
+   <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">支付金额:</label>
+    <div class="col-sm-10">
+      ￥<span style="color: red" id="payprice">{{inforbill.orderAmt}}</span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+      {% if inforbill.feeStatus == 1%}
+      <button type="button" class="btn-info btn-sm" onclick="buy()" id="payButton">缴费:</button>
+      {%  elif inforbill.feeStatus == 2%}
+      <button type="button" class="btn-info btn-sm" onclick="buy()" id="payButton" >缴费:</button>
+      {% elif inforbill.feeStatus == 3%}
+     <!--  <button type="button" class="btn-info btn-sm" onclick="buy()" id="payButton" disabled="">缴费:</button> -->
+      {%endif%}
+    </div>
+  </div>
+  <!-- <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">余额:</label>
+    <div class="col-sm-10">
+      <span>test</span>
+    </div>
+  </div> -->
+   <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">发票下载：</label>
+    <div class="col-sm-10">
+      <a style="font-size: 18px ;" href="/report/download?orderId={{inforbill.orderId}}">点击下载</a><span style="color:red;font-size: 12px">(支付以后5分钟下载发票不然发票内容可能为空)</span>
+    </div>
+  </div>
+ 
+</form>
+				
+  <span id="testItem" hidden>{{inforbill.testItem}}</span>
+  <span id="reptReceiver" hidden>{{inforbill.reptReceiver}}</span>
+  <span id="recvAddress" hidden>{{inforbill.recvAddress}}</span>
+  <span id="notes" hidden>{{inforbill.notes}}</span>
+  <span id="orderId" hidden>{{inforbill.orderId}}</span>
+  <span id="promCode" hidden>{{inforbill.code}}</span>
+  <span id="minpriceTatol" hidden>{{minpriceTatol}}</span>
+
+  <span id="priceTatol" hidden>{{priceTatol}}</span>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+
+
+{% endblock %} {% block script %}
+<script>
+//var itemName = document.getElementById("itemName").innerHTML;
+
+  
+//alert(pname);
+function buy(){
+  //var itemName =$("#itemName").text();
+  var itemName = document.getElementById("itemName").innerHTML;
+
+  var testItem = document.getElementById("testItem").innerHTML;
+
+ // var payprice = document.getElementById("payprice").innerHTML;
+
+  //var payprice = $("#payprice").text()
+  var reptReceiver = document.getElementById("reptReceiver").innerHTML;
+  var recvAddress = document.getElementById("recvAddress").innerHTML;
+  //var notes = document.getElementById("notes").innerHTML;
+  var notes = $("#notes").text();
+  var orderId = $("#orderId").text();
+  var promCode = $("#promCode").text()
+  //conpany with two price to judge order price outside date
+  var priceTatol = $("#priceTatol").text();
+  var minpriceTatol = $("#minpriceTatol").text();
+  var priceTatol1 = parseFloat(priceTatol);
+  var minpriceTatol1 = parseFloat(minpriceTatol);
+
+  
+      var payprice =priceTatol1>minpriceTatol1?minpriceTatol1:priceTatol1;
+
+
+  //alert(reptReceiver+"||"+recvAddress);
+  var testItem1 = testItem.split(",");
+  var ft = testItem1[0];
+  var ft_n = testItem1[1];
+  var fc = testItem1[2];
+  var fc_n = testItem1[3];
+  var fa = testItem1[4];
+  var fa_n = testItem1[5];
+
+  var ff = "&ft="+ft+"&ft_n="+ft_n;
+  if(fc!=undefined){
+    ff=ff+"&fc="+fc+"&fc_n="+fc_n;
+  }
+  if(fa!=undefined){
+    ff=ff+"&fa="+fa+"&fa_n="+fa_n;
+  }
+
+
+  //alert(ff);
+  //&ft=1&fc=2&fa=8&ft_n=1&fc_n=1&fa_n=1
+//alert(testItem);
+
+var pname=null;
+if(itemName=="FD-Exome"){
+     pname='FD-Exome';
+     
+} if(itemName=='FD-ctDNA-180'||itemName=='FD-Tissue-180'||itemName=='FD-Tissue-180+FD-ctDNA-180'){
+     pname='fd180';
+} if(itemName=='FD-Tissue-600'||itemName=='FD-ctDNA-600'||itemName=='FD-Tissue-600+FD-ctDNA-600'){
+     pname='fd600';
+}
+    var recvAddress1 =  encodeURI(recvAddress);
+     var reptReceiver1 =  encodeURIComponent(reptReceiver);
+      var pname1 =  encodeURIComponent(pname);
+      var notes1 =  encodeURIComponent(notes);
+    //alert(notes);
+
+   /* var inforurl = {
+          recvAddress1:recvAddress,
+          reptReceiver1:reptReceiver,
+          notes:notes
+
+    }*/
+	window.location.href="/production/buy?pname="+pname1+ff+"&payprice="+payprice+"&recvAddress="+recvAddress1+"&reptReceiver="+reptReceiver1+"&notes="+notes1+"&orderId="+orderId+"&promCode="+promCode;
+}
+
+$(function() {
+    
+
+    var data = $('.pro-nav>li.active').attr('data-name');
+    $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    $('.pro-nav>li').click(function(e) {
+        $('.introduce[data-name = ' + data + ']').css('display', 'none');
+        $('.pro-nav>li.active').removeClass('active');
+        $(this).addClass('active');
+        data = $('.pro-nav>li.active').attr('data-name');
+        $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    });
+    $('.spinner').spinner();
+    //console.log({{elm}}+"test")
+});
+</script>
+{% endblock %}
+
+
+
+

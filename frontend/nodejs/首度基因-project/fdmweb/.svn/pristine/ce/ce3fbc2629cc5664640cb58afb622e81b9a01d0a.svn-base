@@ -1,0 +1,15 @@
+{
+  "apps": [{
+    "name": "首度基因",
+    "script": "www/production.js",
+    "cwd": "/home/evatest/servers/shoudu",
+    "instances": 1,
+    "max_memory_restart": "100M",
+    "autorestart": true,
+    "node_args": [],
+    "args": [],
+    "env": {
+      
+    }
+  }]
+}

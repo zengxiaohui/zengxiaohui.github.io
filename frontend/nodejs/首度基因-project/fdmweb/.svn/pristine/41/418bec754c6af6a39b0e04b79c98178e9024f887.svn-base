@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>首度 后台</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/static/assets/backpage/css/bootstrap.min.css"  type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/bootstrap-responsive.min.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/uniform.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/select2.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/matrix-style.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/matrix-media.css" type="text/css"/>
+<link href="/static/assets/backpage/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>/static/assets
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+<!-- 这个是日期插件 -->
+<link rel="stylesheet" href="/static/assets/css/bootstrap-datetimepicker.css" type="text/css"/>
+
+</head>
+<body>
+
+<!--Header-part-->
+<div id="header">
+  <h1><a>首度后台</a></h1>
+</div>
+<!--close-Header-part--> 
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text" id="user" style="color: red;font-size: 15px">Welcome User</span><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
+        <li class="divider"></li>
+        <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
+        <li class="divider"></li>
+        <li><a href="/index/cleancookie" id="loginout" ><i class="icon-key"></i>退出登陆</a></li>
+      </ul>
+    </li>
+    
+   
+    <li class=""><a title="" href="/index/cleancookie" style="color: red;font-size: 15px"><i class="icon icon-share-alt"></i><span class="text">退出登陆</span></a></li>
+  </ul>
+</div>
+
+<!--start-top-serch-->
+
+<!--close-top-serch--> 
+
+<!--sidebar-menu-->
+
+<div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
+  <ul>
+    
+    
+    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>账号管理</span> <span class="label label-important">1</span></a>
+      <ul>
+        <li><a href="/back/userlist">用户列表</a></li>
+        <!-- <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
+        <li><a href="chat.html">Chat option</a></li> -->
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>产品管理</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/back/pricelist">价格修改</a></li>
+        <li><a href="/back/disclist">价格管理</a></li>
+        <!-- <li><a href="error405.html">Error 405</a></li>
+        <li><a href="error500.html">Error 500</a></li> -->
+      </ul>
+    </li>
+    
+  </ul>
+</div>
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 账号管理</a> <a href="#" class="current">产品管理</a> </div>
+
+    <h1>产品管理</h1>
+  </div>
+  <div class="container-fluid">
+    <hr>
+    	<form class="form-horizontal " role="form" action="/backextra/updatediscinfor" id="createUser" style="text-align: center;" method="post">
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline" hidden="">
+    <label>产品编号：</label>
+      <input type="text"  name ="id" class="form-control" id="firstname" value="{{discinfor.id}}" 
+           placeholder="请输入用户名" required oninvalid="setCustomValidity('请输入用户名！');" oninput="setCustomValidity('');"   onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline">
+    <label>产品名称：</label>
+   
+      <input type="text" class="form-control" id="text" 
+           placeholder="请输入名称" value="{{itemname}}" name="itemname" disabled="" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+        
+    </div>
+  </div>
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline" hidden="">
+    <label>产品id：</label>
+   
+      <input type="text" class="form-control" id="text" 
+           placeholder="请输入名称" value="{{discinfor.itemId}}" name="itemId" hidden="" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+        
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+  <label>开始时间：</label> 
+     
+      <input size="16" type="text" value="{{startDate1}}"  name="startDate" class=" input-append date form_datetime form_date" placeholder="请输入开始日期"  id="startDate"  data-link-field="dtp_input1" required="">          
+    </div>
+
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>结束时间：</label>
+       <input size="16" type="text" value="{{endDate1}}"  name="endDate" id="endDate" class=" input-append date form_datetime form_date" placeholder="请输入结束日期"  data-link-field="dtp_input1" onblur="dateTest()" required="">
+
+    </div>
+      <span style="color:red ;font-size: 12px ;display: none" id="timetip">开始时间必须小于结束时间</span>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>折扣码    ：</label>
+      <input type="text" class="form-control"  
+           placeholder="请输入密码" value="{{discinfor.promotionCode}}" name="promotionCode" required="" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>产品价格：</label>
+      <input type="text" class="form-control" id="phone" 
+           placeholder="请输入电话号码" value="{{discinfor.price}}" name="price" required="" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  
+ <button type="button" class="btn btn-info" onclick="javascript:void(window.history.back())">返回</button>
+ <button  class="btn btn-danger" type="button" id="submitdisc">修改</button>
+</form>
+    </div>
+  </div>
+</div>
+<!--Footer-part-->
+<!--this is tip information-->
+
+<div class="row-fluid" style="background:back">
+  <div id="footer" class="span12"> 
+     <div class="col-md-6 col-sm-6">
+                <h5>
+                        地址：江苏省苏州市工业园区生物纳米园B8栋5楼    
+                    </h5>
+                <div>
+                    <span>Copyright©2016首度生物科技（苏州）有限公司 <a href="http://www.miitbeian.gov.cn">苏ICP备16044804号</a></span>
+                </div>
+            </div>
+   </div>
+</div>
+
+<!-- <script type="text/javascript" charset="utf-8" async defer>
+              
+   alert("test");
+          function initReport() {
+      $('#mytable').bootstrapTable({
+        method: 'get',
+        cache: false,
+        height: 800,
+        striped: true,
+        pagination: true,
+        pageSize: 20,
+        pageNumber:1,
+        pageList: [10, 20, 50, 100, 200, 500],
+        search: true,
+        showColumns: true,
+        showRefresh: true,
+        search: true,
+        clickToSelect: true
+   })
+</script> -->
+<!--end-Footer-part-->
+<script src="/static/assets/backpage/js/jquery.min.js"></script>
+
+<!-- <script src="/js5/bootstrap-table.min.js"></script>
+<script src="/js5/bootstrap-table-zh-CN.min.js"></script> -->
+<script src="/static/assets/backpage/js/jquery.ui.custom.js"></script> 
+<script src="/static/assets/backpage/js/bootstrap.min.js"></script> 
+<script src="/static/assets/backpage/js/jquery.uniform.js"></script> 
+<!-- <script src="/static/assets/backpage/js/select2.min.js"></script>  -->
+<script src="/static/assets/backpage/js/jquery.dataTables.min.js"></script> 
+<script src="/static/assets/backpage/js/matrix.js"></script> 
+ <script src="/static/assets/backpage/js/matrix.tables.js"></script> 
+  <script type="text/javascript" src="/static/assets/js/cookie.js"></script>
+  <script type="text/javascript" src="/static/assets/js/bootstrap-datetimepicker.fr.js"></script>
+  <script type="text/javascript" src="/static/assets/js/bootstrap-datetimepicker.min.js"></script>
+ <script  type="text/javascript" charset="utf-8" async defer>
+
+
+
+ var username = $.cookie("name");
+
+  //alert(username);
+ $("#user").text(username);
+
+
+$("#submitdisc").click(function(){
+
+    var endDate = $("#endDate").val();
+  var startDate = $("#startDate").val();
+ // alert(endDate);
+
+var startDate1 = startDate.split("-");
+var endDate1 = endDate.split("-");
+var startDate2 = startDate1[0]*365*30*3600+startDate1[1]*30*3600+startDate1[2]*3600;
+var endDate2 = endDate1[0]*365*30*3600+endDate1[1]*30*3600+endDate1[2]*3600;
+
+
+if(endDate2<=startDate2){
+  $("#timetip").css("display","block") ;
+}else{
+  $("#createUser").submit();
+}
+   
+  
+
+})
+
+
+$('.form_date').datetimepicker({
+        language:  'fr',
+        weekStart: 1,
+        todayBtn:  1,
+    autoclose: 1,
+    todayHighlight: 1,
+    startView: 2,
+    minView: 2,
+    forceParse: 0,
+    format: 'yyyy-mm-dd'
+    });
+            </script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+{% extends "./inc/base.html" %} {% block style %}
+<link rel="stylesheet" type="text/css" href="/static/assets/css/contact.css"> {% endblock %} 
+{% block content %}
+
+<div id="fullpage" class="container top">
+	<div class="section">
+		<h1 class="blod">CONTACT US</h1>
+        <h3 class="regular">联系我们</h3>
+
+        <div class="map-box">
+	        <div class="map-info">
+	        	<h4>首度生物科技（苏州）有限公司</h4>
+	        	<p>地址：江苏苏州园区星湖街218号生物纳米园B8栋5楼</p>
+	        	<p>电话：0512-6298-7012</p>
+	        	<p>传真：0512-6298-7011</p>
+	        	<p>邮编：215123</p>
+	        	<p> 邮箱：contactus@firstdimension.net</p>
+	        </div>
+	        <iframe src="/static/assets/map/map.html?x=120.741351&y=31.267004"></iframe>
+        </div>
+			
+			
+        <div class="map-box">
+        	<div class="map-info">
+        		<h4>合肥首度基因科技有限公司</h4>
+        		<p>地址：安徽省合肥市高新区创新产业园二期E3栋A区2楼</p>
+        		<p>电话：0512-6570-8106</p>
+        		<p>邮编：230088</p>
+        		<p>邮箱：contactus@firstdimension.net</p>
+        		<p></p>
+        	</div>
+        	<iframe src="/static/assets/map/map.html?x=117.145857&y=31.842082"></iframe>
+        </div>
+	</div>
+</div>
+
+{% endblock %} {% block script %}
+
+{% endblock %}

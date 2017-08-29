@@ -1,0 +1,115 @@
+{% extends "./inc/backbase.html" %} {% block style %}
+
+
+{% endblock %} {% block content %}
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 用户管理</a> <a href="#" class="current">人事管理</a> </div>
+
+    <h1>用户管理</h1>
+  </div>
+  <div class="container-fluid">
+    
+    <div class="row-fluid">
+      <div class="span12">
+        
+      
+       
+        
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+           <h5>Data table</h5>
+            <button type="button" class=" btn btn-sm btn-info" id="adduser" onclick="adduser()">添加用户信息</button>
+            <!-- <h2>{{userlist}}</h2> -->
+          </div>
+          <div class="widget-content nopadding " >
+            <table class="table table-bordered data-table with-check " id="mytable" style=" font-size: 15px;">
+
+            <thead>
+                <tr style="text-align: center;font-size: 15px;">
+                  <th style="width:15%">编号</th>
+                  <th>用户名</th>
+                  <!-- <th>用户密码</th> -->
+                  <th>用户身份</th>
+                  <th>真实姓名</th>
+                  <th>用户电话</th>
+                  <th>用户邮箱</th>
+                  <th data-formatter="actionformatter"
+            data-events="actionevents">操作</th>
+                </tr>
+              </thead>
+              <tbody>
+               
+              
+            {% block header %} 
+                {% for elm1 in userlist %}
+
+  <tr  style="text-align: center;">
+        <td style="width:15%">{{elm1.userId}}</td>
+        <td>{{elm1.name}}</td>
+         <!-- <td>{{elm1.password}}</td> -->
+          <!-- <td>{{userRoles}}</td>  -->
+        {% if elm1.userRoles == 'admin'%}
+        <td>管理员
+        {% elif elm1.userRoles== 'doctor'%}
+        <td>医生
+        {% elif elm1.userRoles== 'sales'%}
+        <td>销售
+        {% elif elm1.userRoles== 'patient'%}
+        <td>病人
+        {% elif elm1.userRoles== 'tester'%}
+        <td>医学部用户
+        {%endif%} </td>
+        <td>{{elm1.realName}}</td>
+        <td>{{elm1.phone}}</td>
+        <td>{{elm1.email}}</td>
+        <td><a href="/back/userinfor?userId={{elm1.userId}}&name={{elm1.name}}&userRoles={{elm1.userRoles}}&phone={{elm1.phone}}&email={{elm1.email}}&password={{elm1.password}}&realName={{elm1.realName}}" >查看</a>|<a 
+        onclick="deleteUser('{{elm1.userId}}')">删除</a></td>
+    {% endfor %}
+    {% endblock %}
+  </tr>
+           </tbody>   
+            </table>
+           <!--   -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Footer-part-->
+<!--this is tip information-->
+
+
+
+<script  type="text/javascript" charset="utf-8" >
+
+window.onload=function(){
+  var userId = $.cookie("userId");
+  if(userId!=1){
+
+    window.location.href="/index/index";
+  }
+}
+
+  function adduser(){
+
+    window.location.href="/back/adduser";
+  }
+
+function deleteUser(a){
+      if (!confirm("确认要删除？")) {
+          window.event.returnValue = false;
+        }else{
+          window.location.href="/back/deleteuser?userId="+a+"" 
+        }
+
+}
+</script>
+{% endblock %} {% block script %}
+
+
+
+
+
+{% endblock %}

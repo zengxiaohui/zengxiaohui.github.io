@@ -1,0 +1,410 @@
+    {% extends "./inc/base.html" %} {% block style %}
+<link rel="stylesheet" type="text/css" href="/static/assets/css/join.css"> {% endblock %} {% block content %}
+<style>
+    .left-title{
+    margin: 0;
+    border-left: 7px solid #4aa4e3;
+    padding-left: 20px;
+    height: 30px;
+    color: #565657;
+    font-size: 22px;
+    line-height: 30px;
+    }
+    .left-title:first-child{
+        margin-top: 30px;
+    }
+    .join-us{
+        margin: 25px 0 40px;
+        overflow: hidden;
+    }
+    .join-us>li{
+        list-style: none;
+        cursor: pointer;
+    width: 30%;
+    float: left;
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+    margin: 0 1% 28px;
+    height: 140px;
+    vertical-align: middle;
+    box-shadow: 0 3px 5px rgba(74,164,227,.18);
+    }
+    .join-us>li>img{
+            display: inline-block;
+    margin: 34px 10px 34px 5%;
+    float: left;
+    width: 70px;
+    }
+    
+    .join-us>li>span{
+            font-size: 20px;
+    color: #727273;
+    width: 180px;
+    float: left;
+    text-align: center;
+    margin: 50px 0;
+    height: 40px;
+}
+    .join-us>li>a>img:last-child {
+    width: 120px;
+    display: block;
+    margin: 41px auto;
+    float: none;
+}
+.resume{
+    color: #565657;
+   
+    font-size: 20px;
+    margin: 10px 0px 10px 20px;
+}
+.resume>span{
+    color: #d62539
+}
+@media(min-width:1200px){
+    .modal-bg{
+        display: none;
+    }
+}
+@media(max-width:1199px){
+    .pc-join{
+        display: none;
+    }
+}
+
+</style>
+<div id="fullpage" class="container top">
+    <div class="section">
+        <h1 class="blod">JOIN US</h1>
+        <h3 class="regular">加入我们</h3>
+      <!--   <ul class="news-nav">
+            {% if action=='recruit' %}
+            <li class="active" index="1">
+                {% else %}
+                <li index="1">
+                    {% endif %} 诚聘英才
+                </li>
+                {% if action=='recruit' %}
+                <li index="2">
+                    {% else %}
+                    <li index="2" class="active">
+                        {% endif %} 员工风采
+                    </li>
+        </ul> -->
+        {% if action=='recruit'%}
+        <div class="section-1">
+            {% elif action=='display'%}
+            <div class="section-1" style="display: none;">
+                {%endif%}
+                <div class="container modal-bg">
+                    <div class="row">
+                        <div class="col-md-4 join" >
+                            <div data-index="1" class="visible-lg-block">
+                                <span>基因测序技术员</span>
+                                <span>GENE SEQUENCING TECHNICAN</span>
+                            </div>
+                            <div class="hidden-lg">
+                                <span>WELCOME</span>
+                                <span>欢迎加入首度</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 join" >
+                            <div data-index="2">
+                                <span>基因测序研究员</span>
+                                <span>GENE SEQUENCING RESEARCHER</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 join" >
+                            <div class="visible-lg-block">
+                                <span>WELCOME</span>
+                                <span>欢迎加入首度</span>
+                            </div>
+                            <div data-index="1" class="hidden-lg">
+                                <span>基因测序技术员</span>
+                                <span>GENE SEQUENCING TECHNICAN</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 join" >
+                            <div data-index="3">
+                                <span>Web开发工程师</span>
+                                <span>WEB DEVELOPMENT ENGINEER</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 join" >
+                            <div data-index="4">
+                                <span>网站开发组长</span>
+                                <span>WEBSITE DEVELOPMENT LEADER</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 join" >
+                            <div data-index="5">
+                                <span>生物信息软件工程师</span>
+                                <span>SOFTWARE ENGINEER</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 join">
+                            <div class="last">
+                                <a href="http://search.51job.com/list/000000,000000,0000,00,9,99,%25E9%25A6%2596%25E5%25BA%25A6%25E7%2594%259F%25E7%2589%25A9%25E7%25A7%2591%25E6%258A%2580%25EF%25BC%2588%25E8%258B%258F%25E5%25B7%259E%25EF%25BC%2589%25E6%259C%2589%25E9%2599%2590%25E5%2585%25AC%25E5%258F%25B8,1,1.html?lang=c&stype=1&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare="
+                                    class="btn btn-default"
+                                    target="_blank">前程无忧</a><br>
+                                简历请投递至<br>
+                                <span>hr@firstdimension.net</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4 join"></div>
+                    </div>
+                    <div class="modal-join">
+                        <div class="box">
+                            <div class="contain">
+                                <h1><span>基因测试技术员</span><img src="/static/assets/img/close.png" alt=""></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pc-join">
+                    <h2 class="left-title">招聘岗位</h2>
+                    <ul class="join-us">
+                        <li data-index="1"><img src="/static/assets/img/join4.png" alt=""><span>医学检验所主任</span></li>
+                        <li data-index="2"><img src="/static/assets/img/join5.png" alt=""><span>大客户销售主任</span></li>
+                        <li data-index="3"><img src="/static/assets/img/join6.png" alt=""><span>遗传咨询师</span></li>
+                        <li data-index="4"><img src="/static/assets/img/join7.png" alt=""><span>基因测序技术员</span></li>
+                        <li data-index="5"><img src="/static/assets/img/join8.png" alt=""><span>生物信息工程师</span></li>
+                        <li><a href="http://search.51job.com/list/000000,000000,0000,00,9,99,%25E9%25A6%2596%25E5%25BA%25A6%25E7%2594%259F%25E7%2589%25A9%25E7%25A7%2591%25E6%258A%2580%25EF%25BC%2588%25E8%258B%258F%25E5%25B7%259E%25EF%25BC%2589%25E6%259C%2589%25E9%2599%2590%25E5%2585%25AC%25E5%258F%25B8,1,1.html?lang=c&stype=1&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare="><img src="/static/assets/img/51job.png" target="_blank"></a></li>
+                    </ul>
+                    <h2 class="left-title">我们真诚地期待您的加入!</h2>
+                    <p class="resume">简历投递：<span>hr@firstdimension.net</span></p>
+                    <p class="resume">联系电话：0512-62987009</p>
+                    <div class="modal-join">
+                        <div class="box">
+                            <div class="contain">
+                                <h1><span>基因测试技术员</span><img src="/static/assets/img/close.png" alt=""></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if action=='display'%}
+            <div class="section-2">
+                {% elif action=='recruit'%}
+                <div class="section-2" style="display: none;">
+                    {%endif%}
+                    <!-- <div class="employee-container">
+                        <div>
+                            <img src="/static/assets/img/news_1.png" alt="">
+                            <h4>说明......</h4>
+                        </div>
+                        <div>
+                            <img src="/static/assets/img/news_2.png" alt="">
+                            <h4>说明......</h4>
+                        </div>
+                        <div>
+                            <img src="/static/assets/img/join_1.png" alt="">
+                            <h4>说明......</h4>
+                        </div>
+                        <div>
+                            <img src="/static/assets/img/join_2.png" alt="">
+                            <h4>说明......</h4>
+                        </div>
+                        <div>
+                            <img src="/static/assets/img/news_1.png" alt="">
+                            <h4>说明......</h4>
+                        </div>
+                    </div> -->
+                    <div class="row">
+                        <div class="col-md-12 welcome">
+                            <div class="employee" attr-info = "2016团队建设-同心协力，阔步前行">
+                                <img src="http://images.firstdimension.cn/02AE8FFD64447BB83F7C07A2D18BA79A.jpg">
+                            </div>
+                            <div>
+                                <span>WELCOME</span> <br>
+                                <span>欢迎加入首度!</span>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="employee" attr-info = "2016团队建设-同心协力，阔步前行">
+                                <img src="http://images.firstdimension.cn/yuangongfengcai.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="employee emp-margin-top" attr-info = "2016团队建设-同心协力，阔步前行">
+                                <img src="http://images.firstdimension.cn/EBA06C16-22CE-48C6-98AB-3C2E1D60FE88.png">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="employee" attr-info = "2016团队建设-同心协力，阔步前行">
+                                <img src="http://images.firstdimension.cn/%E5%B8%82%E5%9C%BA%E9%83%A8%E5%90%88%E5%BD%B1.jpg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="clear: both"></div>
+
+        {% endblock %} {% block script %}
+        <script>
+        $(function() {
+            var data = [
+                {
+                    title:'医学检验所主任',
+                    detail:[{
+                        name:'岗位要求',
+                        info:[ //岗位要求
+                            '1.负责检验所日常工作的统筹管理',
+                            '2.参与检验所的团队组建、人才培养',
+                            '3.参与检验质量，开展检验质量控制工作',
+                            '4.优化操作流程，提高运营效率，降低运营成本',
+                            '5.协调和跟踪项目运营进展，定期统计、分析并汇报项目进展',
+                            '6.督促检验所各级人员认真执行相关法律法规及检验所规章制度和操作规程，确保检验人员及设备的安全及检验所的安全正常运营'
+                        ]
+                    },{
+                        name:'岗位职责',
+                        info:[ //岗位职责
+                            '1.医学检验专业、病理专业本科以上学历，副高以上（含副高）职称，具有医师资格优先；',
+                            '2.具有三年以上二级以上医院检验科或医学检验所管理工作经验，有分子病理实验室工作经验者优先；',
+                            '3.精通临床检验科的项目组建及日常管理工作、临床医学检验所的一系列法律法规；精通临床医学实验室日常管理文件的编写与管理流程；',
+                            '4.熟悉临床医学检验所质量管理体系的建立与执行、实验室的室间质量评价以及室内质量控制经验者优先；',
+                            '5.具备成熟的组织协调能力和对外公关能力，极强的执行力和团队管理能力；',
+                            '6.拥有良好的职业道德及敬业精神，旺盛的事业心，愿与企业长期共同发展。'
+                        ]
+                    }]
+                },
+                {
+                    title:'大客户销售主任',
+                    detail:[{
+                        name:'岗位要求',
+                        info:[
+                            '1.本科及以上学历，生物医药或市场营销管理等相关专业',
+                            '2.3年以上行业销售经验（如金融/投资/证券/银行、保险行业、科研院所/大型国企/大型私企、不孕不育门诊/专业医院/精子库、大型健康体检中心），有成功的渠道销售案例，如：年度销售达成率不低于800万/年',
+                            '3.具备深厚的行业资源背景和广泛的客户资源，熟悉大客户销售渠道,能快速带来销售额者佳',
+                            '4.擅长客情关系的开拓及维护，尤其是攻克关键人物及高层关系，至少有2个以上成功案例',
+                            '5.优秀的商务谈判能力，能从容应对高层谈判，较好的行业理解能力，能精准理解客户需求和项目推进能力',
+                            '6.较强的人际沟通能力、应变能力和协调能力，团队合作意识强',
+                            '7.良好的心理素质和职业操守，强烈的事业心和责任心，能承受较强的工作压力，可适应出差'
+                        ]
+                    },{
+                        name:'岗位职责',
+                        info:[
+                            '1.负责全国范围内产品销售、渠道开发、渠道管理等工作',
+                            '2.挖掘客户对基因检测行业的服务需求',
+                            '3.保证及时有效完成公司给予的年度销售目标',
+                            '4.完成上级领导安排的其他工作事项'
+                        ]
+                    }]
+                },
+               {
+                    title:'遗传咨询师',
+                    detail:[{
+                        name:'岗位要求',
+                        info:[
+                            '1.医学、遗传学、分子生物学相关专业，硕士及以上学历，有临床工作经验或遗传咨询相关从业经历者优先',
+                            '2.具有较强的表达沟通能力',
+                            '3.具有较强的学习能力和抗压能力'
+                        ]
+                    },{
+                        name:'岗位职责',
+                        info:[
+                            '1.结合临床专业知识及基因检测结果推荐合适的预防治疗方案',
+                            '2.负责基因检测报告的解读和遗传咨询服务',
+                            '3.收集整理经典案例并撰写宣传材料'
+                            ]
+                        }]
+                },
+                {
+                    title:'基因测序技术员',
+                    detail:[{
+                        name:'岗位要求',
+                        info:[
+                            '1.生物技术、生物工程、分子生物学、生物化学等相关专业',
+                            '2.专科以上学历，一年以上相关的实验室工作经验，优秀应届生也可',
+                            '3.具备良好的英语读写能力，能熟练运用办公软件'
+                        ]
+                    },{
+                        name:'岗位职责',
+                        info:[
+                            '1.操作二代测序以及相关流程',
+                            '2.日常实验室工作'
+                        ]
+                    }]
+                },
+                {
+                    title:'生物信息软件工程师',
+                    detail:[{
+                        name:'岗位要求',
+                        info:[
+                            '1.数学、计算机、生物信息等专业，本科及以上学历，一年以上工作经验，优秀应届生也可；',
+                            '2.了解Linux操作系统，熟悉perl、python、C/C++中一种或一种以上编程语言；',
+                            '3.精通重测序分析流程，具有高通量测序信息分析流程搭建经验者优先考虑；',
+                            '4.良好的团队协作能力及沟通能力；'
+                        ]
+                    },{
+                        name:'岗位职责',
+                        info:[
+                            '1.需求分析，算法设计及代码实现；',
+                            '2.负责DNA测序数据分析软件算法实现、自动化检测及报告流程搭建；',
+                            '3.流程测试，撰写相关文档；'
+                        ]
+                    }]
+                }
+            ];
+            var showAdInfo = function(index){
+                var strHtml  = '',
+                    ad = data[index-1];
+                var i,j;
+                $('.modal-join .contain>h1>span').html(ad.title);
+                $('.modal-join .contain').children('h4,div').remove();
+                for(i=0;i<ad.detail.length;i++){
+                    strHtml += '<h4>' +ad.detail[i].name+'</h4>';
+                    if(ad.detail[i].info instanceof Array){
+                        strHtml += '<div><ol>';
+                        for(j=0;j<ad.detail[i].info.length;j++){
+                            strHtml += '<li>'+ad.detail[i].info[j]+'</li>'
+                        }
+                        strHtml += '</ol></div>';
+                    }else{
+                        strHtml +='<div>'+ ad.detail[i].info +'</div>'
+                    }
+                }
+                $('.modal-join .contain').append(strHtml);
+            };
+            
+
+            $('div.join>div').click(function(e){
+                var index = $(this).attr('data-index');
+                var width = $('body')[0].clientWidth;
+                var headerHeight  = $('header')[0].clientHeight;
+                var height = $('body')[0].clientHeight;
+                showAdInfo(index);
+                $('.modal-join').show();
+                $('.modal-join').css({
+                    width:width +'px',
+                    height:height + 'px',
+                });
+            });
+            $('.modal-join h1>img').click(function(e){
+                $('.modal-join').hide();
+            });
+            $('.join-us>li').click(function(e){
+                var index = $(this).attr('data-index');
+                var width = $('body')[0].clientWidth;
+                var headerHeight  = $('header')[0].clientHeight;
+                var height = $('body')[0].clientHeight;
+                showAdInfo(index);
+                $('.modal-join').show();
+                $('.modal-join').css({
+                    width:width +'px',
+                    height:height + 'px',
+                });
+            });
+        });
+
+        </script>
+        {% endblock %}

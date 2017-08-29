@@ -1,0 +1,248 @@
+
+	
+	{% extends "./inc/base.html" %} {% block style %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/assets/css/login.css">
+	<script type="text/javascript" src="/static/assets/js/angular-1.3.0.js"></script>
+	
+
+	{% endblock %} {% block content %}
+	<style type="text/css">
+		body{
+			color: black;
+		}
+		hr{
+			width: 100%
+
+		}
+		.navbar-inverse .navbar-nav > li > a{
+			color: black;
+		}
+		
+		.form-horizontal{
+		    background: #f3f5f6;
+		    padding-bottom: 40px;
+		    border-radius: 15px;
+		    text-align: center;
+		}
+		.form-horizontal .heading{
+		    display: block;
+		    font-size: 35px;
+		    font-weight: 700;
+		    padding: 35px 0;
+		    border-bottom: 1px solid black;
+		    margin-bottom: 30px;
+		}
+		.form-horizontal .form-group{
+		    padding: 0 40px;
+		    margin: 0 0 25px 0;
+		    position: relative;
+		}
+		.form-horizontal .form-control{
+		    background: white;
+		    border: none;
+		    border-radius: 20px;
+		    box-shadow: none;
+		    padding: 0 20px 0 45px;
+		    height: 40px;
+		    transition: all 0.3s ease 0s;
+		}
+		.form-horizontal .form-control:focus{
+		    background: #e0e0e0;
+		    box-shadow: none;
+		    outline: 0 none;
+		}
+		.form-horizontal .form-group i{
+		    position: absolute;
+		    top: 12px;
+		    left: 60px;
+		    font-size: 17px;
+		    color: #c8c8c8;
+		    transition : all 0.5s ease 0s;
+		}
+		.form-horizontal .form-control:focus + i{
+		    color: #00b4ef;
+		}
+		.form-horizontal .fa-question-circle{
+		    display: inline-block;
+		    position: absolute;
+		    top: 12px;
+		    right: 60px;
+		    font-size: 20px;
+		    color: #808080;
+		    transition: all 0.5s ease 0s;
+		}
+		.form-horizontal .fa-question-circle:hover{
+		    color: #000;
+		}
+		.form-horizontal .main-checkbox{
+		    float: left;
+		    width: 20px;
+		    height: 20px;
+		    background: #11a3fc;
+		    border-radius: 50%;
+		    position: relative;
+		    margin: 5px 0 0 5px;
+		    border: 1px solid #11a3fc;
+		}
+		.form-horizontal .main-checkbox label{
+		    width: 20px;
+		    height: 20px;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    cursor: pointer;
+		}
+		.form-horizontal .main-checkbox label:after{
+		    content: "";
+		    width: 10px;
+		    height: 5px;
+		    position: absolute;
+		    top: 5px;
+		    left: 4px;
+		    border: 3px solid #fff;
+		    border-top: none;
+		    border-right: none;
+		    background: transparent;
+		    opacity: 0;
+		    -webkit-transform: rotate(-45deg);
+		    transform: rotate(-45deg);
+		}
+		.form-horizontal .main-checkbox input[type=checkbox]{
+		    visibility: hidden;
+		}
+		.form-horizontal .main-checkbox input[type=checkbox]:checked + label:after{
+		    opacity: 1;
+		}
+		.form-horizontal .text{
+		    float: left;
+		    margin-left: 7px;
+		    line-height: 20px;
+		    padding-top: 5px;
+		    text-transform: capitalize;
+		}
+		.form-horizontal .btn{
+		    /*float: right;*/
+		    font-size: 14px;
+		    color: #fff;
+		    background: #D62538;
+		    /*border-radius: 30px;*/
+		    padding: 10px 25px 10px 20px;
+		    border: none;
+		    text-transform: capitalize;
+		    transition: all 0.5s ease 0s;
+		}
+		@media only screen and (max-width: 479px){
+		    .form-horizontal .form-group{
+		        padding: 0 25px;
+		    }
+		    .form-horizontal .form-group i{
+		        left: 45px;
+		    }
+		    .form-horizontal .btn{
+		        padding: 10px 20px;
+		    }
+		}
+	</style>
+	<!--[if IE]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<![endif]-->
+
+
+<!-- add shoudu top contain-->
+<div id="fullpage" class="container top">
+
+	<div class="htmleaf-container">
+		
+		<div class="demo form-bg" style="padding: 20px 0;">
+		        <div class="container">
+		        	
+		            <div class="row">
+		                <div class="col-md-offset-3 col-md-6">
+		                    <form class="form-horizontal" action="/user/login" method="POST">
+		                        <span class="heading">用户登录</span>
+		                     
+		                        <span  style="color:red" id="tips">{{loginmsg}}</span>
+
+		                        <div class="form-group">
+		                            <input class="form-control" id="username" placeholder="请输入用户名" name="username" required oninvalid="setCustomValidity('请输入用户名！');" oninput="setCustomValidity('');" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+		                            <i class="fa fa-user"></i>
+		                            <span style="display:none;font-size:15px;color:red" id="usinfor">用户名不存在</span>
+		                        </div>
+		                        <div class="form-group help">
+		                            <input type="password" class="form-control" id="password" placeholder="请输入密码" name="password" required oninvalid="setCustomValidity('请输入密码！');" oninput="setCustomValidity('');" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+		                            <i class="fa fa-lock"></i>
+		                            <a href="/user/password" class="fa fa-question-circle"></a>
+		                            <span style="display:none;font-size:15px;color:red" id="psinfor">密码不能为空</span>
+		                        </div>
+
+		                        <hr>
+		                        <div class="form-group">
+
+
+		                            
+		                            <a href="/user/password"><span class="text text-danger" >忘记密码 ?</span></a>
+
+		                            <!--  -->
+		                            
+
+		                             <button class="btn btn-danger" id="submit" type="submit" onclick="test()">登陆</button>
+		                             
+		                            <button class="btn btn-danger" type="button" id="register" onclick="window.location.href='register'">注册</button>
+
+
+		                            
+		                        </div>
+		                    </form>
+
+		                </div>
+		            </div>
+		        </div>
+		    </div>
+		
+	</div>
+</div>
+	{% endblock %} {% block script %}
+
+	<script type="text/javascript">
+
+	console.log("test");
+
+	
+
+	
+$(function() {
+	
+    var data = $('.pro-nav>li.active').attr('data-name');
+    $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    $('.pro-nav>li').click(function(e) {
+        $('.introduce[data-name = ' + data + ']').css('display', 'none');
+        $('.pro-nav>li.active').removeClass('active');
+        $(this).addClass('active');
+        data = $('.pro-nav>li.active').attr('data-name');
+        $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    });
+    /*$("#username").blur(function(){
+    	var username = $("#username").val();
+    	if(username==""||username==null){
+    		$("#usinfor").css("display","block");
+    	} 
+    })*/
+   
+    /*$("#submit").click(function(){
+    	var username =$("#username");
+    	var password =$("#password");
+    	alert(username+password);
+    	window.location.href="/user/login?username={{username}}";
+    })*/
+    
+    
+   
+});
+
+
+
+</script>
+
+	{% endblock %}

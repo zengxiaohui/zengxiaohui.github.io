@@ -1,0 +1,20 @@
+    <div class="modal-header bg-primary">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{title}}</h4>
+      </div>
+      <div class="modal-body" id="mycontent">
+          <div id="videos"></div>
+        <div ng-bind-html="myHTML"></div>
+      <p style="font-family:Tahoma;font-size: 15px;text-indent: 2em;word-break:break-word;">{{msg}}</p>
+
+
+      </div>
+      <div class="modal-footer" ng-show="con">
+        <button type="button" class="btn btn-primary" ng-click="submit()" ng-disabled="disable">确定</button>
+        <button type="button" class="btn btn-default" ng-click="close()">取消</button>
+      </div>
+      <style>
+      /*显示图片的设置*/
+       #mycontent img{width:80% !important;height:80% !important;}
+       /*.modal-dialog{padding-top: 15%;}*/
+      </style>

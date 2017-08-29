@@ -1,0 +1,287 @@
+//都放在一个back.js里面不方便多一个试一下。
+"user strict"
+import Base from './base.js';
+import UserMgr from '../connect/usermgr.js';
+import BizMgr from '../connect/bizmgr.js';
+
+var mgr = new UserMgr();
+//-------------------------------
+var mgm = new BizMgr();
+var errorCode = 0;
+
+export default class extends Base {
+
+	 async indexAction(){
+
+	 	 let data = {name: "thinkjs"};
+   		 this.success(data);
+	 }
+
+
+	 async adddiscpriceAction(){
+	 	console.log("=======adddiscpriceAction start ===================");
+
+	 	 if(this.isGet()){
+
+	 	 	try{
+	 	 		var userId = this.cookie('userId');
+	 	 		let pm  = await mgm.getTestItemList(userId)
+   				 .then( function (result) { 
+      
+      			 return result;
+   								 },   
+   					 function (error) {   
+       				console.log(error);   
+   						 });
+     
+   				 console.log("======pricelistAction pm=========");
+    			console.log(pm);
+
+    			this.assign('itemList',pm.itemList);
+	 	 	}catch(e){
+
+	 	 	}
+      return this.display();
+    }
+	 	
+	 	
+	 	
+
+
+	 	//get itemname to html
+
+	 	try{
+	 		var addinfor = this.post();
+	 		console.log(addinfor);
+	 		var senderId = this.cookie('userId');
+
+	 		//judge promotioncode exit is or not 
+	 		 let dp  = await mgm.getDiscPriceList(senderId)
+    .then( function (result) { 
+      //process.stdout.write(result);
+      //console.log(result.toString()); 
+      //var ret = JSON.parse(result.toString());
+     // pm.pname = BizMgr.getPrductName(pm.productid)
+      return result;
+    },   
+    function (error) {   
+       console.log(error);   
+    });
+    		console.log("=========dp==============");
+    		console.log(dp);
+    		console.log(addinfor.promotionCode+addinfor.itemid);
+    		console.log(dp.discList);
+    		for(let i in dp.discList){
+    			console.log(dp.discList[i].promotionCode+"||"+dp.discList[i].itemId);
+    			if(dp.discList[i].promotionCode==addinfor.promotionCode&&dp.discList[i].itemId==addinfor.itemid){
+    				console.log("pay success");
+    				console.log(dp.discList[i].itemId);
+    				//this.error("addtip","优惠码已存在");
+    				//this.assign("addtip","优惠码已存在");
+    				//return this.redirect("/backextra/adddiscprice");
+    				return this.error("addtip","优惠码已存在");
+
+    				
+    			}else{
+    				let pm = await mgm.addDiscPrice(senderId, addinfor.promotionCode, addinfor.itemid, addinfor.startDate, addinfor.endDate, addinfor.price)
+	 		.then(function(result){
+
+	 			return result;
+	 		},function(error){
+	 			return error;
+	 		})
+
+	 		return this.redirect("/back/disclist");
+    			}
+
+    		}
+
+	 		
+    	/*	*/
+	 	}catch(e){
+
+	 	}
+
+	 	return this.display();
+	 	//return this.redirect("/back/disclist");
+	 }
+
+	 async updatediscinforAction(){
+	 	var discinfor = this.post();
+	 	console.log("======discinforAction start=============");
+	 	console.log(discinfor);
+	 	var senderId = this.cookie('userId');
+	 	try{														
+	 		let pm = await mgm.updDiscPrice(senderId,discinfor.id,discinfor.promotionCode,discinfor.itemId, discinfor.startDate, discinfor.endDate, discinfor.price)
+	 		.then(function(result){
+
+	 				return result;
+	 		})
+	 		
+	 	}catch(e){
+	 		return this.redirect("/index/index");
+	 	}
+
+	 	return this.redirect("/back/disclist");
+
+
+	 }
+
+	 async adduserAction(){
+
+	 	var infor = this.post();
+
+	 	console.log("======adduserAction start============");
+
+	 	console.log(infor);
+
+	 	try{
+	 		var senderId = this.cookie('userId');
+       	   // var userId = this.get('userId');
+
+	 		let pm = await mgr.addUser(senderId,infor.name,infor.password,infor.phone,infor.email,infor.realName,infor.userRole)
+
+	 		.then(function(result){
+
+	 			return result;
+	 		},function(error){
+	 			return error;
+	 		})
+	 	}catch(e){
+	 		return this.display("index/index");
+	 	}
+
+
+	 	return this.redirect("/back/userlist");
+	 }
+
+
+	 async deletediscAction(){
+	 	var infor = this.get();
+	 	console.log("=======deletediscAction start ==============");
+
+	 	console.log(infor);
+
+	 	try{
+	 		var senderId = this.cookie('userId');
+
+	 		let pm = await mgm.deleleDiscPrice(senderId,infor.id)
+	 		.then(function(result){
+	 			return result;
+
+	 		})
+	 	}catch(e){
+	 		return this.redirect("/index/index");
+	 	}
+
+	 	return this.redirect("/back/disclist");
+	 }
+
+
+	 async alipayreturnAction(){
+
+
+	 	console.log("alipayreturnAction start");
+	 	var aliinfor = this.get();
+	 	//var senderId = this.cookie('userId');
+	 	console.log(aliinfor);
+	 	let senderId = this.cookie('userId');
+
+	 	console.log(senderId);
+	 	try{
+	 		//
+	 		console.log("==========senderId========");
+	 		console.log(senderId);
+	 		var aliinfor1 = JSON.stringify(aliinfor); 
+	 		let pm = await mgm.aliVerify(senderId, "UTF-8", aliinfor1)
+	 		.then(function(result){
+
+	 			return result;
+	 		},function(error){
+	 			return error;
+	 		})
+
+
+	 		console.log(pm);
+	 	}catch(e){
+
+
+	 	}
+	 	return this.redirect("/report/query");
+
+
+
+	 }
+
+	 async  alipaynotifyAction(){
+
+	 	console.log("==========alipaynotifyAction start=========");
+	 	var infor = this.post();
+	 	console.log(infor);
+	 	var infor1 = JSON.stringify(infor);
+
+	 	let pm = await  mgm.aliNotify(infor.out_trade_no, 'UTF-8', infor1)
+	 	.then(function(result){
+
+	 		return result;
+	 	})
+	 	
+	 	console.log(pm);
+	 	
+	 	
+	 	return  this.success(infor);
+
+
+	 }
+
+
+	 async additemAction(){
+	 		console.log("==========alipaynotifyAction start=========");
+	 		if(this.isGet()){
+
+	 			return this.display();
+	 		}
+
+	 		var pdtinfor =this.post();
+
+	 		console.log(pdtinfor);
+	 		let senderId = this.cookie('userId');
+	 		try{
+	 			let pm = await mgm.addItem(senderId,pdtinfor)
+	 			.then(function(result){
+
+	 				return result;
+	 			})
+	 		}catch(e){
+
+	 		}
+
+
+
+	 		return this.redirect('/back/pricelist');
+	 }
+
+
+	 async deleteitemAction(){
+
+	 	console.log("=========deleteAction start============");
+
+	 		let itemIdinfor = this.get();
+	 		let senderId = this.cookie('userId');
+	 	try{
+	 		let pm = await mgm.deleteTestItem(senderId,itemIdinfor.itemId)
+	 		.then(function(result){
+
+	 			return result;
+	 		})
+
+	 		console.log(pm);
+	 		
+	 	}catch(e){
+
+
+	 	}
+
+	 	return this.redirect("/back/pricelist");
+	 }
+}

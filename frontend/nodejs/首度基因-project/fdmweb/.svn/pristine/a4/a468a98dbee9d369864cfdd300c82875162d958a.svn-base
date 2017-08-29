@@ -1,0 +1,59 @@
+{% extends "./inc/backbase.html" %} {% block style %}
+
+
+{% endblock %} {% block content %}
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 产品管理</a> <a href="#" class="current">添加产品</a> </div>
+
+    <h1>添加产品</h1>
+  </div>
+  <div class="container-fluid">
+    <hr>
+      <form class="form-horizontal " role="form" action="/backextra/additem" id="createUser" style="text-align: center;" method="post">
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline">
+    <label>产品名称：</label>
+      <input type="text"  name ="name" class="form-control" id="firstname" value="" 
+           placeholder="请输入产品名称" required oninvalid="setCustomValidity('请输入用户名！');" oninput="setCustomValidity('');" required="" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>产品描述：</label>
+      <textarea name="desc" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"></textarea>
+      
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>产品价格：</label>
+      <input type="text" class="form-control" id="phone" 
+           placeholder="请输入产品价格" value="" name="price" required="" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  
+ <button type="button" class="btn btn-info" onclick="javascript:void(window.history.back())">返回</button>
+ <button  class="btn btn-danger">添加</button>
+</form>
+    </div>
+  </div>
+</div>
+<!--Footer-part-->
+<!--this is tip information-->
+
+
+
+{% endblock %} {% block script %}
+
+
+
+
+{% endblock %}

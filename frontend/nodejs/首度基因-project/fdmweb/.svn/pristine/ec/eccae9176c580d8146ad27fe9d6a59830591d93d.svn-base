@@ -1,0 +1,117 @@
+
+.container img{
+	width:100%;
+}
+.about-us p{
+	font-size:16px;
+	line-height: 2;
+}
+.about-us p + div{
+	margin:50px 0;
+	width:100%;
+	/*height:200px;*/
+	/*background-color:#838383;*/
+}
+.about-us p + div>.row{
+	padding: 0;
+}
+.about-us p + div>.row>div[class^='col-']{
+	margin: 0;
+	padding: 0;
+	
+}
+.about-us p + div>.row>div[class^='col-']{
+	overflow:hidden;
+	/*overflow-y: hidden;*/
+}
+.about-us p + div>.row>div[class^='col-']>img{
+	width:100%;
+	height:100%;
+	object-fit: cover;
+	margin: 0;
+	-webkit-transition:width .5s ease-in,
+					height .5s ease-in,
+					margin-left .5s ease-in,
+					margin-top .5s ease-in;
+	-moz-transition:width .5s ease-in,
+					height .5s ease-in,
+					margin-left .5s ease-in,
+					margin-top .5s ease-in;
+	transition:width .5s ease-in,
+					height .5s ease-in,
+					margin-left .5s ease-in,
+					margin-top .5s ease-in;
+}
+.about-us p + div>.row>div.col-md-2>img{
+	-webkit-filter: blur(2px); /* Chrome, Opera */
+       -moz-filter: blur(2px);
+        -ms-filter: blur(2px);    
+            filter: blur(2px);
+}
+.about-us p + div>.row>div[class^='col-']>img:hover{
+	width:110%;
+	height:120%;
+	margin-left:  -5%;
+	margin-top: -5%;
+}
+.about-us p + div>.row>div[class^='col-']>img:nth-child(2):hover{
+	width: 150%;
+}
+.about-us p + div>.row>div[class^='col-']>video{
+	background-color: rgba(0,0,0,.8);
+	object-fit: cover;
+}
+.row{
+	margin: 50px 0;
+}
+.list-group.triangle .list-group-item:before{
+	content:'';
+	background:url('../img/triangle.png') center no-repeat;
+	background-size: 16px;
+	width:16px;
+	height:16px;
+	position: absolute;
+	margin-left: -40px;
+	margin-top: 7px;
+}
+.list-group .list-group-item{
+	border:none;
+	font-size:16px;
+	line-height: 2;
+	padding-left: 40px;
+}
+.culture-box{
+	margin: 50px 20px;
+	position: relative;
+}
+.culture-box div{
+	position: absolute;
+	height: 50%;
+	width:50%;
+	color:#fff;
+	text-align: center;
+}
+.culture-box h4{
+	margin-top: 20%;
+	margin-bottom: 10%;
+	font-size: 24px;
+}
+.culture-box p{
+	font-size: 20px;
+}
+.culture-box div.cultrue{
+	top:50%;
+	left:50%;
+}
+.tec-info{
+	text-align: center;
+	font-size: 28px;
+	padding-top: 10%;
+}
+.tec-info .left{
+	margin-left: 70px;
+	text-align: left;
+}
+.tec-info p{
+	margin:50px 0;
+}

@@ -1,0 +1,210 @@
+
+@media (max-width: 991px){
+
+	.footer{
+		
+		padding:10px 0;
+	}
+	.footer .row>div:first-child{
+		text-align: center ; 
+
+	}
+	.fp-controlArrow.fp-next,.fp-controlArrow.fp-prev{
+		width:50px !important;
+		height:50px;
+	}
+
+	.section>h2.heavy{
+		padding-top: 65px;
+	}
+	footer.footer .row>div:first-child>h4 ,
+	footer.footer .row>div:first-child>h3{
+		display: inline;
+		text-align: center;
+		font-size: 18px;
+	}
+	footer.footer .row>div:nth-child(2)>p{
+		font-size:1em;
+	}
+.footer .row .footer-box{
+	text-align: left;
+}
+.footer .row .footer-box p {
+    font-size: 14px;
+    line-height: 1.1;
+}
+.footer .row .copyright  {
+	position: relative;
+	bottom: -10px;
+    color: #4a7bf6;
+    text-align: center;
+    font-size: 15px;
+    overflow: hidden;
+}
+.footer .row .copyright a{
+	color: #4a7bf6;
+}
+
+	.row.about img{
+		margin:3px;
+		width:60%;
+	}
+	.row .about-tow{
+		text-align: center;
+	}
+	.row .about-one{
+		text-align: center;
+	}
+	.row.tec img{
+		width:33%;
+	}
+	.section-1 .row:nth-child(1) div[class^='col-']:nth-child(3) {
+	    background: #e75e68;
+	}
+	.section-1 .row:nth-child(1) div[class^='col-']:nth-child(1) span:nth-child(1) {
+	    font-size: 20px;
+	    color: #D62539;
+	}
+	.section-1 .row:nth-child(1) div[class^='col-']:nth-child(1) span:nth-child(2) {
+	    font-size: 16px;
+	    color: #E75E68;
+	}
+	.map-box{
+		height:auto;
+	}
+	.map-box .map-info{
+		width:100%;
+	}
+	.map-box iframe{
+		height: 250px;
+	}
+	div[class^='col-']>div>span:nth-child(1) {
+	    font-size: 12px;
+	}
+
+	div[class^='col-']>div>span:nth-child(2) {
+	    font-size: 12px;
+	}
+	div.join>div.last{
+		margin-top: 20px;
+	}
+	.container.top{
+		padding-top: 70px;
+	}
+	.modal-bg{
+		width:100%;
+	}
+	.section > h1{
+		font-size:22px;
+	}
+	.animate{
+		height:600px;
+		margin:50px 0;
+	}
+	.animate>span{
+		display: none;
+	}
+	.animate .boll{
+		width:60%;
+		top:85px;
+		left:50%;
+		margin-left: -30%;
+	}
+	.animate>.world>h1{
+		font-size:16px;
+	}
+	.animate>img{
+		width:100%;
+	}
+	.product-content{
+		width:100%;
+	}
+	.product-content div.top{
+		width:15%;
+		display: inline-block;
+		float: left;
+		border-radius: 100%;
+		padding:28px;
+	}
+	.product-content div.top img{
+		width:100%;
+	}
+	.product-content{
+		padding:20px;
+	}
+	.list-group{
+		margin-bottom: 0;
+	}
+	.gray-bg .row div:last-child{
+		border-top:1px solid #fff;
+	}
+	.list-group-item h4{
+		font-size: 16px;
+	}
+	.information .list-group-item{
+		padding-left:0;
+	}
+	.list-group-item{
+		padding-left:22%;
+		padding-right: 0; 
+		position: relative;
+	}
+	.list-group-item img{
+		width:18% !important;
+		margin-right: 10px;
+		position: absolute;
+		left:2%;
+		top:50%;
+		transform: translate(0, -50%);
+	}
+	.news-nav li, .pro-nav li{
+		padding-right: 0;
+	}
+	.tec-info p{
+		margin:10px 0 !important;
+	}
+	.employee:after{
+		content:attr(attr-info);
+		 font-size: 16px;
+	}
+	.modal-join .box h1{
+	    border-bottom: 1px solid #333;
+	    padding-bottom: 20px;
+	    font-size:18px;
+	}
+	.section-2 .welcome div{
+	    font-size: 1.8em !important;
+	}
+	.row .red{
+		text-align: left !important;
+	}
+}
+@media (max-width: 500px){
+	.slide img{
+		margin-top: 0px !important;
+	}
+	.animate{
+		height:300px;
+		margin:20px 0;
+	}
+	.animate .boll{
+		top:40px;
+	}
+	.product-content div.top{
+		width:50%;
+		display: inline-block;
+		border-radius: 100%;
+	}
+	.container.chart{
+		margin-top: -150px;
+	}
+	.gray-bg .row div:last-child{
+		border-top:1px solid #fff;
+	}
+	.section-2 .welcome div{
+	    font-size: 1.5em !important;
+	}
+	.row .red{
+		text-align: left !important;
+	}
+}

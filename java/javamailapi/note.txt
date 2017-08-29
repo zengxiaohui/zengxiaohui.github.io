@@ -1,0 +1,15 @@
+获取发件箱、草稿箱、回收站的代码很简单：
+我们在获取收件箱的代码是：
+Folder folder = store.getFolder("INBOX");
+但是我们在获取发件箱、与草稿箱时出现异常，这时就与邮件服务器的文件夹有关；
+可以这样获取所有的文件夹:
+Folder defaultFolder = store.getDefaultFolder();
+Folder[] allFolder = defaultFolder.list();
+通过调试或者迭代出来文件夹名称再通过找出来的文件夹名称获取发件箱与草稿箱集合：Folder folder = store.getFolder("这里是迭代找出来的文件夹名称");
+根据获取的文件夹去得到里面的文件，
+
+[其他文件夹, INBOX, Sent Messages, Drafts, Deleted Messages, Junk]
+INBOX 收件箱
+Sent Messages 发件箱
+Drafts 草稿箱
+Deleted Messages 删除的邮件

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+
+	<script type="text/javascript" src="/static/assets/js/jquery.min.js"></script>
+</head>
+<body>
+	 
+
+
+
+ <div id="formtext"  hidden="">
+ 		{{formtext}}
+ 		<br>
+ 		<button type="button" id="test" hidden="">test</button>
+	
+	<!-- <form id = "pay_form" action="https://gateway.95516.com/gateway/api/frontTransReq.do" method="post"><input type="hidden" name="txnType" id="txnType" value="01"/><input type="hidden" name="frontUrl" id="frontUrl" value="http://www.shoudujiyin.com/fdmweb/return_url1.jsp"/><input type="hidden" name="channelType" id="channelType" value="07"/><input type="hidden" name="currencyCode" id="currencyCode" value="156"/><input type="hidden" name="merId" id="merId" value="898320573920750"/><input type="hidden" name="txnSubType" id="txnSubType" value="01"/><input type="hidden" name="txnAmt" id="txnAmt" value="4"/><input type="hidden" name="version" id="version" value="5.0.0"/><input type="hidden" name="signMethod" id="signMethod" value="01"/><input type="hidden" name="backUrl" id="backUrl" value="http://www.shoudujiyin.com/fdmweb/develop/Test_unionBac"/><input type="hidden" name="certId" id="certId" value="70205580914"/><input type="hidden" name="encoding" id="encoding" value="UTF-8"/><input type="hidden" name="bizType" id="bizType" value="000201"/><input type="hidden" name="reqReserved" id="reqReserved" value="1,88d735d3-7350-494e-b55b-1b168c04a272"/><input type="hidden" name="signature" id="signature" value="ivRey3nDDtFJaT6dOFB1NsoKDzkWZyLggQYD4eTWHpqflGLS/qWemov63hfXg2UCDeFSFzrwkDjsgLGUwjl/Auf+qragAcpXb4Ohlng6Y1jPcMjlrTaX314lQmI/V77MDsouar8Zjgldb09/A75djS+2eJummLuS2U4S/cLwMJx63Hc8/VMh3BHVf0d8oVJGLMVIAV1WsJr4ao9Lm7+j6qEC+lOUsaoyg/Y29gobmbP9pGx9O7jdFcaoGpTKwbXletnlyeHBtA7dxNx+rfZ/wvS+mx/HwD8d8jJPW554AjiDC55AzLmKG77HPtF/5NsDnu4ja13ai8pj2teeRSt5vg=="/><input type="hidden" name="orderId" id="orderId" value="0000000896"/><input type="hidden" name="txnTime" id="txnTime" value="20170320091959"/><input type="hidden" name="accessType" id="accessType" value="0"/></form>   -->
+
+	<!-- <form id = "pay_form" action="https://gateway.95516.com/gateway/api/frontTransReq.do" method="post"><input type="hidden" name="txnType" id="txnType" value="01"/><input type="hidden" name="frontUrl" id="frontUrl" value="http://www.shoudujiyin.com/fdmweb/return_url1.jsp"/><input type="hidden" name="channelType" id="channelType" value="07"/><input type="hidden" name="currencyCode" id="currencyCode" value="156"/><input type="hidden" name="merId" id="merId" value="898320573920750"/><input type="hidden" name="txnSubType" id="txnSubType" value="01"/><input type="hidden" name="txnAmt" id="txnAmt" value="4.0"/><input type="hidden" name="version" id="version" value="5.0.0"/><input type="hidden" name="signMethod" id="signMethod" value="01"/><input type="hidden" name="backUrl" id="backUrl" value="http://www.shoudujiyin.com/fdmweb/develop/Test_unionBac"/><input type="hidden" name="certId" id="certId" value="70205580914"/><input type="hidden" name="encoding" id="encoding" value="UTF-8"/><input type="hidden" name="bizType" id="bizType" value="000201"/><input type="hidden" name="reqReserved" id="reqReserved" value="1,682fb938-ffc6-44db-bff9-d2f740418bfa"/><input type="hidden" name="signature" id="signature" value="lbhQhvcnVmFZ5c6JRtcu47Rt0oBDTOT111Z/PmQN03s90wpbVxakkby5HMOnYHaqmlkyh+hGMrKYRrLUM5G0/Ww9aGKBmmHHDjTc3UNrpxykF3Z3MN60v5wub3ukVh5EF4IzRQJkd04mZHvzf3PPhDCWnfUX16TVN+SodPic5IR7r4WUIGlEnxq+aWl5VtDxHXkSK/0ze57bpuiZPFPBFOJ478TwQo3o7gjUc1br9ZUz4OcKIVYnlwtUWR+AmRquU8Bff2V+8y1/N8O4AHYOUqOo9hjQiOOwbMeIZ+336Ivr+tt0dQf3TIv/5EoB00+/vxnh7xH+C+uOwGr7fOqx9w=="/><input type="hidden" name="orderId" id="orderId" value="00000004561"/><input type="hidden" name="txnTime" id="txnTime" value="20170318134900"/><input type="hidden" name="accessType" id="accessType" value="0"/></form>  -->
+
+	 
+</div>
+<div id="formtext1" hidden="">
+	
+</div> 
+  
+</body>
+<script type="text/javascript" charset="utf-8" async defer>
+	
+$(function(){
+
+
+		var formtext= $("#formtext").text();
+
+		$("#formtext1").html(formtext);
+		//$("#test").click(function(){
+			//$("#frontUrl").val("http://vrx8xp.natappfree.cc/back/test");
+			document.forms['pay_form'].submit();
+		//})
+		
+})
+
+</script>
+</html>

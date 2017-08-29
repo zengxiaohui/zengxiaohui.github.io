@@ -1,0 +1,116 @@
+<div class="page-editors">
+    <a  href="#/science" class="btn btn-white">
+        <i class="fa fa-reply-all"></i>
+        返回列表
+    </a>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-header bg-dark">
+                <h2 class="panel-title">
+                    <strong>
+                        {{operate}}
+                        科学顾问信 息
+                    </strong>
+                </h2>
+            </div>
+            <div class="panel-content bg-white">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p style="font-family: '楷体';font-size: 17px;">
+                            <i class="fa fa-exclamation-circle"></i>
+                            务必认真填写下列信息
+                        </p>
+                        <br/>
+                        <form role="form" class="form-horizontal form-validation selector" ng-submit="submit()">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    姓名
+                                </label>
+                                <div class="col-sm-7 prepend-icon">
+                                    <input type="text" id="name" name="name" ng-model="science.name" class="form-control"   placeholder="请科学顾问姓名" required=""/>
+                                    <i class="fa fa-bookmark-o"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    职称
+                                </label>
+                                <div class="col-sm-7 prepend-icon">
+                                    <input type="text" id="education" name="education" ng-model="science.education" class="form-control"   placeholder="请科学顾问职称"/>
+                                    <i class="fa fa-bookmark-o"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    简介1
+                                </label>
+                                <div class="col-sm-7">
+                                  <textarea name="introduce1" rows="8" cols="80" ng-model="science.introduce1" class="form-control" placeholder="请科学顾问简介"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    简介2
+                                </label>
+                                <div class="col-sm-7">
+                                  <textarea name="introduce1" rows="8" cols="80" ng-model="science.introduce2" class="form-control" placeholder="请科学顾问简介"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    上传科学顾问图片
+                                </label>
+                                <div class="col-sm-7">
+                                    <div class="col-sm-7">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img alt="gallery 3" src="../../global/images/science.png" class="img-responsive" ng-src="{{science.image}}"/>
+                                            </div>
+                                            <div ng-click="select()">
+                                                <span class="btn btn-default btn-file" style="margin-left:4%;">
+                                                    <span class="fileinput-new bannerImage">
+                                                        选择图片
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-embossed btn-primary m-b-10 m-r-20" ng-disabled="disable">
+                                            提交
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .row2 {
+        position: relative;
+        padding: 20px 100px 0;
+        /* height: 500px;*/
+    }
+    .icon-user {
+        padding-bottom: 10px;
+    }
+    .input.form-success {
+        padding-bottom: 10px;
+    }
+    /*.form-control .form-success{
+           color: #18a689 !important;
+        }*/
+    .form-success {
+        color: #18a689 !important;
+        font-style: normal !important;
+    }
+
+</style>

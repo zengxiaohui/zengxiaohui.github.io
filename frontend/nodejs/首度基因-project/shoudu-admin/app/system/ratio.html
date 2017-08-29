@@ -1,0 +1,148 @@
+<div class="row">
+    <div class="col-lg-12 portlets">
+        <div class="panel">
+            <div class="panel-header">
+                <h3>
+                    <i class="icon-bulb"></i>
+                    <strong>
+                        师币：花瓣
+                    </strong>
+                    <p style="text-indent: 1em;padding-top: 10px;text-transform: initial;">
+                        <span>
+                            师币转花瓣比例设置，左比例为师币，右比例为花瓣，最多保留两位小数！务必谨慎操作！
+                        </span>
+                    </p>
+                </h3>
+            </div>
+            <div class="panel-content" style="padding: 0 20px; margin-bottom: 10px;">
+                <div class="row">
+                    <form role="form" class="form-horizontal form-validation">
+                        <div class="form-group">
+                            <label class="col-sm-2 col-md-1 col-lg-1 control-label" style="margin-left:15px;">
+                                师币:花瓣比例
+                            </label>
+                            <div class="col-sm-1">
+                                <input type="text" id="leftRatio" name="leftRatio" ng-model="dictionary.leftRatio" ng-readonly="read" ng-class="class" class="form-control decimal" required/>
+                            </div>
+                            <div class="col-sm-1" style="width:20px;margin-left:-15px;margin-top:5px;margin-right:-5px;">
+                                <span style="font-weight:bolder;">:</span>
+                            </div>
+
+                            <div class="col-sm-1">
+                                <input type="text" id="rightRatio" name="rightRatio" ng-model="dictionary.rightRatio" ng-readonly="read" ng-class="class" class="form-control decimal" required/>
+                            </div>
+
+                            <div class="col-sm-1" ng-show="edit">
+                                <button type="button" class="btn btn-blue" ng-click="editButton()">
+                                    修改
+                                </button>
+                            </div>
+                            <div class="col-sm-1" ng-show="save">
+                                <button type="button" class="btn btn-info" ng-click="saveButton()">
+                                    保存
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h3>
+                    <i class="icon-bulb"></i>
+                    <strong>
+                        花瓣：师币
+                    </strong>
+                    <p style="text-indent: 1em;padding-top: 10px;text-transform: initial;">
+                        <span>
+                            花瓣转师币比例设置，左比例为花瓣，右比例为师币，，最多保留两位小数！务必谨慎操作！
+                        </span>
+                    </p>
+                </h3>
+            </div>
+            <div class="panel-content" style="padding: 0 20px; margin-bottom: 10px;">
+                <div class="row">
+                    <form role="form" class="form-horizontal form-validations">
+                        <div class="form-group">
+                            <label class="col-sm-2 col-md-1 col-lg-1 control-label" style="margin-left:15px;">
+                                花瓣:师币比例
+                            </label>
+                            <div class="col-sm-1">
+                                <input type="text" id="leftRatios" name="leftRatios" ng-model="dictionary1.leftRatio" ng-readonly="reads" ng-class="classs" class="form-control decimal" required/>
+                            </div>
+                            <div class="col-sm-1" style="width:20px;margin-left:-15px;margin-top:5px;margin-right:-5px;">
+                                <span style="font-weight:bolder;">:</span>
+                            </div>
+
+                            <div class="col-sm-1">
+                                <input type="text" id="rightRatios" name="rightRatios" ng-model="dictionary1.rightRatio" ng-readonly="reads" ng-class="classs" class="form-control decimal" required/>
+                            </div>
+
+                            <div class="col-sm-1" ng-show="edits">
+                                <button type="button" class="btn btn-blue" ng-click="editButtons()">
+                                    修改
+                                </button>
+                            </div>
+                            <div class="col-sm-1" ng-show="saves">
+                                <button type="button" class="btn btn-info" ng-click="saveButtons()">
+                                    保存
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <div class="panel-header">
+                <h3>
+                    <i class="icon-bulb"></i>
+                    <strong>
+                        花瓣：余额
+                    </strong>
+                    <p style="text-indent: 1em;padding-top: 10px;text-transform: initial;">
+                        <span>
+                            花瓣转余额比例设置，左比例为花瓣，右比例为余额，，最多保留两位小数！务必谨慎操作！
+                        </span>
+                    </p>
+                </h3>
+            </div>
+            <div class="panel-content" style="padding: 0 20px; margin-bottom: 10px;">
+                <div class="row">
+                    <form role="form" class="form-horizontal form-validationss">
+                        <div class="form-group">
+                            <label class="col-sm-2 col-md-1 col-lg-1 control-label" style="margin-left:15px;">
+                                花瓣:余额比例
+                            </label>
+                            <div class="col-sm-1">
+                                <input type="text" id="leftRatioss" name="leftRatioss" ng-model="dictionary2.leftRatio" ng-readonly="readss" ng-class="classss" class="form-control decimal" required/>
+                            </div>
+                            <div class="col-sm-1" style="width:20px;margin-left:-15px;margin-top:5px;margin-right:-5px;">
+                                <span style="font-weight:bolder;">:</span>
+                            </div>
+
+                            <div class="col-sm-1">
+                                <input type="text" id="rightRatioss" name="rightRatioss" ng-model="dictionary2.rightRatio" ng-readonly="readss" ng-class="classss" class="form-control decimal" required/>
+                            </div>
+
+                            <div class="col-sm-1" ng-show="editss">
+                                <button type="button" class="btn btn-blue" ng-click="editButtonss()">
+                                    修改
+                                </button>
+                            </div>
+                            <div class="col-sm-1" ng-show="savess">
+                                <button type="button" class="btn btn-info" ng-click="saveButtonss()">
+                                    保存
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,57 @@
+{% extends "./inc/base.html" %} {% block style %}
+{% endblock %} {% block content %}
+
+
+
+<!-- <div>elm:{{elm.name+elm.userId+elm}}
+    <br>
+    object:{{userList}}
+ <ul>
+
+{% for elm1 in userList %}
+  <li>{{ elm1.userId }}</li>
+{% else %}
+  <li>This would display if the 'item' collection were empty</li>
+{% endfor %}
+</ul>
+</div> -->
+<table >
+	{% for elm1 in userList %}
+	<tr>
+		<td>{{elm1.name}}</td>
+        <td>{{elm1.password}}</td>
+		<td>{{elm1.userId}}</td>
+        <td>{{elm1.phone}}</td>
+        <td>{{elm1.userRoles}}</td>
+        <td>{{elm1.email}}</td>
+        <td><a href="#">查看</a>|<a>删除</a></td>
+		{% endfor %}
+	</tr>
+</table>
+
+
+
+{% endblock %} {% block script %}
+<script>
+$(function() {
+
+
+   
+    var data = $('.pro-nav>li.active').attr('data-name');
+    $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    $('.pro-nav>li').click(function(e) {
+        $('.introduce[data-name = ' + data + ']').css('display', 'none');
+        $('.pro-nav>li.active').removeClass('active');
+        $(this).addClass('active');
+        data = $('.pro-nav>li.active').attr('data-name');
+        $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    });
+    $('.spinner').spinner();
+    //console.log({{elm}}+"test")
+});
+</script>
+{% endblock %}
+
+
+
+

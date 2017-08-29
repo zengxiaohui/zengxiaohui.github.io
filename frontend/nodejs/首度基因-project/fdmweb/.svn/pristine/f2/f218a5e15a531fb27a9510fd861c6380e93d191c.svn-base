@@ -1,0 +1,127 @@
+{% extends "./inc/base.html" %} 
+{% block style %} 
+<link rel="stylesheet" type="text/css" href="/static/assets/css/about.css">
+{% endblock %} 
+{% block content %}
+<div id="fullpage" class="container top">
+    <div>
+        {{elm}}
+    </div>
+    <div class="section about-us">
+        <!-- 第一屏 -->
+        <h1 class="blod">ABOUT US</h1>
+        <h3 class="regular">关于我们</h3>
+        <p>首度基因是一家专注于数码生命与基因大数据的公司，公司宗旨是将基因序列信息转化为人类追求健康和战胜疾病的福音。首度基因以癌症检测为起点，能够通过生物信息学分析提供有助于癌症早期筛查、辅助诊断、用药指导和预后跟踪的有益信息，进而为癌症患者带来最大化的治疗效果。 
+        </p>
+        <p>首度基因拥有一直多年从事基因检测与大数据分析的专业研发团队，通过业界最顶级的检测设备，综合运用自主研发的高灵敏度捕获手段和精细化实验方法，建立世界一流的生物信息数据中心。首度基因致力于打造国内权威的癌症基因信息数据库，创建有统计意义的中华人中常见癌症变异与治疗效果基线，志在成为中国基因大数据业界的领导者。 </p>
+        <p>首度基因还将通过中国癌症云平台这一公益数据平台，为广大癌症基因组学研究者们提供免费的数据库资源，共同推进癌症基因领域分析研究的发展，不断完善有助于患者治疗的癌症基因大数据。 </p>
+        <p>首度基因，以癌症的基因检测、液体活检为起点，提供广泛的生物信息分析服务。致力于癌症的预防、诊断和改善治疗，建设了基于高通量基因测序技术和大数据分析平台的整体解决方案。</p>
+        <div>
+            <div class="row">
+                <div class="col-md-2 hidden-sm hidden-xs">
+                    <img src="http://images.firstdimension.cn/sd3.png">
+                </div>
+                <div class="col-md-8">
+                    <!-- <video src="http://images.firstdimension.cn/shoudujiyinshoudujiyin.mp4" webkit-playsinline="" controls="" width="100%" x-webkit-airplay="">
+                        <h2>您的浏览器不支持此视屏播放</h2>
+                    </video> -->
+                    <img src="http://images.firstdimension.cn/2.png">
+                </div>
+                <div class="col-md-2 hidden-sm hidden-xs">
+                    <img src="http://images.firstdimension.cn/ad.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+    	<h1 class="blod" style="padding-top: 40px;">CORE TEAM</h1>
+        <h3>核心团队</h3>
+        <div class="row">
+        	<div class="col-md-3">
+        		<img src="{{ceo.image}}">
+        	</div>
+        	<div class="col-md-9">
+        		<h4 class="blod">{{ceo.name}}<br><br>{{ceo.position}}</h4>
+        		<ul class="list-group triangle">
+				  <li class="list-group-item">
+					教育背景：{{ceo.education}} </li>
+				  <li class="list-group-item">工作经历：{{ceo.work}} </li>
+				  <li class="list-group-item">创业经历：{{ceo.business}} </li>
+				  <li class="list-group-item">科研成就：{{ceo.science}}</li>
+				</ul>
+        	</div>
+        </div>
+        <div class="row" style="padding-bottom: 0">
+        	<div class="col-md-8">
+        		<h4 class="blod">{{boss.name}} <br><br>{{boss.position}}</h4>
+        		<ul class="list-group triangle">
+				  <li class="list-group-item">
+					教育背景：{{boss.education}}  </li>
+				  <li class="list-group-item">工作经历：{{boss.work}}  </li>
+				  <li class="list-group-item">创业经历：{{boss.business}}  </li>
+				  <li class="list-group-item">科研成就：{{boss.science}}</li>
+				</ul>
+        	</div>
+        	<div class="col-md-4 about-ceo">
+        		<img src="{{boss.image}}" alt="">
+        	</div>
+        </div>
+    </div>
+    <div class="section">
+    	<h1 class="blod">SCIENCE ADVISOR</h1>
+    	<h3>科学顾问</h3>
+    	<!-- <ul class="list-group"> -->
+        {% for s in science %}
+		  <!-- <li class="list-group-item row"> -->
+          <div class="row">
+		  	<div class="col-md-3">
+		  		<img src="{{s.image}}">
+		  	</div>
+		  	<div class="col-md-9">
+		  		<h4 class="blod">{{s.name}} <br><br>{{s.positional}}</h4>
+                <p>{{s.education}} </p>
+                {% if s.introduce1%}
+		  		<p>{{s.introduce1}}</p>
+                {% endif %}
+                {% if s.introduce2s%}
+                <p>{{s.introduce2}}</p>
+                {% endif %}
+		  	</div>
+          </div>
+		  <!-- </li> -->
+          {% endfor %}
+		<!-- </ul> -->
+    </div>
+    <div class="section img">
+    	<h1 class="blod padding-top-60">VISION AND CULTURE</h1>
+    	<h3>愿景与文化</h3>
+        <img src="http://images.firstdimension.cn/about_us.jpg">
+    </div>
+    <div class="section">
+    	<h1 class="blod padding-top-40">TECHNOLOGY PLATFORM</h1>
+    	<h3>技术平台</h3>
+    	<div class="row">
+    		<div class="col-md-6">
+	    		<img src="http://images.firstdimension.cn/ion-s5.png" alt="">
+    		</div>
+    		<div class="col-md-6 tec-info">
+    			<p class="left">Ion S5™ System</p>
+    			<p>小身材 · 大通量</p>
+    		</div>
+    	</div>
+    	<div class="row">
+    		<div class="col-md-5 tec-info">
+    			<p>NextSeq CN500 基因测序仪</p>
+    			<p>传承经典 · 只为临床</p>
+    		</div>
+    		<div class="col-md-7">
+	    		<img src="http://images.firstdimension.cn/nextseq-500-02.png" alt="">
+    		</div>
+    	</div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script>
+$(function() {});
+</script>
+{% endblock %}

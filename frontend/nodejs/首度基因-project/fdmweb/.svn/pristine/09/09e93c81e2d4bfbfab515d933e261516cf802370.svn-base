@@ -1,0 +1,144 @@
+{% extends "./inc/backbase.html" %} {% block style %}
+
+
+{% endblock %} {% block content %}
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>用户管理</a> <a href="#" class="current">添加用户</a> </div>
+
+    <h1>添加用户</h1>
+  </div>
+  <div class="container-fluid">
+    
+    <hr>
+    	<form class="form-horizontal " role="form" action="/backextra/adduser" id="createUser" style="text-align: center;" method="post">
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline">
+    <label>用户名称：</label>
+      <input type="text"  name ="name" class="form-control" id="firstname" value="" 
+           placeholder="请输入用户名" required oninvalid="setCustomValidity('请输入用户名！');" oninput="setCustomValidity('');" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline">
+    <label>用户密码：</label>
+      <input type="password" class="form-control" id="password" 
+           placeholder="请输入密码" value="" name="password" onblur="jugPwd()" required onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>重输密码：</label>
+      <input type="password" class="form-control" id="password1" 
+           placeholder="请确认密码" value="" onblur="jugPwd()" required onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+    <span style="font-size: 12px;color: red;"  id="pwd" hidden>请确认2次输入密码一样</span>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>真实姓名：</label>
+      <input type="text" class="form-control" id="name" 
+           placeholder="请输入真实姓名" value="" name="realName" required onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>用户电话：</label>
+      <input type="text" class="form-control" id="phone" 
+           placeholder="请输入电话号码" value="" name="phone" required onblur="isPhone()" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+     <span style="font-size: 12px;color: red; display: none"  id="testpho" >请输入正确格式</span>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>用户邮箱：</label>
+      <input type="email" class="form-control" id="email" 
+           placeholder="请输入邮箱" value="" name="email" required onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+
+  <div class="form-group form-inline form-group-sm">
+    <div class="col-sm-10">
+    <lable>用户角色：</lable>
+     <select name="userRole" class="" id="selectRoles"  >
+      	<option value="admin">管理员</option>
+      	<option value="doctor">医生</option>
+      	<option value="patient" selected="selected">患者</option>
+      	<option value="sales">销售</option>
+      	<option value="tester">医学部用户</option>
+      </select>
+    </div>
+  </div>
+
+  <br>
+   
+ <button type="button" class="btn btn-info" onclick="javascript:void(window.history.back())">返回</button>
+ <button  class="btn btn-danger">添加</button>
+</form>
+    </div>
+  </div>
+</div>
+
+
+<script  type="text/javascript" charset="utf-8" async defer>
+
+
+    function jugPwd(){
+      var password=$("#password").val();
+      var password1=$("#password1").val();
+      if(password!=password1){
+
+        
+        $("#pwd").show();
+      }else if(password==password1){
+        $("#pwd").hide();
+        
+      }
+    }
+    //judge phone style
+    function isPhone(){
+      //var part = 
+     var patrn=/^[0-9]{11}$/; 
+      var aa = document.getElementById("phone");
+
+      var phone = aa.value;
+      var testpho = document.getElementById("testpho");
+     
+
+    if (patrn.exec(phone)) {
+
+      testpho.style.display="none";
+    }else{
+      
+
+      testpho.style.display="block";
+       
+    }
+    
+    }
+
+    function ispwd(){
+      
+      
+    }
+
+</script>
+
+{% endblock %} {% block script %}
+
+
+
+
+{% endblock %}

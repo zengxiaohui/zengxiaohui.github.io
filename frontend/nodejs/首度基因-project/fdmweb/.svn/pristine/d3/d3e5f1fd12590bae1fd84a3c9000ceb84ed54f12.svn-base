@@ -1,0 +1,26 @@
+.map-box{
+	margin:20px 0;
+	width:100%;
+	
+}
+
+.map-box  iframe{
+	width:100%;
+}
+.map-box .map-info{
+	
+	background-color:rgba(214,37,57,0.8);
+	z-index: 2;
+	color:#fff;
+	padding: 20px;
+}
+
+.map-box .map-info h4{
+	margin:10px 0 20px 0;
+	padding: 10px 0 20px 0;
+	border-bottom: 1px solid #fff;
+
+}
+.map-box .map-info p{
+	margin: 10px 0;
+}

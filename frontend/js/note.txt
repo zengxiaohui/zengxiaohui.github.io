@@ -12,3 +12,13 @@ menubar，scrollbars 表示菜单栏和滚动栏。
 resizable=no 是否允许改变窗口大小，yes为允许； 
 location=no 是否显示地址栏，yes为允许； 
 status=no 是否显示状态栏内的信息（通常是文件已经打开），yes为允许
+
+
+json，string处理：
+	var data = {"SIGN_TYP":"","RETURNCODE":"MCA00000","RETURNCON":"交易成功","TXN_CD":"M124","SIGN_DAT":"","JSON_DAT":"[{\"provId\":991000,\"provName\":\"北京\"},{\"provId\":991100,\"provName\":\"天津\"},{\"provId\":1200,\"provName\":\"河北省\"},{\"provId\":1600,\"provName\":\"山西省\"},{\"provId\":1900,\"provName\":\"内蒙古自治区\"},{\"provId\":2200,\"provName\":\"辽宁省\"},{\"provId\":2400,\"provName\":\"吉林省\"},{\"provId\":2600,\"provName\":\"黑龙江省\"},{\"provId\":3000,\"provName\":\"江苏省\"},{\"provId\":3300,\"provName\":\"浙江省\"},{\"provId\":3600,\"provName\":\"安徽省\"},{\"provId\":3900,\"provName\":\"福建省\"},{\"provId\":4200,\"provName\":\"江西省\"},{\"provId\":4500,\"provName\":\"山东省\"},{\"provId\":4900,\"provName\":\"河南省\"},{\"provId\":5200,\"provName\":\"湖北省\"},{\"provId\":5500,\"provName\":\"湖南省\"},{\"provId\":5800,\"provName\":\"广东省\"},{\"provId\":6100,\"provName\":\"广西自治区\"},{\"provId\":6400,\"provName\":\"海南省\"},{\"provId\":6500,\"provName\":\"四川省\"},{\"provId\":996900,\"provName\":\"重庆\"},{\"provId\":7000,\"provName\":\"贵州省\"},{\"provId\":7300,\"provName\":\"云南省\"},{\"provId\":7700,\"provName\":\"西藏自治区\"},{\"provId\":7900,\"provName\":\"陕西省\"},{\"provId\":8200,\"provName\":\"甘肃省\"},{\"provId\":8500,\"provName\":\"青海省\"},{\"provId\":8700,\"provName\":\"宁夏自治区\"},{\"provId\":8800,\"provName\":\"新疆维吾尔自治区\"},{\"provId\":992900,\"provName\":\"上海\"}]"};
+	console.log(data);
+	var pro = JSON.parse(data.JSON_DAT);
+	console.log(pro);
+	console.log(pro[1]);
+	console.log(pro[1].provId);
+	console.log(pro[1].provName);

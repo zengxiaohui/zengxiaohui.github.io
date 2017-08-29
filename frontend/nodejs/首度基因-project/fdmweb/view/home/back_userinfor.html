@@ -1,0 +1,107 @@
+{% extends "./inc/backbase.html" %} {% block style %}
+
+
+{% endblock %} {% block content %}
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>用户管理</a> <a href="#" class="current">信息修改</a> </div>
+
+    <h1>信息修改</h1>
+  </div>
+  <div class="container-fluid">
+    <hr>
+    	<form class="form-horizontal " role="form" action="/back/updateuser" id="createUser" style="text-align: center;" method="post">
+      <div class="form-group">
+    
+    <div class="col-sm-10 form-inline">
+    <label>用户名称：</label>
+      <input type="text"  name ="name1" class="form-control" id="firstname" value="{{infor.name}}" 
+           placeholder="请输入用户名"  oninvalid="setCustomValidity('请输入用户名！');" oninput="setCustomValidity('');"
+            disabled="" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <div class="form-group" hidden="">
+    
+    <div class="col-sm-10 form-inline">
+    <label>用户名称：</label>
+      <input type="text"  name ="name" class="form-control" id="firstname" value="{{infor.name}}" 
+           placeholder="请输入用户名" required oninvalid="setCustomValidity('请输入用户名！');" oninput="setCustomValidity('');" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" >
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline">
+    <label>用户密码：</label>
+      <input type="password" class="form-control" id="password" 
+           placeholder="请输入密码" value="{{infor.password}}" name="password" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>重输密码：</label>
+      <input type="password" class="form-control" id="password1" 
+           placeholder="请确认密码" value="{{infor.password}}" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>真实姓名：</label>
+      <input type="text" class="form-control" id="phone" 
+           placeholder="请输入电话号码" value="{{infor.realName}}" name="realName" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>用户电话：</label>
+      <input type="text" class="form-control" id="phone" 
+           placeholder="请输入电话号码" value="{{infor.phone}}" name="phone" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>用户邮箱：</label>
+      <input type="email" class="form-control" id="email" 
+           placeholder="请输入邮箱" value="{{infor.email}}" name="email" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+    </div>
+  </div>
+  <br>
+
+  <div class="form-group form-inline form-group-sm">
+    <div class="col-sm-10">
+    <lable>用户角色：</lable>
+     <select name="userRole" class="" id="selectRoles"  >
+      	<option value="admin">管理员</option>
+      	<option value="doctor">医生</option>
+      	<option value="patient" selected="selected">患者</option>
+      	<option value="sales">销售</option>
+      	<option value="tester">医学部用户</option>
+      </select>
+    </div>
+  </div>
+
+  <br>
+   <input  type="text" name="userId" value="{{infor.userId}}" style="display: none">
+ <button type="button" class="btn btn-info" onclick="javascript:void(window.history.back())">返回</button>
+ <button  class="btn btn-danger">修改</button>
+</form>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %} {% block script %}
+
+
+
+
+{% endblock %}

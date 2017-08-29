@@ -1,0 +1,62 @@
+'use strict';
+
+import Base from './base.js';
+import UserMgr from '../connect/usermgr.js';
+import BizMgr from '../connect/bizmgr.js';
+
+var mgr = new UserMgr();
+//-------------------------------
+var mgm = new BizMgr();
+
+export default class extends Base {
+
+	async indexAction(){
+	 	return this.display();
+	 }
+
+	 async queryAction(){
+
+	 	try{
+	 		let userId = this.cookie("userId");
+	 		console.log("========queryAction============");
+	 		console.log(userId)
+	 		let pm = await mgm.queryOrder(userId)
+	 		.then(function(result){
+
+	 			console.log(result);
+	 			return result;
+	 		},function(error){
+	 			console.log(error);
+	 		})
+
+	 		console.log(pm);
+	 		//console.log(pm.testList);
+	 		this.assign("pm",pm);
+	 		for(let j in pm){
+      var elm = pm.testList;
+      console.log(elm.userId + "|" + elm.name + "|" + elm.password); 
+     // this.assign('elm',elm);
+      
+      this.assign('testList',pm.testList);
+      
+    }
+	 		//this.assign("pm",pm);
+
+	 	}catch(e){
+
+	 	}
+
+
+	 	return this.display();
+	 }
+
+
+	 async billAction(){
+	 	console.log("=====billAction=========");
+	 	var infor = this.get();
+	 	console.log(infor);
+
+	 	return this.display();
+
+	 }
+}

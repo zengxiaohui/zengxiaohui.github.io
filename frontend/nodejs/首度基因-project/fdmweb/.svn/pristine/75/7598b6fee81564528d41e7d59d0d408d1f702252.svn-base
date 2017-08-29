@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>首度 后台</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+
+
+<link rel="stylesheet" href="/static/assets/backpage/css/bootstrap.min.css"  type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/bootstrap-responsive.min.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/uniform.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/select2.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/matrix-style.css" type="text/css"/>
+<link rel="stylesheet" href="/static/assets/backpage/css/matrix-media.css" type="text/css"/>
+<link href="/static/assets/backpage/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,800' rel='stylesheet' type='text/css'>
+
+
+{% block style %}{% endblock %}
+</head>
+<body>
+
+<!--Header-part-->
+<div id="header">
+  <h1><a href="dashboard.html">首度 后台</a></h1>
+</div>
+<!--close-Header-part--> 
+
+<!--top-Header-menu-->
+<div id="user-nav" class="navbar navbar-inverse">
+  <ul class="nav">
+    <li  class="dropdown" id="profile-messages" ><a title="" href="#" data-toggle="dropdown" data-target="#profile-messages" class="dropdown-toggle"><i class="icon icon-user"></i>  <span class="text" id="user" style="color: red;font-size: 15px">Welcome User</span><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#"><i class="icon-user"></i> My Profile</a></li>
+        <li class="divider"></li>
+        <li><a href="#"><i class="icon-check"></i> My Tasks</a></li>
+        <li class="divider"></li>
+        <li><a href="/index/cleancookie" id="loginout" ><i class="icon-key" ></i>退出登陆</a></li>
+      </ul>
+    </li>
+    
+   
+    <li class=""><a title="" href="/index/cleancookie" style="color: red;font-size: 15px"><i class="icon icon-share-alt"></i> <span class="text">退出登陆</span></a></li>
+  </ul>
+</div>
+
+<!--start-top-serch-->
+
+<!--close-top-serch--> 
+
+<!--sidebar-menu-->
+
+<div id="sidebar"> <a href="#" class="visible-phone"><i class="icon icon-th"></i>Tables</a>
+  <ul>
+    
+    
+    <li class="submenu"> <a href="#"><i class="icon icon-file"></i> <span>用户管理</span> <span class="label label-important">1</span></a>
+      <ul>
+        <li><a href="/back/userlist">用户列表</a></li>
+        <!-- <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="calendar.html">Calendar</a></li>
+        <li><a href="chat.html">Chat option</a></li> -->
+      </ul>
+    </li>
+    <li class="submenu"> <a href="#"><i class="icon icon-info-sign"></i> <span>产品管理</span> <span class="label label-important">2</span></a>
+      <ul>
+        <li><a href="/back/pricelist">产品列表</a></li>
+        <li><a href="/back/disclist">价格管理</a></li>
+        <!-- <li><a href="error405.html">Error 405</a></li>
+        <li><a href="error500.html">Error 500</a></li> -->
+      </ul>
+    </li>
+    
+  </ul>
+</div>
+
+<!--Footer-part-->
+<!--this is tip information-->
+{% block content %}{% endblock %}
+<div class="row-fluid" style="background:back">
+  <div id="footer" class="span12"> 
+  	 <div class="col-md-6 col-sm-6">
+                <h5>
+                        地址：江苏省苏州市工业园区生物纳米园B8栋5楼    
+                    </h5>
+                <div>
+                    <span>Copyright©2016首度生物科技（苏州）有限公司 <a href="http://www.miitbeian.gov.cn">苏ICP备16044804号</a></span>
+                </div>
+            </div>
+   </div>
+</div>
+
+<!-- <script type="text/javascript" charset="utf-8" async defer>
+              
+   alert("test");
+          function initReport() {
+      $('#mytable').bootstrapTable({
+        method: 'get',
+        cache: false,
+        height: 800,
+        striped: true,
+        pagination: true,
+        pageSize: 20,
+        pageNumber:1,
+        pageList: [10, 20, 50, 100, 200, 500],
+        search: true,
+        showColumns: true,
+        showRefresh: true,
+        search: true,
+        clickToSelect: true
+   })
+</script> -->
+<!--end-Footer-part-->
+ {% block script %}{% endblock %}
+<script src="/static/assets/backpage/js/jquery.min.js"></script>
+<script  type="text/javascript" charset="utf-8" async defer>
+
+
+ $(function(){
+  var username = $.cookie("name");
+
+ // alert(username);
+ $("#user").text(username);
+
+ })          
+            </script>
+<!-- <script src="/js5/bootstrap-table.min.js"></script>
+<script src="/js5/bootstrap-table-zh-CN.min.js"></script> -->
+<script src="/static/assets/backpage/js/jquery.ui.custom.js"></script> 
+<script src="/static/assets/backpage/js/bootstrap.min.js"></script> 
+<script src="/static/assets/backpage/js/jquery.uniform.js"></script> 
+<!-- <script src="/static/assets/backpage/js/select2.min.js"></script>  -->
+<script src="/static/assets/backpage/js/jquery.dataTables.min.js"></script> 
+<script src="/static/assets/backpage/js/matrix.js"></script> 
+ <script src="/static/assets/backpage/js/matrix.tables.js"></script> 
+  <script type="text/javascript" src="/static/assets/js/cookie.js"></script>
+ 
+</body>
+</html>

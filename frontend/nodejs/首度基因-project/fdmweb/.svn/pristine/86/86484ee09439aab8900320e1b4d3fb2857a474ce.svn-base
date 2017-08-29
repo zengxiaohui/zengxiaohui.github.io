@@ -1,0 +1,231 @@
+{% extends "./inc/base.html" %} {% block style %}
+
+
+
+ <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap-table.css"> 
+
+ 
+
+{% endblock %} {% block content %}
+<style type="text/css" media="screen">
+		#content{
+			padding-top: 80px;
+		}
+</style>
+
+
+<!-- <div>elm:{{elm.name+elm.userId+elm}}
+    <br>
+    object:{{userList}}
+ <ul>
+
+{% for elm1 in userList %}
+  <li>{{ elm1.userId }}</li>
+{% else %}
+  <li>This would display if the 'item' collection were empty</li>
+{% endfor %}
+</ul>
+</div> -->
+<script type="text/javascript" src="/static/assets/js/bootstrap-table.js"></script>
+<div id="content">
+	
+
+{{testList.orderId}}
+		<div id="content-body">
+			
+			<div id="reportTableDiv" class="span10">
+				<table id="reportTable" >
+					
+					<th >订单号</th>
+					<!-- <th>受邀人名称</th> -->
+					<th >用户名</th>
+					<th>用户电话</th>
+					
+					<th>用户邮箱</th>
+					<!-- <th >邀请时间</th> -->
+					<th >订单生成日期</th>
+					<th>跟单状态</th>
+					<th>付费状态</th>
+					<th >操作</th>
+					{% block header%}
+					{% for testList in testList %}
+					<tr>
+						<td>{{testList.orderId}}</td>
+						<!-- <td>{{testList.testItem}}</td> -->
+						<td>{{testList.senderName}}</td>
+						
+						
+						<td>{{testList.phoneNumber}}</td>
+						
+						<td>{{testList.senderContactInfo}}</td>
+						<td>{{testList.sendDate}}</td>
+						<!-- <td>{{testList.testType}}</td> -->
+						{% if  testList.testStatus ==6%}
+						<td>等待工作人员联系
+						{% elif testList.testStatus == 5%}
+						<td>最终报告已经出具
+						{% elif testList.testStatus == 4%}
+						<td>自动报告已经生成
+						{% elif testList.testStatus == 3%}
+						<td>完成检测
+						{% elif testList.testStatus == 2%}
+						<td>正在处理
+						{% elif testList.testStatus == 1%}
+
+						<td>收到样本
+						
+
+						
+
+						</td>
+						{%endif%}
+						{% if testList.feeStatus == 1%}
+						<td>未缴费
+						{%  elif testList.feeStatus == 2%}
+						<td>部分缴费
+						{% elif testList.feeStatus == 3%}
+						<td>已缴费
+						{%endif%}
+
+
+						
+
+
+						</td>
+						<td><a>查看</a></td>
+					</tr>
+					{%endfor%}
+					{% endblock %}
+				</table>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+
+
+{% endblock %} {% block script %}
+<script>
+function initReport() {
+			$('reportTable').bootstrapTable({
+				method: 'get',
+				cache: false,
+				height: 800,
+				striped: true,
+				pagination: true,
+				pageSize: 20,
+				pageNumber:1,
+				pageList: [10, 20, 50, 100, 200, 500],
+				search: true,
+				showColumns: true,
+				showRefresh: true,
+				search: true,
+				clickToSelect: true,
+				columns: [{field:"user_email",title:"email",align:"center",valign:"middle",sortable:"true"},{field:"user_company",title:"company",align:"center",valign:"middle",sortable:"true"},{field:"user_dates",title:"date",align:"center",valign:"middle",sortable:"true"},{field:"user_lastlogintime",title:"lastlogintime",align:"center",valign:"middle",sortable:"true"},{field:"user_version",title:"version",align:"center",valign:"middle",sortable:"true"},{field:"user_isv2",title:"isv2",align:"center",valign:"middle",sortable:"true"},{field:"userstatus_usertype",title:"usertype",align:"center",valign:"middle",sortable:"true"},{field:"userstatus_package_id",title:"package_id",align:"center",valign:"middle",sortable:"true"},{field:"userstatus_end_time",title:"end_time",align:"center",valign:"middle",sortable:"true"},{field:"操作",title:"操作",align:"center",valign:"middle",sortable:"true",formatter:"actionFormatter",events:"actionEvents"}],
+				
+				onPageChange: function (size, number) {
+					//$("#pageSizeInput").val(size);
+					//$("#pageNumberInput").val(number);
+					
+					//var form = $('#tableForm');
+					//form.action= '${base}/showReport';
+					//form.submit();
+                },
+				//onSort: function (name, order) {
+               // },
+				//formatShowingRows: function (pageFrom, pageTo, totalRows) {
+				//	return '';
+               // },
+				//formatRecordsPerPage: function () {
+				//	return '';
+              //  },
+                formatNoMatches: function(){
+                	return '无符合条件的记录';
+                }
+			});
+		}
+		initReport();
+		
+		function actionFormatter(value, row, index) {
+	        /*return [
+	            '<button class="btn btn-primary resend">重新发送邀请</button>'
+	        ].join('');*/
+	        //alert(row.user_dates);
+	        return  [
+        '<a class="like"  title="Like" href="/report/bill?userstatus_package_id='+row.userstatus_package_id+'">',
+        '<i class="glyphicon glyphicon-heart"></i>',
+        '</a>  ',
+        '<a class="remove" href="javascript:void(0)" title="Remove">',
+        '<i class="glyphicon glyphicon-remove"></i>',
+        '</a>'
+      ].join('');
+
+	    }
+		
+		
+			window.actionEvents = {
+		        'click .like': function (e, value, row, index) {
+		            //alert('重新发送该邀请, row: ' + JSON.stringify(row));
+		            alert(JSON.stringify(row)+index+value);
+		            console.log(value, row, index);
+		        }
+		    };
+		
+		
+		
+
+		function rowStyle(row, index) {
+        var classes = ['active', 'success', 'info', 'warning', 'danger'];
+
+        if (row.status == "NULL") {
+            return {
+                classes: 'warning'
+            };
+        }
+
+        if (row.status == "0") {
+            return {
+                classes: 'danger'
+            };
+        }
+        return {};
+    }
+
+    function edit(id){
+
+    	alert(id);
+    }
+$(function() {
+
+
+	var name =$.cookie("name");
+     
+        
+        if(name==null){
+            alert("请登陆以后再购买");
+            window.location.href="/user/login";
+        }
+
+
+    var data = $('.pro-nav>li.active').attr('data-name');
+    $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    $('.pro-nav>li').click(function(e) {
+        $('.introduce[data-name = ' + data + ']').css('display', 'none');
+        $('.pro-nav>li.active').removeClass('active');
+        $(this).addClass('active');
+        data = $('.pro-nav>li.active').attr('data-name');
+        $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    });
+    $('.spinner').spinner();
+    //console.log({{elm}}+"test")
+});
+</script>
+
+
+{% endblock %}
+
+
+
+

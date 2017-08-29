@@ -1,0 +1,443 @@
+{% extends "./inc/base.html" %} {% block style %}
+<link rel="stylesheet" type="text/css" href="/static/assets/css/production.css"> {% endblock %} {% block content %}
+<style type="text/css">
+    #test{
+
+        padding-top: 175px
+    }
+     .list-group-item{
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    .table>tbody>tr>td{
+        
+        padding: 12px;
+        border-top:0px;
+        background-color: white;
+        font-weight:bolder;
+        font-size: 18px;
+    }
+     #fullpage{
+        padding-top: 50px;
+    }
+    
+</style>
+
+<div  class="container" id="test" >
+  <div class="row">
+
+    <h1 class="blod exome">
+           &nbsp;&nbsp; FD-600
+    </h1>
+    <br>
+            <div style="display: none">
+                <!--FD-Tissue-180(FD-组织-180)-->
+                <input type="text" name="" id="ft_p" value="{{price1}}">
+                <input type="text" name="" id="ft" value="3">
+                <!--FD-ctDNA-180(FD-无创-180)-->
+                <input type="text" name="" id="fc_p" value="{{price}}">
+                <input type="text" name="" id="fc" value="4">
+
+                <!--FD-Tissue-180+FD-ctDNA-180-->
+                <input type="text" name="" id="fa_p" value="{{price2}}">
+                <input type="text" name="" id="fa" value="9">
+
+            </div>
+            <div class="col-md-4" >
+                        <img src="/static/assets/img/fd600.png" class="img-responsive right-block"  >
+            </div>
+            <div class="col-md-6 list-group-item" >
+                    <table class ="table" id="mytable">
+                        <tr ><td>检测项目</td><td>价格</td><td>数量</td></tr>
+                        <tr ><td>FD-Tissue-600(FD-组织-600)</td><td>￥<span id="FD_Tissue_600" style="color:red;font-size:20px">{{price1}}</span></td><td><input type="text" class="spinner" id="ft_number"/></td></tr>
+                        <tr ><td>FD-ctDNA-600(FD-无创-600)</td><td>￥<span id="FD_ctDNA_600" style="color:red;font-size:20px">{{price}}</span></td><td><input type="text" class="spinner" id="fc_number"/></td></tr>
+                        <tr ><td>FD-Tissue-600+FD-ctDNA-600<br>(FD-组织-600+FD-无创-600)</td><td>￥<span id="FD_ADD_600" style="color:red;font-size:20px">{{price2}}</span></td><td><input type="text" class="spinner" id="fa_number"/></td></tr>
+                        <tr ><td></td> <td><button class="btn btn-success" onclick="buy()">立即购买</button></td><td></td> </tr>
+                    </table>
+                  
+                </div>
+            
+        </div>
+         </div> 
+</div>
+<form action="/production/buy" method="get" accept-charset="utf-8" hidden id="form1">
+
+    <input type="text" name="pname" value="FD-600">
+    <!--price-->
+    <input type="text" value="{{price}}" id="price" name="price1">
+    <input type="text" value="{{price1}}" id="price1" name="price">
+    <input type="text" value="{{price2}}" id="price2" name="price2">
+    <!-- production id-->
+    <input type="text" name="ft" id="ft" value="3">
+    <input type="text" name="fc" id="fc" value="4">
+    <input type="text" name="fa" id="fa" value="9">
+    <!-- production number-->
+    <input type="text" name="ft_n" id="ft_n" value="1">
+    <input type="text" name="fc_n" id="fc_n" value="1">
+    <input type="text" name="fa_n" id="fa_n" value="1">
+
+
+</form>
+<div id="fullpage" class="container top">
+    <div class="section">
+        <h1 class="blod">FD-600系列产品</h1>
+        <ul class="pro-nav">
+            <li class="active" data-name="Tissue">
+                FD-600-Tissue™(首度-600-组织)
+            </li>
+            <li data-name="ctDNA">
+                FD-600-ctDNA™(首度-600-无创)
+            </li>
+        </ul>
+        <div class="gray-bg">
+            <div class="introduce" data-name="ctDNA">
+                <div class="row">
+                    <span>临床背景：</span> 人体内的正常细胞在代谢、凋亡过程中会将其DNA片段释放到血液里。癌症细胞也会经历类似的过程。我们可以从外周血中收集到癌细胞释放的游离DNA片段（ctDNA），通过高深度二代测序技术获取这些片段的变异信息，进而明确人体内的癌变现状并确定应对癌变的治疗方案，这就是基于检测cfDNA的液体活检。应用这种方法我们可以有效的检测一个外表健康的人，其体内是否已经发生了癌症相关的重要变异（癌前病变），也可以根据变异信息指导癌症患者靶向用药或者确定治疗的状态（是否容易复发、是否产生新的耐药变异等）。相比基于癌症组织样本的检测方法, 液体活检的适用范围更广泛，对检测样本的要求更简单易操作，而且能更有效地解决肿瘤组织的异质性问题。同时，它也对样本的测序深度、准确度及信息分析精准性提出更高的要求。 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        无创癌症基因检测，只需患者10ml 血样， 从中定向捕获、富集～600个基因的DNA全编码区序列，通过高深度 （≥ 5,000X）二代测序，检测变异 （点突变、缺失、插入和重排）。可以检测出血液中～0.1%的癌变DNA。
+                    </div>
+                    <div class="col-md-6">
+                        对于癌症患者，不仅可以推荐用药，也可以观察癌症复发的风险，动态跟踪治疗的效果。检测的约600个基因包含全部的：
+                        <ul>
+                            <li>癌症遗传易感基因</li>
+                            <li>已知癌症驱动基因</li>
+                            <li>靶向用药的靶点基因</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="introduce" data-name="Tissue">
+                <div class="row">
+                    <span>临床背景：</span> 传统的癌症分类和诊疗聚焦于疾病的原发位点，例如肺癌，乳腺癌，结肠癌等。但是，基因组的各种改变（点突变、位移、拷贝数增加等）才是导致癌症的真正原因。随着人们对基因变异的深入了解，我们已经可以确定某些变异是导致癌症的驱动变异，并且对于一些驱动变异，已经开发出有针对性的靶向治疗药品。相比传统的化疗方法，靶向治疗效果更佳且产生的毒性较低。这些治疗方法跟癌症的原发位点关系不大却与驱动变异密切相关，只要确定了变异的信息，就可以确定治疗的方案。我们的目标：对于所有癌症，无论其原发位点在什么位置，通过基因测序确定其致癌的变异，达到分子层面的病理诊断，进而推荐有效的靶向药品。
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        使用高通量测序平台、精确测定约600个癌症相关基因的5种变异（点突变、缺失、插入、拷贝数变化和重排）。检测的约600个基因包含全部的：
+                        <ul>
+                            <li>癌症遗传易感基因</li>
+                            <li>已知癌症驱动基因</li>
+                            <li>靶向用药的靶点基因</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        我们同时检测这些基因的所有编码区。测序覆盖深度约1000X，有效提升变异检出率，减少以下因素的不利影响：
+                        <ul>
+                            <li>肿瘤组织样品量少</li>
+                            <li>样本纯度低</li>
+                            <li>肿瘤的异质度高</li>
+                            <li>可能导致复发的低频突变</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h1 class="blod">PRODUCT ADVANTAGES</h1>
+        <h3 class="regular bottom">系列产品优势</h3>
+        <div class="row pro-feat">
+            <div class="col-md-1"></div>
+            <div class="col-md-5 col-sm-6">
+                <div class="thumbnail">
+                    <img src="/static/assets/img/you1.png">
+                    <div class="caption">
+                        <p>一次检测，即可覆盖约600个基因（致 癌，抑癌，高频，通路，靶点，耐药， 易感等基因）蕴含全部以上市靶向药物 和其他药物
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-sm-6">
+                <div class="thumbnail">
+                    <img src="/static/assets/img/you2.png">
+                    <div class="caption">
+                        <p>生物信息分析专业团队参考国 际权威人类数据组数据库，进 行基因变异的全面精准分析
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <div class="row pro-feat">
+            <div class="col-md-4 col-sm-6">
+                <div class="thumbnail">
+                    <img src="/static/assets/img/you3.png">
+                    <div class="caption">
+                        <p>患者如果使用外周血样本，无 需进行手术即可获得样本，适 用范围广
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="thumbnail">
+                    <img src="/static/assets/img/you4.png">
+                    <div class="caption">
+                        <p>依据分子原理提供全局性的图谱，深 入进行个体化分子分型，综合多组学 数据优势，全面把握患者疾病进展情 况，精准指导临床诊疗
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-6">
+                <div class="thumbnail">
+                    <img src="/static/assets/img/you5.png">
+                    <div class="caption">
+                        <p>一次取样，即可获得患者 癌症患者相关基因的全部信息
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section img">
+        <h1 class="blod">SCOPE OF APPLICATION</h1>
+        <h3 class="regular">适用范围</h3>
+        <div class="">
+            <img src="http://images.firstdimension.cn/suit.png">
+        </div>
+    </div>
+    <div class="section">
+        <h1 class="blod">PRODUCT CONTENT</h1>
+        <h3 class="regular">系列产品内容</h3>
+        <div class="pro-content">
+            <img src="http://images.firstdimension.cn/600.png">
+        </div>
+    </div>
+    <div class="section img">
+        <h1 class="blod">REQUIREMENTS AND TRANSPORT</h1>
+        <h3 class="regular">样本要求及运输条件</h3>
+        <img class="visible-sm-block visible-xs-block" src="http://images.firstdimension.cn/requirements.png">
+        <table class="hidden-sm hidden-xs">
+            <thead>
+                <tr>
+                    <th>样本类型</th>
+                    <th>样本要求</th>
+                    <th>保存及运输条件</th>
+                    <th>备注</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>外周血（液体活检）</td>
+                    <td>10ml全血，专用的Streck cell free DNA tube（Streck 无创管）收集, 采血后请立即轻柔颠倒10次使血液与管内成分混匀</td>
+                    <td>防压、防漏，常温运输</td>
+                    <td>建议自样本取出72h内送检</td>
+                </tr>
+                <tr>
+                    <td>石蜡切片</td>
+                    <td>切片厚度5~10μm（25mm x 25mm)，数量10-15张白片，保存时间1年内，如肿瘤组织切片面积较小，需增加切片数量；肿瘤细胞占比例> 50%</td>
+                    <td>2-8℃保存，常温运输</td>
+                    <td>建议医生增加1片进行HE染色，以确认肿瘤细胞的含量</td>
+                </tr>
+                <tr>
+                    <td>外周血(对照)</td>
+                    <td>EDTA抗凝管采集2ml静脉血，采血后请立即轻柔颠倒10次使血液与管内成分混匀</td>
+                    <td>约-80℃保存，干冰运输</td>
+                    <td>针对germline对照组</td>
+                </tr>
+                <tr>
+                    <td>手术新鲜(组织/穿刺)样本</td>
+                    <td>组织总量 > 50mg或穿刺组织不少于3针，样本离体后30min内置于液氮或-80℃冰箱，或者浸于10%的中性福尔马林中固定14-24小时后保存在无水乙醇中</td>
+                    <td>新鲜样本约-80℃保存，干冰运输；固定样本常温保存及运输</td>
+                    <td>固定时间超过24小时建议保存在无水乙醇中</td>
+                </tr>
+                <tr>
+                    <td>胸腔积液</td>
+                    <td>10ml胸腔积液，专用的Streck cell free DNA tube（Streck 无创管）收集, 采集后请立即轻柔颠倒10次使液体与管内成分混匀</td>
+                    <td>防压、防漏，常温运输</td>
+                    <td>建议自样本取出72h内送检</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="section img">
+        <h1 class="blod">PRODUCT SERVICE FLOW</h1>
+        <h3 class="regular">产品服务流程</h3>
+        <img src="http://images.firstdimension.cn/flow.png">
+    </div>
+    <div class="section img">
+        <h1 class="blod">TARGETED DRUGS LIST</h1>
+        <h3 class="regular">靶向药物列表</h3>
+        <img class="visible-sm-block visible-xs-block" src="http://images.firstdimension.cn/targeted-drugs.png">
+        <table class="hidden-sm hidden-xs">
+            <thead>
+                <tr>
+                    <th colspan="7">靶向药物列表</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="green">
+                    <td>吉非替尼</td>
+                    <td>厄洛替尼</td>
+                    <td>克唑替尼</td>
+                    <td>埃克替尼</td>
+                    <td>索拉非尼</td>
+                    <td>阿帕替尼</td>
+                    <td>达沙替尼</td>
+                </tr>
+                <tr class="green">
+                    <td>伊马替尼</td>
+                    <td>拉帕替尼</td>
+                    <td>舒尼替尼</td>
+                    <td>依维莫司</td>
+                    <td>尼洛替尼</td>
+                    <td>尼妥珠单抗</td>
+                    <td>贝伐珠单抗</td>
+                </tr>
+                <tr class="green">
+                    <td>曲妥珠单抗</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="yellow">
+                    <td>阿雷替尼</td>
+                    <td>瑞格非尼</td>
+                    <td>凡德他尼</td>
+                    <td>帕博西尼</td>
+                    <td>色瑞替尼</td>
+                    <td>阿西替尼</td>
+                    <td>普纳替尼</td>
+                </tr>
+                <tr class="yellow">
+                    <td>索尼吉布    </td>
+                    <td>艾代拉里斯   </td>
+                    <td>阿法替尼    </td>
+                    <td>博舒替尼    </td>
+                    <td>卡博替尼    </td>
+                    <td>依鲁替尼    </td>
+                    <td>达拉菲尼</td>
+                </tr>
+                <tr class="yellow">
+                    <td>尼达尼布    </td>
+                    <td>乐伐替尼    </td>
+                    <td>曲美替尼    </td>
+                    <td>帕唑帕尼    </td>
+                    <td>威罗菲尼    </td>
+                    <td>奥拉帕尼    </td>
+                    <td>Osimertinib</td>
+                </tr>
+                <tr class="yellow">
+                    <td>替西罗莫司   </td>
+                    <td>维莫德吉    </td>
+                    <td>阿柏西普    </td>
+                    <td>鲁索利替尼   </td>
+                    <td>托法替尼    </td>
+                    <td>雷莫芦单抗   </td>
+                    <td>西妥昔单抗</td>
+                </tr>
+                <tr class="yellow">
+                    <td>帕尼单抗    </td>
+                    <td>帕妥珠单抗   </td>
+                    <td>纳武单抗    </td>
+                    <td>狄诺塞麦    </td>
+                    <td>Pembrolizumab   </td>
+                    <td>Necitumumab </td>
+                    <td>Cobimetinib</td>
+                </tr>
+                <tr class="yellow">
+                    <td>Ado-曲妥珠单抗emtansine</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="red">
+                    <td>美迪替尼    </td>
+                    <td>BGJ398  </td>
+                    <td>AZD4547 </td>
+                    <td>Lucitanib   </td>
+                    <td>Neratinib   </td>
+                    <td>氟马替尼    </td>
+                    <td>CO-1686</td>
+                </tr>
+                <tr class="red">
+                    <td>AP26113 </td>
+                    <td>Foretinib   </td>
+                    <td>Niraparib   </td>
+                    <td>AZD5363 </td>
+                    <td>MK-2206 </td>
+                    <td>AZD2014 </td>
+                    <td>Pictilisib</td>
+                </tr>
+                <tr class="red">
+                    <td>Buparlisib  </td>
+                    <td>BYL719  </td>
+                    <td>Copanlisib  </td>
+                    <td>Binimetinib </td>
+                    <td>Momelotinib </td>
+                    <td>LEE011  </td>
+                    <td>MK-1775</td>
+                </tr>
+                <tr class="red">
+                    <td>安卓健 </td>
+                    <td>司美替尼    </td>
+                    <td>氟卓替尼</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="hidden-sm hidden-xs">备注：<span class="green">绿色为CFDA/FDA批准药物；</span><span class="yellow">黄色为FDA批准药物；</span><span class="red">红色为临床II/III期试验药物</span></div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script>
+
+    
+    function buy(){
+        var ft_number = $("#ft_number").val();
+        var fc_number = $("#fc_number").val();
+        var fa_number = $("#fa_number").val();
+        $("#ft_n").val(ft_number);
+        $("#fc_n").val(fc_number);
+        $("#fa_n").val(fa_number);
+         
+        
+        var name =$.cookie("name");
+     
+        
+        if(name==null)
+        {
+           // alert("请登陆以后再购买");
+            window.location.href="/user/login";
+        }else
+        {
+
+            $("#form1").submit();
+           // alert("test success");
+       
+        }
+       
+    }
+    
+
+$(function() {
+    var data = $('.pro-nav>li.active').attr('data-name');
+    $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    $('.pro-nav>li').click(function(e) {
+        $('.introduce[data-name = ' + data + ']').css('display', 'none');
+        $('.pro-nav>li.active').removeClass('active');
+        $(this).addClass('active');
+        data = $('.pro-nav>li.active').attr('data-name');
+        $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    });
+    $('.spinner').spinner();
+    //console.log({{elm}}+"test")
+
+
+    //这个是当服务器出现错误是出现的数据
+    if({{price}}==1122){
+        alert("{{tips}}")
+    }else{
+        console.log("test");
+    }
+});
+</script>
+{% endblock %}

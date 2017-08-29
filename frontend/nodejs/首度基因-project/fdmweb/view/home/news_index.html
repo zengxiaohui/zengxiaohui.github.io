@@ -1,0 +1,149 @@
+{% extends "./inc/base.html" %} {% block style %}
+<link rel="stylesheet" type="text/css" href="/static/assets/css/news.css"> {% endblock %} {% block content %}
+<div id="fullpage" class="container top">
+    <div class="section">
+        <h1 class="blod">NEWS CENTER</h1>
+        <h3 class="regular">资讯中心</h3>
+        <ul class="news-nav blod">
+            <li {% if type == 0 %}class="active"{% endif%} index="1">
+               <a href="/news?type=0">首度新闻</a> 
+            </li>
+            <li {% if type == 1 %}class="active"{% endif%} index="2">
+                <a href="/news?type=1">行业动态</a>
+            </li>
+        </ul>
+        <div class="news-container-1 visited">
+            <div class="list-group">
+                {% for item in list %} 
+                    <div class="block-news row" data-href="/news/detail?id={{item.id}}">
+                        <div class="col-md-4 col-sm-4">
+                            <img  src="{{item.thumbnail}}">
+                        </div>
+                        <div class="col-md-8 col-sm-8">
+                            <h4 class="title-news">{{item.title}}</h4> 
+                            <div class="time-news"> {{item.createtime | format_time}}</div>
+                            <div class="summary-news">{{item.content | remove_html_tag |split_str }}</div>
+                            <div><a href="/news/detail?id={{item.id}}">more+</a></div>
+                        </div>
+                    </div>
+                {% endfor%}
+            </div>
+        </div>
+        <nav class="pagin">
+            <ul class="pagination">
+                {% if current == 1 %}
+                    <li class="disabled"><a href="javascript:void(0)">&laquo;</a></li>
+                {% else %}
+                <li>
+                    <a {% if type==0 %} href="/news?type=0&page={{current - 1}}"
+                     {% else %} href ="/news?type=1&page={{current - 1}}"
+                    {% endif %}>&laquo;</a>
+                </li>
+                {% endif %}
+                {% for index in total %}            
+                <li {% if index == current %}class="active"{% endif %}>
+                    {%if index !=current %}
+                        <a {% if type==0 %}href="/news?type=0&page={{index}}"
+                        {% else %}href ="/news?type=1&page={{index}}"
+                        {% endif %} >{{index}}</a>
+                    {% else %}
+                        <a href="javascript:void(0)">{{index}}</a>
+                    {% endif%}
+                </li>
+                {% endfor %}
+                {% if current == total.length %}
+                    <li class="disabled"><a href="javascript:void(0)">&raquo;</a></li>
+                {% else %}
+                <li>
+                    <a {% if type==0 %}href="/news?type=0&page={{current + 1}}"
+                    {% else %}href ="/news?type=1&page={{current + 1}}"
+                    {% endif %}>&raquo;</a>
+                </li>
+                {% endif %}
+                
+            </ul>
+        </nav>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script src="/static/assets/vendors/jQuery.dotdotdot/src/jquery.dotdotdot.min.js"></script>
+<script>
+// function loadimg(){
+    
+// }
+
+$(function() {
+    
+    // function
+    var dot = $('.summary-news');
+    var height,parent;
+    // for(var i=0;i<dot.length;i++){
+    //     parent = dot[i].parent('div');
+
+    // }
+    // $('.summary-news').each(function(elem){
+    //     console.log(elem);
+    // })
+    height = $('.summary-news').parent('div').prev().find('img').innerHeight();
+
+    // height = parent.prev();
+
+    // $('.summary-news').dotdotdot({
+    //     // height:height
+    // });
+    $('.block-news').find('div').click(function(e){
+        var href = $(e.target).parents('.block-news').attr('data-href');
+        window.location.href =  window.location.origin+href;
+    });
+    (function() {
+
+        function handleResult(data) {
+            if (data.errno == 0) {
+                var pageData = data.data;
+                var newsStr = "";
+                for (var i = 0; i < pageData.data.length; i++) {
+                    var newsData = pageData.data[i];
+                    newsStr += ' <div class="block-news">' +
+                        '<img src="/static/assets/img/01.png">' +
+                        '<div>' +
+                        '<div class="title-news">' + newsData.title + '</div>' +
+                        '<div class="time-news">' + newsData.createtime + '</div>' +
+                        '<div class="summary-news">' + newsData.summary + '</div>' +
+                        +'</div>' + '<div><a>more+</a></div>' + '</div></div>';
+                }
+                
+                $('.visited .list-group').html(newsStr);
+
+                var navStr = '';
+
+                for (var j = 0; j < pageData.totalPages; j++) {
+                    var index = j + 1;
+                    if (pageData.currentPage == index) {
+                        navStr += '<li class="active"><a href="#">' + index + '</a></li>';
+                    } else
+                        navStr += '<li><a href="#">' + index + '</a></li>';
+                }
+                
+                $('.visited nav .pagination').html(navStr);
+            }
+        }
+        var initParam = {
+            type: 0,
+            page: 1,
+            pagesize: 10
+        };
+        $.ajax({
+            method: "GET",
+            url: 'home/news/get_news',
+            data: initParam,
+            success: function(result) {
+                
+                // handleResult(result);
+            }
+        });
+        
+    })();
+
+});
+</script>
+{% endblock %}

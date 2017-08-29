@@ -1,0 +1,398 @@
+
+	
+	{% extends "./inc/base.html" %} {% block style %}
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+	
+	
+	
+	{% endblock %} {% block content %}
+	<style type="text/css">
+		body{
+			color: black;
+		}
+		hr{
+			width: 100%;
+			border:1px solid black; 
+		}
+		.navbar-inverse .navbar-nav > li > a{
+			color: white;
+		}
+		
+		.form-horizontal{
+		    background: #f3f5f6;
+		    padding-bottom: 20px;
+		    border-radius: 15px;
+		    text-align: center;
+		}
+		.form-horizontal .heading{
+		    display: block;
+		    font-size: 25px;
+		    font-weight: 700;
+		    padding: 15px 0;
+		    border-bottom: 2px solid black;
+		    margin-bottom: 30px;
+		}
+		.form-horizontal .form-group{
+		    padding: 0 40px;
+		    margin: 0 0 25px 0;
+		    position: relative;
+		}
+		.form-horizontal .form-control{
+			
+		    background: white;
+		    border: none;
+		    border-radius: 20px;
+		    box-shadow: none;
+		    padding: 0 20px 0 45px;
+		    height: 30px;
+		    transition: all 0.3s ease 0s;
+		}
+		.form-horizontal .form-control:focus{
+		    background: #e0e0e0;
+		    box-shadow: none;
+		    outline: 0 none;
+		}
+		.form-horizontal .form-group i{
+		    position: absolute;
+		    top: 12px;
+		    left: 60px;
+		    font-size: 17px;
+		    color: #c8c8c8;
+		    transition : all 0.5s ease 0s;
+		}
+		.form-horizontal .form-control:focus + i{
+		    color: #00b4ef;
+		}
+		.form-horizontal .fa-question-circle{
+		    display: inline-block;
+		    position: absolute;
+		    top: 12px;
+		    right: 60px;
+		    font-size: 20px;
+		    color: #808080;
+		    transition: all 0.5s ease 0s;
+		}
+		.form-horizontal .fa-question-circle:hover{
+		    color: #000;
+		}
+		.form-horizontal .main-checkbox{
+		    float: left;
+		    width: 20px;
+		    height: 20px;
+		    background: #11a3fc;
+		    border-radius: 50%;
+		    position: relative;
+		    margin: 5px 0 0 5px;
+		    border: 1px solid #11a3fc;
+		}
+		.form-horizontal .main-checkbox label{
+		    width: 20px;
+		    height: 20px;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    cursor: pointer;
+		}
+		.form-horizontal .main-checkbox label:after{
+		    content: "";
+		    width: 10px;
+		    height: 5px;
+		    position: absolute;
+		    top: 5px;
+		    left: 4px;
+		    border: 3px solid #fff;
+		    border-top: none;
+		    border-right: none;
+		    background: transparent;
+		    opacity: 0;
+		    -webkit-transform: rotate(-45deg);
+		    transform: rotate(-45deg);
+		}
+		.form-horizontal .main-checkbox input[type=checkbox]{
+		    visibility: hidden;
+		}
+		.form-horizontal .main-checkbox input[type=checkbox]:checked + label:after{
+		    opacity: 1;
+		}
+		.form-horizontal .text{
+		    float: left;
+		    margin-left: 7px;
+		    line-height: 20px;
+		    padding-top: 5px;
+		    text-transform: capitalize;
+		}
+		.form-horizontal .btn{
+		    /*float: right;*/
+		    height: 35px;
+		    font-size: 14px;
+		    color: #fff;
+		    background: #D62538;
+		   /* border-radius: 30px;*/
+		    padding: 0px 25px;
+		    border: none;
+		    text-transform: capitalize;
+		    transition: all 0.5s ease 0s;
+		}
+		@media only screen and (max-width: 479px){
+		    .form-horizontal .form-group{
+		        padding: 0 25px;
+		    }
+		    .form-horizontal .form-group i{
+		        left: 45px;
+		    }
+		    .form-horizontal .btn{
+		        padding: 10px 20px;
+		    }
+		}
+		.img1{
+			float: right;
+		}
+	</style>
+	<!--[if IE]>
+		<script src="http://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<!--[endif]-->
+
+
+<!-- add shoudu top contain-->
+<div id="fullpage" class="container top">
+
+	<div class="htmleaf-container">
+		
+		<div class="demo form-bg" style="padding: 20px 0;">
+		        <div class="container">
+		            <div class="row">
+		                <div class="col-md-offset-3 col-md-6">
+		                    <form class="form-horizontal" action="/production/buyinfor" method="post" id="formid">
+		                        <span class="heading">用户购买</span>
+		                        <span style="font-size: 12px;color: red"  id="codetip" hidden="">输入的验证码无效
+		                        </span>
+		                        <span style="font-size: 12px;color: red"  id="nousercodetip" hidden="">验证码已经失效
+		                        </span>
+		                        <div class="form-group">
+		                            <input type="text" class="form-control" style="color:red" id="pname" name="pname" value="{{infor.pname}}" disabled>
+		                            <i class="fa fa-user"></i>
+		                        </div>
+		                         
+
+		                        <input type="text" name="pname" value="{{infor.pname}}" id="pname1" hidden >
+		                        <div class="form-group">
+		                            <input type="text" class="form-control" id="username" name="username" value="{{reptReceiver}}"  placeholder="请输入收货人姓名" required oninvalid="setCustomValidity('请输入用户名！');" oninput="setCustomValidity('');"  onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+		                            <i class="fa fa-user"></i>
+		                        </div>
+		                        
+		                       
+		                         <div class="form-group">
+		                            <input type="text" class="form-control" id="adress" value="{{recvAddress}}" name="adress" placeholder="请输入收货地址"
+		                            required oninvalid="setCustomValidity('请输入收货地址');" oninput="setCustomValidity('');"  onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+		                            <i class="fa fa-user"></i>
+		                        </div>
+		                        <div class="form-group help">
+		                            <input type="email" class="form-control" id="email" name="email" placeholder="请输入真实邮箱"
+		                            required oninvalid="setCustomValidity('请输入邮箱！');" value="{{email}}" oninput="setCustomValidity('');" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+		                            <i class="fa fa-lock"></i>
+		                            
+		                        </div>
+		                        <div class="form-group help">
+		                            <input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="请输入优惠码"
+		                            required oninvalid="setCustomValidity('请输入手机号码！');" value="" oninput="setCustomValidity('');"  onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+		                            <i class="fa fa-lock"></i>
+		                        </div>
+
+		                        <div class="form-group help">
+		                          <!-- <div class="input-group"> -->
+					<input type="text" class="form-control"  placeholder="请输入优惠码" id="code" name ="code" oninvalid="setCustomValidity('请输入验证码！');" oninput="setCustomValidity('');" value={{code}} >
+					<!-- <span class="input-group-btn">
+						<button class="btn btn-default btn-sm " type="button" id="getCode" onclick="discountCode()" >
+							使用优惠码
+						</button>
+					</span> -->
+
+				<!-- </div> -->
+				<!-- /input-group -->
+				<!-- <input type="radio" name="pay" value="union" id="inun" hidden required="" -->
+		                        </div>
+		                        <div class="form-group help">
+		                        	<div style="float: left; padding-left: 20%"> 
+		                        		
+		                        		<img id="imgal" src="/static/assets/img/z.png" alt="" class="img-responsive center-block img" title="请选择支付方式">
+		                          		<input type="radio" name="pay" value="apli"  id="inali"   hidden="" />
+		                        	</div>
+		                        	<div style="float: right; padding-right: 20%">
+		                        			<img id="imgun" src="/static/assets/img/y.png" alt="" class="img-responsive center-block img1" title="请选择支付方式">
+		                        			<input type="radio" name="pay" value="union" id="inun"    hidden=""/>
+		                        	</div>
+		                        		
+		                        	
+		                          
+		                        </div>
+		                        <div class="form-group help">
+		                        	<textarea name="notes" id="notes" placeholder="请输入留言信息" style="width: 100%"
+		                        	 onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">{{notes}}</textarea>
+		
+		                        </div>
+		                        
+		                        <div class="form-group help form-inline">
+
+		                        	<label style="font-size: 15px">所需金额：<span style="color:red" id="totalprice">{{price}}</span></label>
+		                        	<input type="text" name="totalprice" id="totalpriceinput" hidden="" value="{{price}}">
+									
+		                        </div>
+
+		                      <a id="count1" hidden="">{{countPrice}}</a>
+		                         <div class="form-group help form-inline"  id="countPrice"  >
+
+		                        	<label style="font-size: 15px">折扣以后金额：<span style="color:red" id="totalprice1">{{countPrice}}</span></label>
+		                        	<input type="text" name="totalprice" id="totalpriceinput1" hidden="" value="{{countPrice}}">
+									
+		                        </div>
+		                        
+		                        <input type="text" name="testItem" value="{{testItem}}" hidden id="testItem">
+
+
+		                        <input type="text" name="orderId" value="{{orderId}}" id="orderId" hidden>
+		                       	<input type="text" name="promCode" value="{{infor.promCode}}" id="promCode" hidden>
+		                        <hr>
+		                        <div class="form-group">
+
+		                            <button type="submit" class="btn btn-default">购买</button>
+		                            
+		                        </div>
+		                    </form>
+		                    
+		                </div>
+		            	<!-- <h1>infor:{{infor}}</h1>
+		            	<h1>infor:{{infor.price}}</h1>
+		            	<h3>itemId:{{infor.itemId}}</h3> -->
+		            </div>
+		        </div>
+		    </div>
+		
+	</div>
+	 <!-- <form action="/production/buy" method="post" accept-charset="utf-8" id="buycode">
+		<input type="text" name="pname2" id="pname2" value="">
+		<input type="text" name="username1" id="username1" value="">
+		<input type="text" name="adress1" id="adress1" value="">
+		<input type="text" name="email1" id="email1" value="">
+		<input type="text" name="phoneNum1" id="phoneNum1" value="">
+		<input type="text" name="code1" id="code1" value="">
+		<input type="text" name="totalprice1" id="totalprice1" value="">
+		
+	</form> -->
+</div>
+	{% endblock %} {% block script %}
+
+	<script>
+			
+			$("#code").blur(function(){
+				var pname = document.getElementById("pname1").value;
+				var username = document.getElementById("username").value;
+				var adress = document.getElementById("adress").value;
+				var email = document.getElementById("email").value;
+				var phoneNum = document.getElementById("phoneNum").value;
+				//var code = document.getElementById("code").value;
+				var code = $("#code").val();
+				var totalprice = document.getElementById("totalprice").innerHTML;
+				var testItem = document.getElementById("testItem").value;
+				//var notes = document.getElementById("notes").innerHTML;
+				var notes = $("#notes").val();
+
+
+				var  orderId = $("#orderId").val();
+				/*alert(code);
+				if(code ==null||code == ""){
+
+					$("#countPrice").hide();
+
+				}*/
+				
+				var username =  encodeURIComponent(username);
+				var adress =  encodeURIComponent(adress);
+				var notes =  encodeURIComponent(notes);
+				window.location.href="/production/buy?pname="+pname+"&username="+username+"&adress="+adress+"&email="+email+"&phoneNum="+phoneNum+"&code="+code+"&totalprice="+totalprice+"&testItem="+testItem+"&notes="+notes+
+				"&orderId="+orderId
+
+				//alert(username1);
+					//document.forms['buycode'].submit();
+				
+			})
+		
+ 
+
+		
+$(function() {
+
+
+			//从未支付那边拿打折码
+			var promCodeshow = $("#promCode").val();
+			if(promCodeshow!=null&&promCodeshow!=""){
+				$("#code").val(promCodeshow);
+				
+			}
+
+
+			var count1 = $("#count1").text();
+			var totalprice = $("#totalprice").text();
+			var code = $("#code").val();
+			//alert(count1);
+			if(count1==null||count1==""){
+				$("#countPrice").hide();
+				$("#totalpriceinput1").attr("disabled","disabled");
+				
+			}else if(count1>=totalprice){
+				$("#countPrice").hide();
+				$("#totalpriceinput1").attr("disabled","disabled");
+				//alert("验证码无效")
+				$("#codetip").show();
+				
+			}else{
+				$("#countPrice").show();
+				$("#totalpriceinput").attr("disabled","disabled");
+			}
+
+			 if(code==null||code==""){
+				$("#codetip").hide();
+			}
+			
+			$("#imgal").click(function(){
+				//alert("test");
+				$("#formid").attr("action","/production/buyinfor");
+				$("#inali").attr("checked","checked");
+				$("#inun").removeAttr("checked");
+				$("#imgal").css("border","1px solid red");
+				$("#imgun").css("border","");
+
+			});
+			$("#imgun").click(function(){
+				//alert("test");
+
+				$("#formid").attr("action","/production/unipaybuyinfor");
+				$("#inun").attr("checked","checked");
+				$("#inali").removeAttr("checked");
+				
+				$("#imgun").css("border","1px solid red");
+				$("#imgal").css("border","");
+			});
+			var phone = $.cookie("phone");
+			var email = $.cookie("email");
+			$("#phoneNum").val(phone);
+			$("#email").val(email);
+
+			/*var totalprice={{infor.number}}*{{infor.price}};
+			$("#totalprice").text(totalprice);
+			$("#totalpriceinput").val(totalprice);*/
+			//alert(totalprice);
+    var data = $('.pro-nav>li.active').attr('data-name');
+    $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    $('.pro-nav>li').click(function(e) {
+        $('.introduce[data-name = ' + data + ']').css('display', 'none');
+        $('.pro-nav>li.active').removeClass('active');
+        $(this).addClass('active');
+        data = $('.pro-nav>li.active').attr('data-name');
+        $('.introduce[data-name = ' + data + ']').css('display', 'block');
+
+});
+    });
+
+</script>
+
+	{% endblock %}

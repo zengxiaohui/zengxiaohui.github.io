@@ -1,0 +1,140 @@
+//都放在一个back.js里面不方便多一个试一下。
+"user strict"
+import Base from './base.js';
+import UserMgr from '../connect/usermgr.js';
+import BizMgr from '../connect/bizmgr.js';
+
+var mgr = new UserMgr();
+//-------------------------------
+var mgm = new BizMgr();
+var errorCode = 0;
+
+export default class extends Base {
+
+	 async indexAction(){
+	 	return this.display();
+	 }
+
+
+	 async adddiscpriceAction(){
+	 	console.log("=======adddiscpriceAction start ===================");
+
+	 	 if(this.isGet()){
+
+	 	 	try{
+	 	 		var userId = this.cookie('userId');
+	 	 		let pm  = await mgm.getTestItemList(userId)
+   				 .then( function (result) { 
+      
+      			 return result;
+   								 },   
+   					 function (error) {   
+       				console.log(error);   
+   						 });
+     
+   				 console.log("======pricelistAction pm=========");
+    			console.log(pm);
+
+    			this.assign('itemList',pm.itemList);
+	 	 	}catch(e){
+
+	 	 	}
+      return this.display();
+    }
+	 	
+	 	
+	 	
+
+
+	 	//get itemname to html
+
+	 	try{
+	 		var addinfor = this.post();
+	 		console.log(addinfor);
+	 		var senderId = this.cookie('userId');
+	 		let pm = await mgm.addDiscPrice(senderId, addinfor.promotionCode, addinfor.itemid, addinfor.startDate, addinfor.endDate, addinfor.price)
+	 		.then(function(result){
+
+	 			return result;
+	 		},function(error){
+	 			return error;
+	 		})
+
+	 	}catch(e){
+
+	 	}
+
+
+	 	return this.redirect("/back/disclist");
+	 }
+
+	 async updatediscinforAction(){
+	 	var discinfor = this.post();
+	 	console.log("======discinforAction start=============");
+	 	console.log(discinfor);
+	 	var senderId = this.cookie('userId');
+	 	try{														
+	 		let pm = await mgm.updDiscPrice(senderId,discinfor.id,discinfor.promotionCode,discinfor.itemId, discinfor.startDate, discinfor.endDate, discinfor.price)
+	 		.then(function(result){
+
+	 				return result;
+	 		})
+	 		
+	 	}catch(e){
+	 		return this.redirect("/index/index");
+	 	}
+
+	 	return this.redirect("/back/disclist");
+
+
+	 }
+
+	 async adduserAction(){
+
+	 	var infor = this.post();
+
+	 	console.log("======adduserAction start============");
+
+	 	console.log(infor);
+
+	 	try{
+	 		var senderId = this.cookie('userId');
+       	   // var userId = this.get('userId');
+	 		let pm = await mgr.addUser(senderId,infor.name,infor.password,infor.phone,infor.email,infor.realName,infor.userRole)
+
+	 		.then(function(result){
+
+	 			return result;
+	 		},function(error){
+	 			return error;
+	 		})
+	 	}catch(e){
+	 		return this.display("index/index");
+	 	}
+
+
+	 	return this.redirect("/back/userlist");
+	 }
+
+
+	 async deletediscAction(){
+	 	var infor = this.get();
+	 	console.log("=======deletediscAction start ==============");
+
+	 	console.log(infor);
+
+	 	try{
+	 		var senderId = this.cookie('userId');
+
+	 		let pm = await mgm.deleleDiscPrice(senderId,infor.id)
+	 		.then(function(result){
+	 			return result;
+
+	 		})
+	 	}catch(e){
+	 		return this.redirect("/index/index");
+	 	}
+
+	 	return this.redirect("/back/disclist");
+	 }
+}

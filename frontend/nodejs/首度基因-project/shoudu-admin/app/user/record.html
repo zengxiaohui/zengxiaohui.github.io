@@ -1,0 +1,32 @@
+<div class="modal-header bg-primary">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()">
+        <span aria-hidden="true">
+            &times;
+        </span>
+    </button>
+    <h4 class="modal-title" id="myModalLabel">
+        消费记录
+    </h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <p>
+                <i class="fa fa-exclamation-circle">
+                </i>
+                昵称：{{user.profile.nickname}}<br />
+            </p>
+            <br/>
+            <form role="form" class="form-horizontal form-validation" ng-submit="submit()">
+                <div class="form-group" >
+                    <div id="record" style="margin-left:5%;"></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<style media="screen">
+  .modal-content{
+    width:110%;
+  }
+</style>

@@ -1,0 +1,15 @@
+'use strict';
+
+import Base from './base.js';
+import UserMgr from '../connect/usermgr.js';
+
+
+export default class extends Base {
+indexAction(){
+	return this.display();
+}
+
+registerAction(){
+	return this.display()
+}
+}

@@ -1,0 +1,67 @@
+{% extends "./inc/backbase.html" %} {% block style %}
+
+
+{% endblock %} {% block content %}
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 账号管理</a> <a href="#" class="current">产品管理</a> </div>
+
+    <h1>产品管理</h1>
+  </div>
+  <div class="container-fluid">
+    <hr>
+      <form class="form-horizontal " role="form" action="/back/updateprice" id="createUser" style="text-align: center;" method="post">
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline">
+    <label>产品名称：</label>
+      <input type="text"  name ="name" class="form-control" id="firstname" value="{{name1}}" 
+           placeholder="请输入用户名" required oninvalid="setCustomValidity('请输入用户名！');" oninput="setCustomValidity('');">
+    </div>
+  </div>
+  <br>
+  <div class="form-group">
+    
+    <div class="col-sm-10 form-inline">
+    <label>产品编号：</label>
+      <input type="text" class="form-control" id="text" 
+           placeholder="请输入密码" value="{{infor.itemId}}" name="itemId" >
+    </div>
+  </div>
+  <br>
+ <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>产品描述：</label>
+      <textarea name="desc"></textarea>
+      
+    </div>
+  </div>
+  <br>
+  <div class="form-group form-inline">
+    
+    <div class="col-sm-10">
+    <label>产品价格：</label>
+      <input type="text" class="form-control" id="phone" 
+           placeholder="请输入电话号码" value="{{infor.price}}" name="price">
+    </div>
+  </div>
+  <br>
+  
+ <button type="button" class="btn btn-info" onclick="javascript:void(window.history.back())">返回</button>
+ <button  class="btn btn-danger">修改</button>
+</form>
+    </div>
+  </div>
+</div>
+<!--Footer-part-->
+<!--this is tip information-->
+
+
+
+{% endblock %} {% block script %}
+
+
+
+
+{% endblock %}

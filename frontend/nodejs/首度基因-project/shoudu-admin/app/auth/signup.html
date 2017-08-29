@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Eva-后台管理系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta content="" name="description" />
+        <meta content="themes-lab" name="author" />
+        <link rel="shortcut icon" href="../../global/images/favicon.png">
+        <link href="../../global/css/style.css" rel="stylesheet">
+        <link href="../../global/css/ui.css" rel="stylesheet">
+        <link href="../../global/plugins/icheck/skins/all.css" rel="stylesheet"/>
+        <link href="../../global/plugins/bootstrap-loading/lada.min.css" rel="stylesheet">
+    </head>
+    <body class="account separate-inputs" data-page="signup">
+        <!-- BEGIN LOGIN BOX -->
+        <div class="container" id="login-block">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <div class="account-wall" style="margin-top: 250px;">
+                        <i class="user-img icons-faces-users-03"></i>
+                        <form class="form-signup" action="../dashboard/dashboard.html" role="form">
+                            <div class="append-icon">
+                                <input type="text" name="username" id="username" class="form-control form-white username" placeholder="账号" required>
+                                <i class="icon-user"></i>
+                            </div>
+                            <div class="append-icon">
+                                <input type="email" name="email" id="email" class="form-control form-white email" placeholder="邮箱" required>
+                                <i class="icon-envelope"></i>
+                            </div>
+                            <div class="append-icon">
+                                <input type="password" name="password" id="password" class="form-control form-white password" placeholder="密码" required>
+                                <i class="icon-lock"></i>
+                            </div>
+                            <div class="append-icon m-b-20">
+                                <input type="password" name="password2" id="password2" class="form-control form-white password2" placeholder="确认密码" required>
+                                <i class="icon-lock"></i>
+                            </div>
+                            <!--<div class="terms option-group">-->
+                                <!--<label  for="terms" class="m-t-10">-->
+                                <!--<input type="checkbox" name="terms" id="terms" data-checkbox="icheckbox_square-blue" required/>-->
+                                <!--I agree with terms and conditions-->
+                                <!--</label>  -->
+                            <!--</div>-->
+                            <button type="submit" id="submit-form" class="btn btn-lg btn-dark m-t-20" data-style="expand-left">注册</button>
+                            <!--<div class="social-btn">-->
+                                <!--<div class="row">-->
+                                    <!--<div class="col-sm-6">-->
+                                        <!--<button type="button" class="btn btn-lg btn-block btn-primary"><i class="fa fa-facebook pull-left"></i>Sign In with Facebook</button>-->
+                                    <!--</div>-->
+                                    <!--<div class="col-sm-6">-->
+                                        <!--<button type="button" class="btn btn-lg btn-block btn-danger"><i class="fa fa-google pull-left"></i>Sign In with Google</button>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="clearfix">
+                                <p class="pull-right m-t-20"><a href="login.html">已经有账号了? 登录</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <p class="account-copyright">
+                <span>Copyright © 2015 </span><span>EVA</span>.<span>All rights reserved.</span>
+            </p>
+            <div id="account-builder">
+                <form class="form-horizontal" role="form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <i class="fa fa-spin fa-gear"></i>
+                            <h3>&nbsp;&nbsp;<strong>自定义</strong>&nbsp;&nbsp;&nbsp;&nbsp;注册页面</h3>
+                        </div>
+                        <div class="col-md-6">
+                            <!--<div class="form-group">-->
+                                <!--<label class="col-xs-8 control-label">Social Login</label>-->
+                                <!--<div class="col-xs-4">-->
+                                    <!--<label class="switch m-r-20">-->
+                                    <!--<input id="social-cb" type="checkbox" class="switch-input" checked>-->
+                                    <!--<span class="switch-label" data-on="On" data-off="Off"></span>-->
+                                    <!--<span class="switch-handle"></span>-->
+                                    <!--</label>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <label class="col-xs-8 control-label">不透明注册框</label>
+                                <div class="col-xs-4">
+                                    <label class="switch m-r-20">
+                                    <input id="boxed-cb" type="checkbox" class="switch-input">
+                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                    <span class="switch-handle"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-8 control-label">背景图片</label>
+                                <div class="col-xs-4">
+                                    <label class="switch m-r-20">
+                                    <input id="image-cb" type="checkbox" class="switch-input" checked>
+                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                    <span class="switch-handle"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="col-xs-8 control-label">背景图片轮播</label>
+                                <div class="col-xs-4">
+                                    <label class="switch m-r-20">
+                                    <input id="slide-cb" type="checkbox" class="switch-input">
+                                    <span class="switch-label" data-on="On" data-off="Off"></span>
+                                    <span class="switch-handle"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- END LOCKSCREEN BOX -->
+        <script src="../../global/plugins/jquery/jquery-2.1.4.min.js"></script>
+        <script src="../../global/plugins/jquery/jquery-migrate-1.2.1.min.js"></script>
+        <script src="../../global/plugins/gsap/main-gsap.min.js"></script>
+        <script src="../../global/plugins/bootstrap/js/bootstrap.min.js"></script>
+        <script src="../../global/plugins/icheck/icheck.min.js"></script>
+        <script src="../../global/plugins/backstretch/backstretch.min.js"></script>
+        <script src="../../global/plugins/bootstrap-loading/lada.min.js"></script>
+        <script src="../../global/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="../../global/plugins/jquery-validation/additional-methods.min.js"></script>
+        <script src="../../global/js/plugins.js"></script>
+        <script src="../../global/js/pages/login-v1.js"></script>
+    </body>
+</html>

@@ -1,0 +1,209 @@
+{% extends "./inc/base.html" %} {% block style %}
+
+
+
+ <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap-table.css"> 
+
+ 
+
+{% endblock %} {% block content %}
+<style type="text/css" media="screen">
+		#content{
+			padding-top: 80px;
+		}
+</style>
+
+
+<!-- <div>elm:{{elm.name+elm.userId+elm}}
+    <br>
+    object:{{userList}}
+ <ul>
+
+{% for elm1 in userList %}
+  <li>{{ elm1.userId }}</li>
+{% else %}
+  <li>This would display if the 'item' collection were empty</li>
+{% endfor %}
+</ul>
+</div> -->
+<script type="text/javascript" src="/static/assets/js/bootstrap-table.js"></script>
+<div id="content">
+		
+		
+		<div id="content-body"  style="height:600px; width: 80% ; margin-left: 10%; margin-right: 10% ">
+			
+			<div id="reportTableDiv" class="span10">
+				<table id="reportTable" >
+					<tr>
+						<td>{{itemName1}}</td>
+						<td>{{itemName1Num}}</td>
+					</tr>
+					<tr>
+						<td>
+						{% if itemName2 ==undefined%}
+						------</td>
+						
+						{%else%}
+						{{itemName2}}</td>
+						{%endif%}
+						<td>
+						{% if itemName2Num ==undefined %}
+						------</td>
+						{%else%}
+						{{itemName2Num}}
+						</td>
+						{%endif%}
+					</tr>
+					<tr>
+						<td>
+						{% if itemName3 ==undefined%}
+						------</td>
+						
+						{%else%}
+						{{itemName3}}</td>
+						{%endif%}
+						<td>
+						{% if itemName3Num ==undefined %}
+						------</td>
+						{%else%}
+						{{itemName3Num}}
+						</td>
+						{%endif%}
+					</tr>
+					<tr>
+						<td ><a href="/report/download">发票下载</a></td>
+						<td><span color="red">总价格:</span></td>
+					</tr>
+
+
+				</table>
+			</div>
+		</div>
+	</div>
+	
+
+	
+
+
+
+{% endblock %} {% block script %}
+<script>
+function initReport() {
+			$('#reportTable').bootstrapTable({
+				method: 'get',
+				cache: false,
+				height: 400,
+				striped: true,
+				pagination: true,
+				pageSize: 20,
+				pageNumber:1,
+				pageList: [10, 20, 50, 100, 200, 500],
+				search: true,
+				showColumns: true,
+				showRefresh: true,
+				search: true,
+				clickToSelect: true,
+				columns: [{field:"user_email",title:"产品名称",align:"center",valign:"middle",sortable:"true"},{field:"user_company",title:"数量",align:"center",valign:"middle",sortable:"true"}],
+				
+				onPageChange: function (size, number) {
+					//$("#pageSizeInput").val(size);
+					//$("#pageNumberInput").val(number);
+					
+					//var form = $('#tableForm');
+					//form.action= '${base}/showReport';
+					//form.submit();
+                },
+				//onSort: function (name, order) {
+               // },
+				//formatShowingRows: function (pageFrom, pageTo, totalRows) {
+				//	return '';
+               // },
+				//formatRecordsPerPage: function () {
+				//	return '';
+              //  },
+                formatNoMatches: function(){
+                	return '无符合条件的记录';
+                }
+			});
+		}
+		initReport();
+		
+		function actionFormatter(value, row, index) {
+	        /*return [
+	            '<button class="btn btn-primary resend">重新发送邀请</button>'
+	        ].join('');*/
+	        //alert(row.user_dates);
+	        return  [
+        '<a class="like" href="javascript:void(0)" title="Like">',
+        '<i class="glyphicon glyphicon-heart"></i>',
+        '</a>  ',
+        '<a class="remove" href="javascript:void(0)" title="Remove">',
+        '<i class="glyphicon glyphicon-remove"></i>',
+        '</a>'
+      ].join('');
+
+	    }
+		
+		
+			window.actionEvents = {
+		        'click .like': function (e, value, row, index) {
+		            //alert('重新发送该邀请, row: ' + JSON.stringify(row));
+		            alert(JSON.stringify(row)+index+value);
+		            console.log(value, row, index);
+		        }
+		    };
+		
+		
+		
+
+		function rowStyle(row, index) {
+        var classes = ['active', 'success', 'info', 'warning', 'danger'];
+
+        if (row.status == "NULL") {
+            return {
+                classes: 'warning'
+            };
+        }
+
+        if (row.status == "0") {
+            return {
+                classes: 'danger'
+            };
+        }
+        return {};
+    }
+
+    function edit(id){
+
+    	alert(id);
+    }
+$(function() {
+
+
+	var name =$.cookie("name");
+     
+        
+        if(name==null){
+            alert("请登陆以后再购买");
+            window.location.href="/user/login";
+        }
+
+
+    var data = $('.pro-nav>li.active').attr('data-name');
+    $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    $('.pro-nav>li').click(function(e) {
+        $('.introduce[data-name = ' + data + ']').css('display', 'none');
+        $('.pro-nav>li.active').removeClass('active');
+        $(this).addClass('active');
+        data = $('.pro-nav>li.active').attr('data-name');
+        $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    });
+    $('.spinner').spinner();
+    //console.log({{elm}}+"test")
+});
+</script>
+{% endblock %}
+
+
+
+

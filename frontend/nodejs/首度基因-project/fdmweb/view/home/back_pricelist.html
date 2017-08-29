@@ -1,0 +1,89 @@
+{% extends "./inc/backbase.html" %} {% block style %}
+
+
+{% endblock %} {% block content %}
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>产品管理</a> <a href="#" class="current">产品列表</a> </div>
+
+    <h1>产品列表</h1>
+  </div>
+  <div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+            <h5>产品价格</h5>
+            <button type="button" class=" btn btn-sm btn-info" id="adddisc" onclick="addpdt()">添加产品</button>
+          </div>
+          <div class="widget-content nopadding" style=" font-size: 15px;">
+            <table class="table table-bordered data-table with-check" id="mytable" >
+
+            <thead>
+                <tr>
+                  <th style="width:15%">产品编号</th>
+                  <th>产品名称</th>
+                  <th>产品描述</th>
+                  <th>产品价格</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+               
+              
+            {% block header %} 
+                {% for elm1 in itemlist %}
+
+  <tr style=" font-size: 15px; ">
+        <td style="width:15%">{{elm1.itemId}}</td>
+        <td>{{elm1.name}}</td>
+        <td>{{elm1.desc}}</td>
+        <td>{{elm1.price}}</td>
+        <td><a href="/back/productioninfor?itemId={{elm1.itemId}}&name={{elm1.name}}&desc={{elm1.desc}}&price={{elm1.price}}">查看</a>|<a onclick="deletePrice('{{elm1.itemId}}')">删除</a></td>
+    {% endfor %}
+    {% endblock %}
+  </tr>
+           </tbody>   
+            </table>
+            <script  type="text/javascript" charset="utf-8" async defer>
+              
+
+             
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %} {% block script %}
+
+<script type="text/javascript" charset="utf-8" async defer>
+  
+  function addpdt(){
+
+    window.location.href="/backextra/additem"
+  }
+
+
+   function deletePrice(a){
+
+    //alert("test");
+
+    if (!confirm("确认要删除？")) {
+          window.event.returnValue = false;
+        }else{
+          window.location.href="/backextra/deleteitem?itemId="+a+"" 
+        }
+    
+  }
+</script>
+
+
+
+
+{% endblock %}

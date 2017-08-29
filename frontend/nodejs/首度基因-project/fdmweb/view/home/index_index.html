@@ -1,0 +1,199 @@
+{% extends "./inc/base.html" %} {% block style %}
+<link rel="stylesheet" href="/static/assets/vendors/fullpage/jquery.fullpage.min.css">
+<link rel="stylesheet" type="text/css" href="/static/assets/vendors/fsbanner/fsbanner.css">
+<link rel="stylesheet" type="text/css" href="/static/assets/css/swiper.min.css">
+<link rel="stylesheet" href="/static/assets/css/index.css"> {% endblock %} {% block content %}
+<div id="fullpage">
+    <div class="section ">
+        <div class="slide banner-animate"> 
+            <img class="bg hidden-sm hidden-xs" src="http://images.firstdimension.cn/0516-banner1.png">
+            
+
+            <img class="visibal-sm-block visibal-xs-block" src="http://images.firstdimension.cn/0516-mobile.png">
+        </div>
+        <div class="slide banner-animate"> 
+            <img class="hidden-sm hidden-xs" src="http://images.firstdimension.cn/0508-2.png"> 
+            <img class="visibal-sm-block visibal-xs-block" src="http://images.firstdimension.cn/0508-b2.png">
+        </div>
+        <div class="slide banner-animate"> 
+            <img class="hidden-sm hidden-xs" src="http://images.firstdimension.cn/0508-3.png">
+            <img class="visibal-sm-block visibal-xs-block" src="http://images.firstdimension.cn/0508-b3.png">
+        </div>
+        <div class="slide banner-animate"> 
+            <img class="hidden-sm hidden-xs" src="http://images.firstdimension.cn/0508-4.png">
+            <img class="visibal-sm-block visibal-xs-block" src="http://images.firstdimension.cn/0508-b4.png">
+        </div>
+        <div class="slide banner-animate"> 
+            <img class="hidden-sm hidden-xs" src="http://images.firstdimension.cn/0508-5.png">
+            <img class="visibal-sm-block visibal-xs-block" src="http://images.firstdimension.cn/0508-b5.png">
+        </div>
+        <div class="pagination hidden-sm hidden-xs">
+            <span class="index-0 active"></span>
+            <span class="index-1"></span>
+            <span class="index-2"></span>
+            <span class="index-3"></span>
+            <span class="index-4"></span>
+        </div>
+       
+    </div>
+    <!-- <div class="section visibal-sm-block visibal-xs-block">
+        <div class="slide visibal-sm-block visibal-xs-block"> 
+            <img src="http://images.firstdimension.cn/banner-mobile1.png">
+        </div>
+        <div class="slide visibal-sm-block visibal-xs-block"> <img src="http://images.firstdimension.cn/banner-mobile2.png"> </div>
+        <div class="slide visibal-sm-block visibal-xs-block"> <img src="http://images.firstdimension.cn/banner-mobile3.png"></div>
+    </div> -->
+    <div class="section">
+        <h2 class="heavy padding-top">ABOUT US</h2>
+        <h4>关于我们</h4>
+        <h4 class="blod">中国基因大数据业界领导者</h4>
+        <div class="row about visible-xs-block visible-sm-block">
+            <div class="col-md-6 col-xs-12 about-tow">
+                <img src="http://images.firstdimension.cn/about1.png">
+                <img src="http://images.firstdimension.cn/about2.png">
+            </div>
+            <div class="col-md-6 col-xs-12 about-one hidden-xs">
+                <img src="http://images.firstdimension.cn/about3.png">
+            </div>
+        </div>
+        <div class="md-about hidden-xs hidden-sm container">
+            <div class="right"><img src="http://images.firstdimension.cn/0407-3.png"></div>
+            <div><img src="http://images.firstdimension.cn/0407-1.png"></div>
+            <div><img src="http://images.firstdimension.cn/0407-2.png"></div>
+        </div>
+
+        <p class="container about-info">首度生物科技是一个数码生命与基因大数据公司，将基因测序信息，转化为人类追求健康和战胜疾病的福音，以癌症诊断为起点，首度提供的生物信息服务有助于癌症的诊断、预防、以及跟踪和改善癌症治疗的进程。</p>
+        <a href="/about">了解更多+</a>
+    </div>
+    <div class="section">
+        <h2 class="heavy padding-top">PRODUCT SERVICE</h2>
+        <h4>产品服务</h4>
+        <div class="fsbanner hidden-xs hidden-sm">
+            <div data-href="/production/fd180" style = "background-image: url(http://images.firstdimension.cn/_180.png);">
+                <span class="name">FD-180</span>
+            </div>
+            <div data-href="/production/fd600" style = "background-image: url(http://images.firstdimension.cn/_600.png);">
+                <span class="name">FD-600</span>
+            </div>
+            <div data-href="/production/exome" style = "background-image: url(http://images.firstdimension.cn/_EXOME.png);">
+                <span class="name">FD-Exome</span>
+            </div>
+            <div data-href="/production/index" style = "background-image: url(http://images.firstdimension.cn/_SOFT.png);">
+                <span class="name">FDSoft-Suite</span>
+            </div>
+        </div>
+        <div class="row tec ">
+            <div class="col-md-4">
+                <img src="/static/assets/img/support.png">
+                <br><span>技术支持</span>
+            </div>
+            <div class="col-md-4">
+                <img src="/static/assets/img/cloud.png">
+                <br><span>中国癌症云平台</span>
+            </div>
+            <div class="col-md-4">
+                <a href="http://www.shoudujiyin.com/report">
+                    <img src="/static/assets/img/report.png">
+                    <br><span>报告检查</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="section">
+        <h2 class="heavy padding-top">NEWS CENTER</h2>
+        <h4>资讯中心</h4>
+        <div class="row information hidden-xs hidden-sm">
+            <div class="col-md-1"></div>
+            <div class="col-md-4 left">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="block1">
+                            <div>
+                                <a href="/news">首度新闻</a>
+                            </div>
+                        </div>
+                        <div class="block2">
+                            <div>
+                                <a href="/news/detail?id={{news[0].id}}">
+                                    {{news[0].title}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="block3">
+
+                            <a class="img" href="/news/detail?id={{news[1].id}}">
+                                <img src="{{news[1].thumbnail}}">
+                            </a>
+                        </div>
+                        <div class="block4">
+                            <div>
+                                <a href="/news/detail?id={{news[2].id}}">
+                                    {{news[2].title}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 right">
+                <div class="row">
+                    <div class="block5">
+                        <div>
+                            <a href="/news/detail?id={{status[0].id}}">
+                                {{status[0].title}}
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block6">
+                        <div>
+                            <a href="/news?type=1">行业动态</a>        
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="block7">
+                        <div>
+                            <a class="img" href="/news/detail?id={{status[1].id}}">
+                                <img src="{{status[1].thumbnail}}">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="block8">
+                        <div>
+                            <a href="/news/detail?id={{status[2].id}}">
+                                {{status[2].title}}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-1"></div>
+        </div>
+        <!-- <div class="row "> -->
+        <div class="list-group information visible-xs-block visible-sm-block">
+          <a href="/news/detail?id={{news[0].id}}" class="list-group-item">{{news[0].title}}</a>
+          <a href="/news/detail?id={{news[1].id}}" class="list-group-item">{{news[1].title}}</a>
+          <a href="/news/detail?id={{news[2].id}}" class="list-group-item">{{news[2].title}}</a>
+          <a href="/news/detail?id={{status[0].id}}" class="list-group-item">{{status[0].title}}</a>
+          <a href="/news/detail?id={{status[1].id}}" class="list-group-item">{{status[1].title}}</a>
+          <a href="/news/detail?id={{status[2].id}}" class="list-group-item">{{status[2].title}}</a>
+        </div>
+        <!-- </div> -->
+    </div>
+    <div class="section">
+        <h2 class="heavy">STRATEGIC LAYOUT</h2>
+        <h4>战略布局</h4>
+        <div class="container chart">
+        </div>
+    </div>
+</div>
+{% endblock %} {% block script %}
+<script src="/static/assets/vendors/fullpage/jquery.fullpage.min.js"></script>
+<script src="/static/assets/vendors/echarts/echarts.min.js"></script>
+<script src="/static/assets/vendors/echarts/map/js/china.js"></script>
+<script src="/static/assets/vendors/fsbanner/fsbanner.js"></script>
+<script src="/static/assets/js/swiper.min.js"></script>
+<script src="/static/assets/js/index.js"></script>
+{% endblock %}

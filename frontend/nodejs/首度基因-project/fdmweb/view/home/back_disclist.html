@@ -1,0 +1,171 @@
+{% extends "./inc/backbase.html" %} {% block style %}
+
+
+{% endblock %} {% block content %}
+<div id="content">
+  <div id="content-header">
+    <div id="breadcrumb"> <a href="#" title="Go to Home" class="tip-bottom"><i class="icon-home"></i>产品管理</a> <a href="#" class="current">价格管理</a> </div>
+
+    <h1>价格管理</h1>
+  </div>
+
+
+  
+  <div class="container-fluid">
+    <hr>
+    <div class="row-fluid">
+      <div class="span12">
+        
+     
+       
+        
+        <div class="widget-box">
+          <div class="widget-title"> <span class="icon"><i class="icon-th"></i></span>
+            <h5>折扣列表</h5>
+            
+           &nbsp&nbsp&nbsp&nbsp<h5>只显示有效产品:</h5><input type="checkbox" name="affect" onclick="test()" id="affect"
+            >
+            &nbsp&nbsp&nbsp&nbsp
+            <button type="button" class=" btn btn-sm btn-info" id="adddisc" onclick="adddisc()">添加折扣</button>
+          </div>
+          <div class="widget-content nopadding" style=" font-size: 15px; ">
+            <table class="table table-bordered data-table with-check" id="mytable" >
+
+            <thead>
+                <tr style=" font-size: 15px; ">
+                  <th style="width:15%">产品编号</th>
+                  <th>产品名称</th>
+                  <th>产品折扣码</th>
+                  <th>开始时间</th>
+                  <th>结束时间</th>
+                  <th>产品价格</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody>
+               
+              
+            {% block header %} 
+                {% for elm1 in disclist %}
+
+  <tr>
+        <td style="width:15%">{{elm1.id}}</td>
+        {% if elm1.itemId == 1%}
+        <td>FD-Tissue-180
+        {% elif elm1.itemId== 2%}
+        <td>FD-ctDNA-180
+        {% elif elm1.itemId== 3%}
+        <td>FD-Tissue-600
+        {% elif elm1.itemId== 4%}
+        <td>FD-ctDNA-600
+        {% elif elm1.itemId== 5%}
+        <td>FD-Exome
+        {% elif elm1.itemId== 6%}
+        <td>FD-ctDNA-Exome
+        {% elif elm1.itemId== 7%}
+        <td>FD-Tissue-RNA
+        {% elif elm1.itemId== 8%}
+        <td>FD-Tissue-180+FD-ctDNA-180
+        {% elif elm1.itemId== 9%}
+        <td>FD-Tissue-600+FD-ctDNA-600
+        {%endif%}
+        </td>
+        <td>{{elm1.promotionCode}}</td>
+        <td>{{elm1.startDate}}</td>
+        <td>{{elm1.endDate}}</td>
+        <td>{{elm1.price}}</td>
+        <td><a href="/back/discpriceinfor?id={{elm1.id}}&itemId={{elm1.itemId}}&promotionCode={{elm1.promotionCode}}&startDate={{elm1.startDate}} &endDate={{elm1.endDate}}&price={{elm1.price}}">查看</a>|<a onclick="deletePrice('{{elm1.id}}')">删除</a></td>
+    {% endfor %}
+    {% endblock %}
+  </tr>
+           </tbody>   
+            </table>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+<!--Footer-part-->
+<script type="text/javascript" charset="utf-8" async defer>
+
+
+  
+ // 
+  var Request = new Object(); 
+  Request = GetRequest(); 
+
+
+  var flag = Request['flag'];
+
+  if(flag=='true'){
+    //alert(flag)
+    //$('#affect').attr("checked","checked");
+
+    document.getElementById('affect').checked=true;
+  }
+  
+  function adddisc(){
+
+    window.location.href="/backextra/adddiscprice";
+  }
+
+ 
+  function deletePrice(a){
+
+    //alert("test");
+
+    if (!confirm("确认要删除？")) {
+          window.event.returnValue = false;
+        }else{
+          window.location.href="/backextra/deletedisc?id="+a+"" 
+        }
+    
+  }
+
+
+
+function test(){
+
+  var flag = $("#affect").is(':checked');
+
+  
+
+  if(flag==true){
+   // alert(flag);
+   window.location.href="disclist?flag="+flag;
+
+  }
+
+  if(flag==false){
+    window.location.href="disclist";
+  }
+}
+
+
+
+function GetRequest() { 
+var url = location.search; //获取url中"?"符后的字串 
+var theRequest = new Object(); 
+if (url.indexOf("?") != -1) { 
+var str = url.substr(1); 
+strs = str.split("&"); 
+for(var i = 0; i < strs.length; i ++) { 
+theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
+} 
+} 
+return theRequest; 
+} 
+</script>
+
+
+{% endblock %} {% block script %}
+
+
+
+
+{% endblock %}

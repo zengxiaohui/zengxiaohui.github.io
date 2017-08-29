@@ -1,0 +1,58 @@
+<div class="modal-header bg-primary">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close" ng-click="close()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <h4 class="modal-title" id="myModalLabel">添加/修改管理员信息</h4>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <p>
+                <i class="fa fa-exclamation-circle"></i>请填写下列信息</p>
+                <i class="fa fa-exclamation-circle"></i>用户名至少四位，，不得包括‘@#$%^&*’特殊字符，不能全为数字</p>
+            <br>
+            <form role="form" class="form-horizontal form-validation selector" ng-submit="submit()">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        帐户名：
+                    </label>
+                    <div class="col-sm-9 prepend-icon">
+                        <input type="text" name="username" id="username" ng-model="user.username" class="form-control"  minlength="4" placeholder="请输入管理员帐户名" required>
+                        <i class="fa fa-sitemap"></i>
+                    </div>
+                </div>
+                <!-- <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        角色：
+                    </label>
+                    <div class="col-sm-9 prepend-icon">
+                        <select name="role" id="role" class="form-control" ng-model="user.role">
+                            <option value="ROLE_NORMAL">普通管理员</option>
+                            <option value="ROLE_ADMIN">超级管理员</option>
+                        </select>
+                    </div>
+                </div> -->
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">
+                        菜单分配：
+                    </label>
+                    <div class="col-sm-9">
+                      <div id="tree2"></div>
+                        <!-- <select name="role" id="role" class="form-control" ng-model="user.role">
+                            <option value="ROLE_NORMAL">普通管理员</option>
+                            <option value="ROLE_ADMIN">超级管理员</option>
+                        </select> -->
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-embossed btn-primary m-b-10 m-r-20">确认</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

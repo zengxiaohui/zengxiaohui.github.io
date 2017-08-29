@@ -1,0 +1,231 @@
+{% extends "./inc/base.html" %} {% block style %}
+
+
+
+<!-- <link rel="stylesheet" type="text/css" href="/static/assets/css/bootstrap-table.css">  -->
+
+ 
+
+{% endblock %} {% block content %}
+<style type="text/css" media="screen">
+		#content{
+			padding-top: 80px;
+
+			min-height: 640px;
+		}
+</style>
+
+
+<!-- <div>elm:{{elm.name+elm.userId+elm}}
+    <br>
+    object:{{userList}}
+ <ul>
+
+{% for elm1 in userList %}
+  <li>{{ elm1.userId }}</li>
+{% else %}
+  <li>This would display if the 'item' collection were empty</li>
+{% endfor %}
+</ul>
+</div> -->
+<!-- <script type="text/javascript" src="/static/assets/js/bootstrap-table.js"></script> -->
+<div id="content" >
+	
+
+
+		<div id="content-body"  >
+			<div style="text-align: center;">
+				<br>
+				<h2 style="color:red">订单查询列表</h2>
+				<br>
+			</div>
+			<div id="reportTableDiv" class="span10"  style=" margin-left: 10%; margin-right: 10% " class="table11">
+				<table id="reportTable"  class='table table-striped'  data-search='true'>
+					
+					
+					<!-- <th>受邀人名称</th> -->
+					<!-- <th >用户名</th>
+					<th>用户电话</th>
+					
+					<th>用户邮箱</th> -->
+					<!-- <th >邀请时间</th> -->
+					<thead>
+						<th class="success" data-field="orderId">订单号</th>
+					<th class="success" data-field="sendDate">订单生成日期</th>
+					<th class="success" data-field="testStatus">跟单状态</th>
+					<th class="success" data-field="feeStatus">付费状态</th>
+					<th  class="success" data-field="action">操作</th>
+					</thead>
+					
+					{% block header%}
+					{% for testList in testList %}
+					<tbody style=" max-height:200px;overflow-y: scroll;"  >
+					<tr class="info">
+						<td>{{testList.orderId}}</td>
+						<!-- <td>{{testList.testItem}}</td> -->
+						<!-- <td>{{testList.senderName}}</td>
+						
+						
+						<td>{{testList.phoneNumber}}</td>
+						
+						<td>{{testList.senderContactInfo}}</td> -->
+						<td>{{testList.sendDate}}</td>
+						<!-- <td>{{testList.testType}}</td> -->
+						{% if  testList.testStatus ==6%}
+						<td>等待工作人员联系
+						{% elif testList.testStatus == 5%}
+						<td>最终报告已经出具
+						{% elif testList.testStatus == 4%}
+						<td>自动报告已经生成
+						{% elif testList.testStatus == 3%}
+						<td>完成检测
+						{% elif testList.testStatus == 2%}
+						<td>正在处理
+						{% elif testList.testStatus == 1%}
+
+						<td>收到样本
+						
+
+						
+						</td>
+						{%endif%}
+						{% if testList.feeStatus == 1%}
+						<td>未缴费
+						{%  elif testList.feeStatus == 2%}
+						<td>部分缴费
+						{% elif testList.feeStatus == 3%}
+						<td>已缴费
+						{%endif%}
+
+
+						
+
+
+						</td>
+
+						<!-- href="/report/bill?testItem={{testList.testItem}}&orderId={{testList.orderId}}&sendDate={{testList.sendDate}}&testStatus={{testList.testStatus}}&feeStatus={{testList.feeStatus}}&reptReceiver={{testList.reptReceiver}}&orderAmt={{testList.orderAmt}}&phoneNumber={{testList.phoneNumber}}&recvAddress={{testList.recvAddress}}&notes={{testList.notes}}&code={{testList.promCode}}"-->
+						<td><a onclick="look('{{testList.testItem}}','{{testList.orderId}}','{{testList.sendDate}}','{{testList.testStatus}}','{{testList.feeStatus}}','{{testList.reptReceiver}}','{{testList.orderAmt}}','{{testList.phoneNumber}}','{{testList.recvAddress}}','{{testList.notes}}','{{testList.promCode}}')">查看</a></td>
+					</tr>
+					
+					{%endfor%}
+
+					{% endblock %}
+					{% if testList1.orderId != null%}
+					<tr>
+						<td>{{testList1.orderId}}</td>
+						<!-- <td>{{testList.testItem}}</td> -->
+						<!-- <td>{{testList1.senderName}}</td>
+						
+						
+						<td>{{testList1.phoneNumber}}</td>
+						
+						<td>{{testList1.senderContactInfo}}</td> -->
+						<td>{{sendDate1}}</td>
+						<!-- <td>{{testList.testType}}</td> -->
+						{% if  testList1.testStatus ==6%}
+						<td>等待工作人员联系
+						{% elif testList1.testStatus == 5%}
+						<td>最终报告已经出具
+						{% elif testList1.testStatus == 4%}
+						<td>自动报告已经生成
+						{% elif testList1.testStatus == 3%}
+						<td>完成检测
+						{% elif testList1.testStatus == 2%}
+						<td>正在处理
+						{% elif testList1.testStatus == 1%}
+
+						<td>收到样本
+						
+
+						
+						</td>
+						{%endif%}
+						{% if testList1.feeStatus == 1%}
+						<td>未缴费
+						{%  elif testList1.feeStatus == 2%}
+						<td>部分缴费
+						{% elif testList1.feeStatus == 3%}
+						<td>已缴费
+						{%endif%}
+
+
+						
+
+
+						</td>
+						<td><a href="/report/bill?testItem={{testList1.testItem}}&orderId={{testList1.orderId}}&sendDate={{testList1.sendDate}}&testStatus={{testList1.testStatus}}&feeStatus={{testList1.feeStatus}}&reptReceiver={{testList1.reptReceiver}}&orderAmt={{testList1.orderAmt}}&phoneNumber={{testList1.phoneNumber}}&recvAddress={{testList1.recvAddress}}&notes={{testList1.notes}}">查看</a></td>
+					</tr>
+					{%endif%}
+					</tbody>
+				</table>
+			</div>
+			
+				
+			<span id="sendDate" hidden="">{{sendDate}}</span>
+		</div>
+	</div>
+	
+
+	
+
+
+
+{% endblock %} {% block script %}
+
+<script>
+function look(a,b,c,d,e,f,g,h,i,j,k){
+	var f =  encodeURIComponent(f);
+	var i =  encodeURIComponent(i);
+	var j =  encodeURIComponent(j);
+	window.location.href="/report/bill?testItem="+a+"&orderId="+b+"&sendDate="+c+"&testStatus="+d+"&feeStatus="+e+"&reptReceiver="+f+"&orderAmt="+g+"&phoneNumber="+h+"&recvAddress="+i+"&notes="+j+"&code="+k+""
+	//alert(a);
+}
+				
+$(function() {
+	console.log("test");
+	var sendDate  = $("#sendDate").text();
+	
+
+	var array = sendDate.split(",");
+
+	//alert(array);
+	$("#reportTable").find("tr").each(function(index){
+
+		 
+		if(index>=1){
+			$(this).children('td:eq(1)').text(array[index-1]);
+		}
+		
+		//alert(index);
+		//alert(date1);
+	})
+
+
+		
+	var name =$.cookie("name");
+     
+        
+        if(name==null){
+            alert("请登陆以后再查看");
+            window.location.href="/user/login";
+        }
+    var data = $('.pro-nav>li.active').attr('data-name');
+    $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    $('.pro-nav>li').click(function(e) {
+        $('.introduce[data-name = ' + data + ']').css('display', 'none');
+        $('.pro-nav>li.active').removeClass('active');
+        $(this).addClass('active');
+        data = $('.pro-nav>li.active').attr('data-name');
+        $('.introduce[data-name = ' + data + ']').css('display', 'block');
+    });
+    $('.spinner').spinner();
+    //console.log({{elm}}+"test")
+});
+</script>
+
+
+{% endblock %}
+
+
+
+

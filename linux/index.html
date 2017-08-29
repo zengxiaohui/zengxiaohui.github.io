@@ -15,5 +15,12 @@
 
 	netstat -an | grep 3306
 	查看3306是否开发
+
+	linux下怎么新建一个用户,并使这个用户只能对某一个限定的文件夹内的文件进行修改等所有权限 
+	useradd zhangwenxuan  #创建用户 
+	passwd zhangwenxuan   #给该用户创建密码
+	setfacl -m u:zhangwenxuan:rwx /usr/local/testADDuser  #给这个用户指定文件夹权限
+
+
 </body>
 </html>

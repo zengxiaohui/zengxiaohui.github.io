@@ -1,0 +1,99 @@
+<div class="page-editors">
+    <a ng-href="href" href="" class="btn btn-white">
+        <i class="fa fa-reply-all"></i>
+        返回列表
+    </a>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-header bg-dark">
+                <h2 class="panel-title">
+                    <strong>
+                        {{operate}}
+                        {{type}} 信 息
+                    </strong>
+                </h2>
+            </div>
+            <div class="panel-content bg-white">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <p style="font-family: '楷体';font-size: 17px;">
+                            <i class="fa fa-exclamation-circle"></i>
+                            务必认真填写下列信息
+                        </p>
+                        <br/>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">
+                                {{type}}内容
+                            </label>
+                            <div class="col-sm-10">
+                                <div class="summernote" id="news" on-image-upload="imageUpload(files[0])"></div>
+                            </div>
+                        </div>
+                        <form role="form" class="form-horizontal form-validation selector" ng-submit="submit()">
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    标题
+                                </label>
+                                <div class="col-sm-7 prepend-icon">
+                                    <input type="text" id="title" name="title" ng-model="news.title" class="form-control"   placeholder="请输入新闻标题"/>
+                                    <i class="fa fa-bookmark-o"></i>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">
+                                    上传{{type}}封面
+                                </label>
+                                <div class="col-sm-7">
+                                    <div class="col-sm-7">
+                                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                                            <div class="fileinput-new thumbnail">
+                                                <img alt="gallery 3" src="../../global/images/news-cover.png" class="img-responsive" ng-src="{{news.thumbnail}}"/>
+                                            </div>
+                                            <div ng-click="select()">
+                                                <span class="btn btn-default btn-file" style="margin-left:4%;">
+                                                    <span class="fileinput-new bannerImage">
+                                                        选择图片
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-9 col-sm-offset-3">
+                                    <div class="pull-right">
+                                        <button type="submit" class="btn btn-embossed btn-primary m-b-10 m-r-20" ng-disabled="disable">
+                                            提交
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .row2 {
+        position: relative;
+        padding: 20px 100px 0;
+        /* height: 500px;*/
+    }
+    .icon-user {
+        padding-bottom: 10px;
+    }
+    .input.form-success {
+        padding-bottom: 10px;
+    }
+    /*.form-control .form-success{
+           color: #18a689 !important;
+        }*/
+    .form-success {
+        color: #18a689 !important;
+        font-style: normal !important;
+    }
+
+</style>

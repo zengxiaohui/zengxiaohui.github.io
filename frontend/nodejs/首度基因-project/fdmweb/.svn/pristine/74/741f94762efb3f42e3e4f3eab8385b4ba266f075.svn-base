@@ -1,0 +1,70 @@
+{
+	"port":8360,
+	"/admin/login":{
+		"method":"post",
+		"params":{
+			"username":"admin",
+			"password":"admin"
+		}
+	},
+ 	"/admin/logout":{
+ 		"method":"post"
+ 	},
+ 	"/admin/news":[{
+	 		"method":"get",
+	 		"params":{
+	 			"id":1, //不传返回列表
+	 			"type":1,//0为首度新闻；1为行业动态
+	 			"page":1,
+	 			"size":10
+	 		}
+	 	},{
+	 		"method":"post",
+	 		"params":{
+	 			"id":1,//不传就新增
+	 			"type":1,
+	 			"title":"string",
+	 			"thimbnail":"imageurl",
+	 			"content":"text"
+	 		}
+	 	}
+ 	],
+ 	"/admin/boss":[{
+	 		"method":"get",
+	 		"params":{
+	 			"id":1, //不传返回列表
+	 			"type":1,//0为CEO，1为总裁，两个参数必须传一个，id优先
+	 		}
+	 	},{
+	 		"method":"post", //修改
+	 		"params":{
+	 			"id":1,
+	 			"type":1,
+	 			"name":"name",
+	 			"position":"CEO/总裁",
+	 			"image":"imageurl",
+	 			"education":"教育背景",
+	 			"work":"工作经历",
+	 			"business":"创业经历",
+	 			"science":"科研成果"
+	 		}
+	 	}
+	],
+	"/admin/science":[{
+		"method":"get",
+		"params":{
+			"id":1////不传返回列表
+		}
+	},{
+		"method":"post",
+		"params":{
+			"id":1 ,//不传新增
+			"name":"name",
+			"positional":"科学顾问",
+			"education":"学历",
+			"iamge":"iamgeurl",
+			"introduce1":"第一段介绍",
+			"introduce2":"第二段介绍"
+		}
+	}]
+}

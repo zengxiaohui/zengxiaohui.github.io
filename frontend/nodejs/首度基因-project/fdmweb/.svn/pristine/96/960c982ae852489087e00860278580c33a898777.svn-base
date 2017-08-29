@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>\</title>
+	<link rel="stylesheet" href="">
+	<script type="text/javascript" src="/static/assets/js/jquery.min.js"></script>
+</head>
+<body>
+
+
+	<!--  <form id="alipaysubmit" name="alipaysubmit" action="https://mapi.alipay.com/gateway.do?_input_charset=utf-8" method="get"><input type="hidden" name="sign" value="KTOt5ITELuvuXa8wYWSIWWQ8yPS83GZGgVZR97LQMXMenGo0HjunhyoBFOzGHoY3ltvrnbWGEBbAQN9iXxnphVMpM9Zpnig6k551RtUbVa0MWIYyDJE+aoMROfXB5lQaCNhwT6/GZz3hYweb+3C2/+F8YfF2G0BR2feIPvq0sEU="/><input type="hidden" name="body" value="1"/><input type="hidden" name="_input_charset" value="utf-8"/><input type="hidden" name="subject" value="test"/><input type="hidden" name="total_fee" value="0.03"/><input type="hidden" name="sign_type" value="RSA"/><input type="hidden" name="service" value="create_direct_pay_by_user"/><input type="hidden" name="notify_url" value="http://www.shoudujiyin.com/fdmweb/Test_updTestInfo"/><input type="hidden" name="partner" value="2088421258503565"/><input type="hidden" name="seller_id" value="2088421258503565"/><input type="hidden" name="out_trade_no" value="11111"/><input type="hidden" name="payment_type" value="1"/><input type="hidden" name="return_url" value="http://www.shoudujiyin.com/fdmweb/return_url.jsp"/><input type="submit" value="确认" style="display:none;"></form><script>document.forms['alipaysubmit'].submit();</script>  -->
+
+	
+	<div id="test" hidden="" > 
+		 {{formtext}}
+
+		
+	</div>
+	<div id="test1" hidden=""> 
+		
+	</div>
+
+	<button  type = "button" onclick="buy()" hidden="">buy</button>
+		
+		
+	
+	
+</body>
+<script  type="text/javascript" charset="utf-8" async defer>
+	//alert("test");
+	//alert(typeof {{formtext}});
+
+
+	//function buy(){
+			//alert("test");
+			
+		//}
+	$(function(){
+		var aa =$("#test").text();
+		//alert(aa);
+		
+		//var aa =String({{formtext}});
+		//alert(aa);.
+		//console.log({{formtext}})
+		
+		//alert({{formtext}});
+		$("#test1").html(aa);
+
+
+		
+	   document.forms['alipaysubmit'].submit();
+	})
+
+	
+	
+
+	
+</script>
+</html>

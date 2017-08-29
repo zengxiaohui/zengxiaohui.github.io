@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title></title>
+	<link rel="stylesheet" href="">
+	<script src="/static/assets/backpage/js/jquery.min.js"></script> 
+</head>
+<body>
+	<h1>test page</h1>
+
+
+	<form action="/back/test" method="post" accept-charset="utf-8">
+		name:<input type="text" name ="name"><br>
+		password:<input type="text" name="password">
+		<button >submit</button>
+	</form>
+	<button type="button" id="test">test</button>
+	
+	<script type="text/javascript" charset="utf-8" async defer>
+		
+		$(function(){
+			//alert("test");
+
+			$("#test").click(function(){
+				alert("test");
+				var data={
+				name:'jiang',
+				password:'11111'
+			}
+			
+				//alert("test");
+				$.ajax({
+					type:'post',
+					url:'/back/test',
+					dataType:'json',
+					async:false,
+					data:data,
+					success:function(data){
+
+						console.log(data)
+					},
+					error:function(){
+
+					}
+					}
+					
+					)
+					
+
+				
+			})
+			
+			
+		})
+	</script>
+</body>
+</html>
