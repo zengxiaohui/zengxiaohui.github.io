@@ -19,3 +19,7 @@ System.out.println(str);
 
 syso(Pattern.compile("^\\w{6,20}$").matcher("123456").find()) true;
 console.log("123456".match("^(\\w){6,20}$") == null); true
+
+去除括号里的内容：
+	String a="13776060074（本人）";
+	System.out.println(Pattern.compile("[^0-9]").matcher(a).replaceAll("").trim());
