@@ -1,5 +1,0 @@
-说明网址：
-http://www.tudou.com/home/_86367378/item
-
-mysql历史版本下载：
-https://downloads.mysql.com/archives/community/

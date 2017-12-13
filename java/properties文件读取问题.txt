@@ -1,3 +1,0 @@
-1.确认properties文件是什么编码格式，并确认文件在该格式下中文是正常显示的
-2.读取时候，进行转一层，先用ISO-8859-1读取字节流，然后根据properties的文件格式进行new String(byte,"文件编码格式");
-new String(bundle.getString("BOC_ACTNAME").getBytes("ISO-8859-1"),"UTF-8");
