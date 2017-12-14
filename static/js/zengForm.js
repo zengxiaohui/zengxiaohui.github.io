@@ -79,83 +79,121 @@ var zengForm = {
 				zengForm.selectCity.change(0);
 			}
 		},
-		//检查手机号格式是否正确
-		checkMobilePhone:function (str) {
-			return RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0678])[0-9]{8}$/).test(str);
-		},
-		//检查字符串是否为空
-		checkIsEmpty:function(str) {
-			if (null != str && undefined != str && "" != str) {
-				return false;
+		//弹框
+		tipsbox:{
+			//打开弹框
+			openTipsbox:function (msg) {
+                if ($(".tipsbox").length <= 0) {
+                    var oTipsbox = '<div class="tipsbox"> <div class="tipsbg"></div> <div class="tipscont"> <label for=""></label> <a href="javascript:zengForm.tipsbox.closeTipsbox();" class="closeTipsbox">确定</a> </div> </div>';
+                    $("body").append(oTipsbox);
+                }
+                $(".tipscont label").html(msg);
+                $(".tipsbox").show();
+                return 0;
+            },
+			//关闭弹框
+			closeTipsbox:function(){
+				$(".tipsbox").hide();
 			}
-			return true;
 		},
-		//展示提示信息
-		promptMessage:function(msg){
-			$(".tipscont label").html(msg);
-			$(".tipsbox").show();
-			return 0;
+		//数据验证操作
+		dataValidate:{
+            //检查手机号格式是否正确
+            checkMobilePhone:function (str) {
+                return RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0678])[0-9]{8}$/).test(str);
+            },
+            //检查字符串是否为空
+            checkIsEmpty:function(str) {
+                if (null != str && undefined != str && "" != str) {
+                    return false;
+                }
+                return true;
+            }
 		},
-		//设置验证码倒计时
-		countdown:60,
-		settime:function(val){
-			var othis = val;
-			if (zengForm.countdown == 0) {  
-				othis.removeAttr('disabled');
-				othis.removeClass("disabled");
-				othis.children('span.text').html("获取验证码"); 
-				zengForm.countdown = 60; 
-				return;
-			} else { 
-				othis.attr('disabled', true);
-				othis.addClass("disabled");
-				othis.children('span.text').html("重新发送(" + zengForm.countdown + ")"); 
-				zengForm.countdown--; 
-			} 
-			setTimeout(function() { 
-				zengForm.settime(othis) 
-			},1000) 
-		},
-		//点击发送验证码
-		sendSms:function(param){
-			var othis = $(param);
-			if(!othis.hasClass('disabled')){
-				var phone = $("#phone").val();
-				if (zengForm.checkIsEmpty(phone)) {
-					zengForm.promptMessage("请填写手机号，谢谢");
-					return false;
-				}
-				if (!zengForm.checkMobilePhone(phone)) {
-					zengForm.promptMessage("手机号码有误，请检查");
-					return false;
-				}
-				$.ajax({
-					url : "http://a.appho.cn:9090/ad/sendCodeToMobile.html",
-					type : "post",
-					data : {"mobile":phone,"formId":"fbb878735ce49568015d112166bf06e3"},
-					dataType : "text",
-					success : function(data) {
-						eval("var json = " + data);
-						if (json.flag) {
-							zengForm.settime(othis);
-						} else {
-							zengForm.promptMessage(zengForm.getErrorMsg(json.msg));
-						}
-					}
-				});
-			}
+		//手机验证码操作
+		smsCodeService:{
+            //设置验证码倒计时
+            countdown:60,
+            settime:function(val){
+                var othis = val;
+                if (zengForm.smsCodeService.countdown == 0) {
+                    othis.removeAttr('disabled');
+                    othis.removeClass("disabled");
+                    othis.children('span.text').html("获取验证码");
+                    zengForm.smsCodeService.countdown = 60;
+                    return;
+                } else {
+                    othis.attr('disabled', true);
+                    othis.addClass("disabled");
+                    othis.children('span.text').html("重新发送(" + zengForm.smsCodeService.countdown + ")");
+                    zengForm.smsCodeService.countdown--;
+                }
+                setTimeout(function() {
+                    zengForm.smsCodeService.settime(othis)
+                },1000)
+            },
+            //点击发送验证码
+            sendSms:function(param){
+                var othis = $(param);
+                if(!othis.hasClass('disabled')){
+                    var phone = $("#phone").val();
+                    if (zengForm.dataValidate.checkIsEmpty(phone)) {
+                        zengForm.tipsbox.openTipsbox("请填写手机号，谢谢");
+                        return false;
+                    }
+                    if (!zengForm.dataValidate.checkMobilePhone(phone)) {
+                        zengForm.tipsbox.openTipsbox("手机号码有误，请检查");
+                        return false;
+                    }
+                    $.ajax({
+                        url : "http://a.appho.cn:9090/ad/sendCodeToMobile.html",
+                        type : "post",
+                        data : {"mobile":phone,"formId":"fbb878735ce49568015d112166bf06e3"},
+                        dataType : "text",
+                        success : function(data) {
+                            eval("var json = " + data);
+                            if (json.flag) {
+                                zengForm.smsCodeService.settime(othis);
+                            } else {
+                                zengForm.tipsbox.openTipsbox(zengForm.getErrorMsg(json.msg));
+                            }
+                        }
+                    });
+                }
+            },
+            //验证验证码是否正确
+            checkMobileCode:function(params){
+                var resultFlag = false;
+                $.ajax({
+                    url : "http://a.appho.cn:9090/ad/checkMobileCode.html",
+                    type : "post",
+                    async: false,//即Ajax请求将整个浏览器锁死，只有请求结束后才能执行其他操作
+                    data : {"code":params.smscode, "mobile":params.phone},
+                    dataType : "text",
+                    success : function(data) {
+                        eval("var json = " + data);
+                        if (json.flag) {
+                            resultFlag=true;
+                        } else {
+                            zengForm.tipsbox.openTipsbox(zengForm.getErrorMsg(json.msg));
+                        }
+                    }
+                });
+                return resultFlag;
+            }
 		},
 		//提交表单请求
-		ajaxFormDate:function(name ,phone,memo ,sex ,age ,smscode,memo2,memo3){
+		ajaxFormDate:function(jsons){
 			var params = JSON.parse("{}");
-			(zengForm.checkIsEmpty(phone)) ? "" : params.phone= phone;
-			params.name= name;
-			params.sex= sex;
-			(zengForm.checkIsEmpty(age)) ? "" : params.age= age;
-			params.memo= memo;
-			params.memo2= memo2;
-			params.memo3= memo3;
-			params.formId= "fbb878735ce49568015d112166bf06e3";
+			(zengForm.dataValidate.checkIsEmpty(jsons.name)) ? "" : params.name= jsons.name;
+			(zengForm.dataValidate.checkIsEmpty(jsons.phone)) ? "" : params.phone= jsons.phone;
+			(zengForm.dataValidate.checkIsEmpty(jsons.memo)) ? "" : params.memo= jsons.memo;
+			(zengForm.dataValidate.checkIsEmpty(jsons.sex)) ? "" : params.sex= jsons.sex;
+			(zengForm.dataValidate.checkIsEmpty(jsons.age)) ? "" : params.age= jsons.age;
+			(zengForm.dataValidate.checkIsEmpty(jsons.smscode)) ? "" : params.smscode= jsons.smscode;
+			(zengForm.dataValidate.checkIsEmpty(jsons.memo2)) ? "" : params.memo2= jsons.memo2;
+			(zengForm.dataValidate.checkIsEmpty(jsons.memo3)) ? "" : params.memo3= jsons.memo3;
+            (zengForm.dataValidate.checkIsEmpty(jsons.formId)) ? "" : params.formId= jsons.formId;
 			$.ajax({
 				url : "http://a.appho.cn:9090/ad/formInput.html",
 				type : "post",
@@ -165,41 +203,35 @@ var zengForm = {
 					var json = data;
 					if (json.flag) {
 						$("input[type='text']").val("");
-						window.location.href = "http://d.ac20.cn/pos/hbxl/hkrt/baidu/02/ok11.html";
+						window.location.href = jsons.renderUrl;
 					} else {
 						var msg = (json.msg == "您的手机号已经提交过了，请明天再尝试") ? "您的手机号已经提交过了，请明天再尝试" : json.msg;
-						zengForm.promptMessage(msg);
+                        zengForm.tipsbox.openTipsbox(msg);
 					}
 				}
 			});
-		},
-		//验证验证码是否正确
-		checkMobileCode:function(name ,phone,memo ,sex ,age ,smscode,memo2,memo3){
-			$.ajax({
-				url : "http://a.appho.cn:9090/ad/checkMobileCode.html",
-				type : "post",
-				data : {"code":smscode, "mobile":phone},
-				dataType : "text",
-				success : function(data) {
-					eval("var json = " + data);
-					if (json.flag) {
-						zengForm.ajaxFormDate(name ,phone,memo ,sex ,age ,smscode,memo2,memo3);
-					} else {
-						zengForm.promptMessage(zengForm.getErrorMsg(json.msg));
-					}
-				}
-			});
+			_taq.push({convert_id: jsons.convert_id, event_type: "form"});
 		},
 		//得到错误提示信息
 		getErrorMsg:function(str){
-			msg = (str == "formId is null") ? "表单ID为空" : str;
-			msg = (str == "error formId") ? "错误表单ID" : str;
-			msg = (str.indexOf("wait for") >= 0) ? '限制60秒发送一次验证码，还需要等待'+str.replace(/[^0-9]/ig,"")+' 秒才能发验证码' : str;
-			msg = (str == "mobile is null") ? "手机号为空" : str;
-			msg = (str == "no send message") ? "没有发送验证码到手机，即没进行第一步操作" : str;
-			msg = (str == "code is null") ? "验证码为空" : str;
-			msg = (str == "error code") ? "错误的验证码" : str;
-			return msg;
+			if(str == "formId is null"){return "表单ID为空";}
+			if(str == "error formId"){return "错误表单ID";}
+			if(str.indexOf("wait for") >= 0){return '限制60秒发送一次验证码，还需要等待'+str.replace(/[^0-9]/ig,"")+' 秒才能发验证码';}
+			if(str == "mobile is null"){return "手机号为空";}
+			if(str == "no send message"){return "没有发送验证码到手机，即没进行第一步操作";}
+			if(str == "code is null"){return "验证码为空";}
+			if(str == "error code"){return "错误的验证码";}
+			return str;
+		},
+		//提交表单到后台
+		checkSubmit:0,
+		submitFormToAction:function(params){
+			if(zengForm.checkSubmit==0){
+				if(zengForm.smsCodeService.checkMobileCode(params)){
+                    zengForm.ajaxFormDate(params);
+				}
+				return false;
+			}
 		}
 }
 
