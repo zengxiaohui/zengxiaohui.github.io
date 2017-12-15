@@ -24,81 +24,75 @@
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ta, s);
         })(window);
         //百度统计代码
-		var _hmt = _hmt || [];
-		(function() {
-		  var hm = document.createElement("script");
-		  hm.src = "https://hm.baidu.com/hm.js?06fe0a8e835be555494787d20438abfe";
-		  var s = document.getElementsByTagName("script")[0]; 
-		  s.parentNode.insertBefore(hm, s);
-		})();
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?06fe0a8e835be555494787d20438abfe";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
 	</script>
 </head>
 <body>
-	<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_01.png" alt="">
-	<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_02.png" alt="">
-	<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_03.png" alt="">
-	<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_04.png" alt="">
-	<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_05.jpg" alt="">
-	<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_06.png" alt="">
-	<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_07.png" alt="">
-	<form action="">
-		<div class="item item-input"><span>姓名</span><input type="text" placeholder="请输入姓名" id="username"></div>
-		<div class="item item-input">
-			<span>手机号</span><input type="text" placeholder="请输入手机号" id="phone">
-		</div>
-		<div class="item item-sms">
-			<input type="text" placeholder="短信验证码" id="smscode">
-			<a href="javascript:void(0);" onclick="zengForm.sendSms(this);"><span class="text">短信验证码</span></a>
-		</div>
-<!-- 		<div class="item item-select">
-	<span>城市</span>
-	<select id="pro"></select>
-	<select id="city"></select>
-</div> -->
-		<!-- <div class="item item-input"><span>地址</span><input type="text" placeholder="请输入地址" id="memo"></div> -->
-		<div class="item item-submit"><a href="javascript:void(0);" class="submit" id="submitForm">提交</a></div>
-	</form>
-	<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_08.png" alt="">
-	<div class="tipsbox">
-		<div class="tipsbg"></div>
-		<div class="tipscont">
-			<label for=""></label> <a href="javascript:zengForm.tipsbox.closeTipsbox();" id="closeTipsbox">确定</a>
-		</div>
+<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_01.png" alt="">
+<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_02.png" alt="">
+<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_03.png" alt="">
+<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_04.png" alt="">
+<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_05.jpg" alt="">
+<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_06.png" alt="">
+<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_07.png" alt="">
+<form action="">
+	<div class="item item-input"><span>姓名</span><input type="text" placeholder="请输入姓名" id="username"></div>
+	<div class="item item-input">
+		<span>手机号</span><input type="text" placeholder="请输入手机号" id="phone">
 	</div>
-	<script src="//img.ac20.cn/ttf/pos_hxdk2_com/02/files/jquery.min.js"></script>
-	<script src="//img.ac20.cn/ttf/pos_hxdk2_com/02/files/zengForm.js"></script>
-	<script>
-		$(function(){
-			$("#submitForm").click(function(event) {
-				var name = $("#username").val();
-				var phone = $("#phone").val();
-				var smscode = $("#smscode").val();
-				if(zengForm.checkIsEmpty(name)){
-					zengForm.checkSubmit=zengForm.promptMessage("请填写姓名");
-					return false;
-				}
-				if(zengForm.checkIsEmpty(phone)){
-					zengForm.checkSubmit=zengForm.promptMessage("请填写手机号");
-					return false;
-				}
-				if (!zengForm.checkMobilePhone(phone)) {
-					zengForm.checkSubmit=zengForm.promptMessage("手机号格式不正确，请重新填写");
-					return false;
-				}
-				if (zengForm.checkIsEmpty(smscode)) {
-					zengForm.checkSubmit=zengForm.promptMessage("请填写短信验证码，谢谢");
-					return false;
-				}
-                zengForm.submitFormToAction({
-                    'name':name,
-                    'phone':phone,
-                    'smscode':smscode,
-                    'formId':'fbb878735ea2530d01604e35c1380445',
-                    'convert_id':'80364531500',
-                    'renderUrl':'http://pos.ruiyinxingx.com/rs/toutiao/form/ok13.html'
-                });
-			});
-		});
-	</script>
+	<div class="item item-sms">
+		<input type="text" placeholder="短信验证码" id="smscode">
+		<a href="javascript:void(0);" onclick="zengForm.smsCodeService.sendSms(this,'fbb878735ce49568015d112166bf06e3');"><span class="text">短信验证码</span></a>
+	</div>
+	<!-- 		<div class="item item-select">
+        <span>城市</span>
+        <select id="pro"></select>
+        <select id="city"></select>
+    </div> -->
+	<!-- <div class="item item-input"><span>地址</span><input type="text" placeholder="请输入地址" id="memo"></div> -->
+	<div class="item item-submit"><a href="javascript:void(0);" class="submit" id="submitForm">提交</a></div>
+</form>
+<img class="split-img" src="//img.ac20.cn/pos/hbxl/b0044/files/20171212_08.png" alt="">
+<script src="//img.ac20.cn/ttf/pos_hxdk2_com/02/files/jquery.min.js"></script>
+<script src="//img.ac20.cn/ttf/pos_hxdk2_com/02/files/zengForm.js"></script>
+<script>
+    $(function(){
+        $("#submitForm").click(function(event) {
+            var name = $("#username").val();
+            var phone = $("#phone").val();
+            var smscode = $("#smscode").val();
+            if(zengForm.dataValidate.checkIsEmpty(name)){
+                zengForm.checkSubmit=zengForm.tipsbox.openTipsbox("请填写姓名");
+                return false;
+            }
+            if(zengForm.dataValidate.checkIsEmpty(phone)){
+                zengForm.checkSubmit=zengForm.tipsbox.openTipsbox("请填写手机号");
+                return false;
+            }
+            if (!zengForm.dataValidate.checkMobilePhone(phone)) {
+                zengForm.checkSubmit=zengForm.tipsbox.openTipsbox("手机号格式不正确，请重新填写");
+                return false;
+            }
+            if (zengForm.dataValidate.checkIsEmpty(smscode)) {
+                zengForm.checkSubmit=zengForm.tipsbox.openTipsbox("请填写短信验证码，谢谢");
+                return false;
+            }
+            zengForm.submitFormToAction({
+                'name':name,
+                'phone':phone,
+                'smscode':smscode,
+                'formId':'fbb878735ea2530d01604e35c1380445',
+                'convert_id':'80364531500',
+                'renderUrl':'http://pos.ruiyinxingx.com/rs/toutiao/form/ok13.html'
+            });
+        });
+    });
+</script>
 </body>
 </html>

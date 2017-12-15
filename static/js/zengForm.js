@@ -133,7 +133,7 @@ var zengForm = {
                 },1000)
             },
             //点击发送验证码
-            sendSms:function(param){
+            sendSms:function(param,formId){
                 var othis = $(param);
                 if(!othis.hasClass('disabled')){
                     var phone = $("#phone").val();
@@ -148,7 +148,7 @@ var zengForm = {
                     $.ajax({
                         url : "http://a.appho.cn:9090/ad/sendCodeToMobile.html",
                         type : "post",
-                        data : {"mobile":phone,"formId":"fbb878735ce49568015d112166bf06e3"},
+                        data : {"mobile":phone,"formId":formId},
                         dataType : "text",
                         success : function(data) {
                             eval("var json = " + data);

@@ -10,3 +10,5 @@ zengxiaohui.github.io/
 ├── weixin/  #微信端的样式或者效果
 └── index.html #这个是入口导航页面
 ```
+npm install
+node app.js
