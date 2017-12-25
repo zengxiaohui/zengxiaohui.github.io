@@ -46,43 +46,43 @@ dsy.add("0_31", ["澳门", "其他"])
 dsy.add("0_32", ["台湾", "其他"])
 
 var zengForm = {
-		//选择城市
-		selectCity:{
-			//改变城市时区县也跟着改变
-			change:function(v) {
-			    var str = "0";
-			    for (i = 0; i < v; i++) {
-			        str += ("_" + (document.getElementById(zengForm.selectCity.s[i]).selectedIndex - 1));
-			    };
-			    var ss = document.getElementById(zengForm.selectCity.s[v]);
-			    with(ss) {
-			        length = 0;
-			        options[0] = new Option(zengForm.selectCity.opt0[v], zengForm.selectCity.opt0[v]);
-			        if (v && document.getElementById(zengForm.selectCity.s[v - 1]).selectedIndex > 0 || !v) {
-			            if (dsy.Exists(str)) {
-			                ar = dsy.Items[str];
-			                for (i = 0; i < ar.length; i++) options[length] = new Option(ar[i], ar[i]);
-			                if (v) options[1].selected = true;
-			            }
-			        }
-			        if (++v < zengForm.selectCity.s.length) {
-			        	zengForm.selectCity.change(v);
-			        }
-			    }
-			},
-			s:["pro", "city"],//Select the city of the province and city of ID
-			opt0 : ["请选择", "请选择"],
-			//启动选择城市
-			setup:function(){
-				for (i = 0; i < zengForm.selectCity.s.length - 1; i++)
-			        document.getElementById(zengForm.selectCity.s[i]).onchange = new Function("zengForm.selectCity.change(" + (i + 1) + ")");
-				zengForm.selectCity.change(0);
-			}
-		},
-		//弹框
-		tipsbox:{
-			//打开弹框
-			openTipsbox:function (msg) {
+        //选择城市
+        selectCity:{
+            //改变城市时区县也跟着改变
+            change:function(v) {
+                var str = "0";
+                for (i = 0; i < v; i++) {
+                    str += ("_" + (document.getElementById(zengForm.selectCity.s[i]).selectedIndex - 1));
+                };
+                var ss = document.getElementById(zengForm.selectCity.s[v]);
+                with(ss) {
+                    length = 0;
+                    options[0] = new Option(zengForm.selectCity.opt0[v], zengForm.selectCity.opt0[v]);
+                    if (v && document.getElementById(zengForm.selectCity.s[v - 1]).selectedIndex > 0 || !v) {
+                        if (dsy.Exists(str)) {
+                            ar = dsy.Items[str];
+                            for (i = 0; i < ar.length; i++) options[length] = new Option(ar[i], ar[i]);
+                            if (v) options[1].selected = true;
+                        }
+                    }
+                    if (++v < zengForm.selectCity.s.length) {
+                        zengForm.selectCity.change(v);
+                    }
+                }
+            },
+            s:["pro", "city"],//Select the city of the province and city of ID
+            opt0 : ["请选择", "请选择"],
+            //启动选择城市
+            setup:function(){
+                for (i = 0; i < zengForm.selectCity.s.length - 1; i++)
+                    document.getElementById(zengForm.selectCity.s[i]).onchange = new Function("zengForm.selectCity.change(" + (i + 1) + ")");
+                zengForm.selectCity.change(0);
+            }
+        },
+        //弹框
+        tipsbox:{
+            //打开弹框
+            openTipsbox:function (msg) {
                 if ($(".tipsbox").length <= 0) {
                     var oTipsbox = '<div class="tipsbox"> <div class="tipsbg"></div> <div class="tipscont"> <label for=""></label> <a href="javascript:zengForm.tipsbox.closeTipsbox();" class="closeTipsbox">确定</a> </div> </div>';
                     $("body").append(oTipsbox);
@@ -91,27 +91,27 @@ var zengForm = {
                 $(".tipsbox").show();
                 return 0;
             },
-			//关闭弹框
-			closeTipsbox:function(){
-				$(".tipsbox").hide();
-			}
-		},
-		//数据验证操作
-		dataValidate:{
+            //关闭弹框
+            closeTipsbox:function(){
+                $(".tipsbox").hide();
+            }
+        },
+        //数据验证操作
+        dataValidate:{
             //检查手机号格式是否正确
             checkMobilePhone:function (str) {
                 return RegExp(/^(0|86|17951)?(13[0-9]|15[012356789]|18[0-9]|14[57]|17[0678])[0-9]{8}$/).test(str);
             },
             //检查字符串是否为空
             checkIsEmpty:function(str) {
-                if (null != str && undefined != str && "" != str) {
+                if (null != str && undefined != str && "" != str && "null" != str && "请选择" != str) {
                     return false;
                 }
                 return true;
             }
-		},
-		//手机验证码操作
-		smsCodeService:{
+        },
+        //手机验证码操作
+        smsCodeService:{
             //设置验证码倒计时
             countdown:60,
             settime:function(val){
@@ -181,57 +181,112 @@ var zengForm = {
                 });
                 return resultFlag;
             }
-		},
-		//提交表单请求
-		ajaxFormDate:function(jsons){
-			var params = JSON.parse("{}");
-			(zengForm.dataValidate.checkIsEmpty(jsons.name)) ? "" : params.name= jsons.name;
-			(zengForm.dataValidate.checkIsEmpty(jsons.phone)) ? "" : params.phone= jsons.phone;
-			(zengForm.dataValidate.checkIsEmpty(jsons.memo)) ? "" : params.memo= jsons.memo;
-			(zengForm.dataValidate.checkIsEmpty(jsons.sex)) ? "" : params.sex= jsons.sex;
-			(zengForm.dataValidate.checkIsEmpty(jsons.age)) ? "" : params.age= jsons.age;
-			(zengForm.dataValidate.checkIsEmpty(jsons.smscode)) ? "" : params.smscode= jsons.smscode;
-			(zengForm.dataValidate.checkIsEmpty(jsons.memo2)) ? "" : params.memo2= jsons.memo2;
-			(zengForm.dataValidate.checkIsEmpty(jsons.memo3)) ? "" : params.memo3= jsons.memo3;
+        },
+        //表单操作
+        formOpt:{
+            validresult : true,
+            //检查需要验证的项并检查
+            needValidProject:function (obj) {
+                if(zengForm.formOpt.validresult) {
+                    var othis = $(obj);
+                    var ovalue = othis.val();
+                    var tipMsg = othis.attr("tipMsg");
+                    var dataOption = (typeof(othis.attr("data-option")) == "undefined") ? new Array() : othis.attr("data-option").split(",");
+                    dataOption.forEach(function (value, index, array) {
+                        switch (value) {
+                            case "required":
+                                if (zengForm.dataValidate.checkIsEmpty(ovalue)) {
+                                    zengForm.tipsbox.openTipsbox("请填写" + tipMsg);
+                                    zengForm.formOpt.validresult = false;
+                                }
+                                break;
+                            case "phone":
+                                if (!zengForm.dataValidate.checkMobilePhone(ovalue)) {
+                                    zengForm.formOpt.validresult = false;
+                                    zengForm.tipsbox.openTipsbox(tipMsg + "格式错误");
+                                }
+                                break;
+                            default:
+                                return true;
+                        }
+                    });
+                }
+            },
+            //验证表单中的信息
+            validForm:function () {
+                $("#theForm").find("[data-option]").each(function(){
+                    zengForm.formOpt.needValidProject(this);
+                });
+            }
+        },
+        //提交表单请求
+        ajaxFormDate:function(jsons){
+            var params = JSON.parse("{}");
+            (zengForm.dataValidate.checkIsEmpty(jsons.name)) ? "" : params.name= jsons.name;
+            (zengForm.dataValidate.checkIsEmpty(jsons.phone)) ? "" : params.phone= jsons.phone;
+            (zengForm.dataValidate.checkIsEmpty(jsons.memo)) ? "" : params.memo= jsons.memo;
+            (zengForm.dataValidate.checkIsEmpty(jsons.sex)) ? "" : params.sex= jsons.sex;
+            (zengForm.dataValidate.checkIsEmpty(jsons.age)) ? "" : params.age= jsons.age;
+            (zengForm.dataValidate.checkIsEmpty(jsons.smscode)) ? "" : params.smscode= jsons.smscode;
+            (zengForm.dataValidate.checkIsEmpty(jsons.city)) ? "" : params.city= jsons.city;
+            (zengForm.dataValidate.checkIsEmpty(jsons.memo2)) ? "" : params.memo2= jsons.memo2;
+            (zengForm.dataValidate.checkIsEmpty(jsons.memo3)) ? "" : params.memo3= jsons.memo3;
             (zengForm.dataValidate.checkIsEmpty(jsons.formId)) ? "" : params.formId= jsons.formId;
-			$.ajax({
-				url : "http://a.appho.cn:9090/ad/formInput.html",
-				type : "post",
-				data : $.parseJSON(JSON.stringify(params)),
-				dataType : "json",
-				success : function(data) {
-					var json = data;
-					if (json.flag) {
-						$("input[type='text']").val("");
-						window.location.href = jsons.renderUrl;
-					} else {
-						var msg = (json.msg == "您的手机号已经提交过了，请明天再尝试") ? "您的手机号已经提交过了，请明天再尝试" : json.msg;
+            $.ajax({
+                url : "http://a.appho.cn:9090/ad/formInput.html",
+                type : "post",
+                data : $.parseJSON(JSON.stringify(params)),
+                dataType : "json",
+                success : function(data) {
+                    var json = data;
+                    if (json.flag) {
+                        $("input[type='text']").val("");
+                        if(!zengForm.dataValidate.checkIsEmpty(jsons.renderUrl)){
+                            window.location.href = jsons.renderUrl;
+                        }else{
+                            zengForm.tipsbox.openTipsbox("提交成功，我们将在1个工作日内联系您。");
+                        }
+                    } else {
+                        var msg = (json.msg == "您的手机号已经提交过了，请明天再尝试") ? "您的手机号已经提交过了，请明天再尝试" : json.msg;
                         zengForm.tipsbox.openTipsbox(msg);
-					}
-				}
-			});
-			_taq.push({convert_id: jsons.convert_id, event_type: "form"});
-		},
-		//得到错误提示信息
-		getErrorMsg:function(str){
-			if(str == "formId is null"){return "表单ID为空";}
-			if(str == "error formId"){return "错误表单ID";}
-			if(str.indexOf("wait for") >= 0){return '限制60秒发送一次验证码，还需要等待'+str.replace(/[^0-9]/ig,"")+' 秒才能发验证码';}
-			if(str == "mobile is null"){return "手机号为空";}
-			if(str == "no send message"){return "没有发送验证码到手机，即没进行第一步操作";}
-			if(str == "code is null"){return "验证码为空";}
-			if(str == "error code"){return "错误的验证码";}
-			return str;
-		},
-		//提交表单到后台
-		checkSubmit:0,
-		submitFormToAction:function(params){
-			if(zengForm.checkSubmit==0){
-				if(zengForm.smsCodeService.checkMobileCode(params)){
-                    zengForm.ajaxFormDate(params);
-				}
-				return false;
-			}
-		}
+                    }
+                }
+            });
+            if(!zengForm.dataValidate.checkIsEmpty(jsons.convert_id)){
+                _taq.push({convert_id:jsons.convert_id , event_type: "form"});
+            }
+        },
+        //得到错误提示信息
+        getErrorMsg:function(str){
+            if(str == "formId is null"){return "表单ID为空";}
+            if(str == "error formId"){return "错误表单ID";}
+            if(str.indexOf("wait for") >= 0){return '限制60秒发送一次验证码，还需要等待'+str.replace(/[^0-9]/ig,"")+' 秒才能发验证码';}
+            if(str == "mobile is null"){return "手机号为空";}
+            if(str == "no send message"){return "没有发送验证码到手机，即没进行第一步操作";}
+            if(str == "code is null"){return "验证码为空";}
+            if(str == "error code"){return "错误的验证码";}
+            return str;
+        },
+        //获取url中的参数
+        getUrlParam:function(name){
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg); //匹配目标参数
+            if (r != null) return unescape(r[2]); return null; //返回参数值
+        },
+        //提交表单到后台
+        checkSubmit:0,
+        submitFormToAction:function(params){
+            zengForm.formOpt.validresult = true;
+            zengForm.formOpt.validForm();
+            //判断表单验证是否通过
+            if(zengForm.formOpt.validresult){
+                if(zengForm.checkSubmit==0){
+                    if(zengForm.smsCodeService.checkMobileCode(params)){
+                        zengForm.ajaxFormDate(params);
+                    }
+                    return false;
+                }
+            }
+        }
 }
 
