@@ -1,0 +1,9 @@
+{
+  "name": "zengxiaohui.github.io",
+  "version": "0.0.1",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "path": "^0.12.7"
+  }
+}
