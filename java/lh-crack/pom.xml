@@ -1,0 +1,63 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.lh</groupId>
+  <artifactId>lh-crack</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>lh-crack</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+  	<commons-beanutils.version>1.8.3</commons-beanutils.version>
+  	<commons-httpclient.version>3.1</commons-httpclient.version>
+  	<commons-lang3.version>3.3.2</commons-lang3.version>
+  	<httpclient.version>4.5.1</httpclient.version>
+  	<javaee-api.version>7.0</javaee-api.version>
+  	<json-lib.version>2.4</json-lib.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+  	<dependency>
+		<groupId>net.sf.json-lib</groupId>
+		<artifactId>json-lib</artifactId>
+		<version>${json-lib.version}</version>
+		<classifier>jdk15</classifier>
+	</dependency>
+  	<dependency>
+		<groupId>javax</groupId>
+		<artifactId>javaee-api</artifactId>
+		<version>${javaee-api.version}</version>
+	</dependency>
+  	<dependency>
+		<groupId>org.apache.httpcomponents</groupId>
+		<artifactId>httpclient</artifactId>
+		<version>${httpclient.version}</version>
+	</dependency>
+  	<dependency>
+		<groupId>org.apache.commons</groupId>
+		<artifactId>commons-lang3</artifactId>
+		<version>${commons-lang3.version}</version>
+	</dependency>
+  	<!-- commons-httpclient -->
+	<dependency>
+	    <groupId>commons-httpclient</groupId>
+	    <artifactId>commons-httpclient</artifactId>
+	    <version>${commons-httpclient.version}</version>
+	</dependency>
+  	<dependency>
+	    <groupId>commons-beanutils</groupId>
+	    <artifactId>commons-beanutils</artifactId>
+	    <version>${commons-beanutils.version}</version>
+	</dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>
