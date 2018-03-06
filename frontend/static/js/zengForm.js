@@ -114,23 +114,6 @@ var zengForm = {
         checkIsNum:function(num){
             var reNum = /^\d*$/;
             return (reNum.test(num));
-        },
-        //检查是否超过100个字符或者50个汉字
-        checkLangStrCol:function(str){
-            var len = 0;    
-            for (var i=0; i<str.length; i++) {    
-                //如果是中文算2个字符长度
-                if (str.charCodeAt(i)>127 || str.charCodeAt(i)==94) {    
-                    len += 2;    
-                } else {    
-                    len ++;    
-                }    
-            }    
-            if(len <= 100){
-                return true;
-            }else{
-                return false;
-            }
         }
     },
     //手机验证码操作
@@ -235,12 +218,6 @@ var zengForm = {
                                 zengForm.formOpt.validresult = false;
                             }
                             break;
-                        case "langStrCol":
-                            if(!zengForm.dataValidate.checkLangStrCol(ovalue)){
-                                zengForm.tipsbox.openTipsbox(tipMsg+"最多100字符或者50汉字");
-                                zengForm.formOpt.validresult = false;
-                            }
-                            break;
                         default:
                             return true;
                     }
@@ -290,6 +267,9 @@ var zengForm = {
         });
         if(!zengForm.dataValidate.checkIsEmpty(jsons.convert_id)){
             _taq.push({convert_id:jsons.convert_id , event_type: "form"});
+        }
+        if(!zengForm.dataValidate.checkIsEmpty(params.callback)){
+    		window[params.callback].call(window)
         }
     },
     //得到错误提示信息
