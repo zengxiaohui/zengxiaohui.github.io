@@ -1,4 +1,4 @@
-//20171228-1
+//20180309
 function Dsy() {
     this.Items = {};
 }
@@ -251,6 +251,10 @@ var zengForm = {
             data : $.parseJSON(JSON.stringify(params)),
             dataType : "json",
             success : function(data) {
+                //百度监听
+                if(!zengForm.dataValidate.checkIsEmpty(jsons.callback)){
+                    window[jsons.callback].call(window)
+                }
                 var json = data;
                 if (json.flag) {
                     $("input[type='text']").val("");
@@ -267,9 +271,6 @@ var zengForm = {
         });
         if(!zengForm.dataValidate.checkIsEmpty(jsons.convert_id)){
             _taq.push({convert_id:jsons.convert_id , event_type: "form"});
-        }
-        if(!zengForm.dataValidate.checkIsEmpty(params.callback)){
-    		window[params.callback].call(window)
         }
     },
     //得到错误提示信息
