@@ -87,6 +87,9 @@
 	<script src="../static/js/jquery.min.js"></script>
 	<script src="../static/js/zengForm.js"></script>
 	<script>
+	function monitor(){
+		window._agl && window._agl.push(['track', ['success', {t: 3}]])//百度feed表单提交跟踪
+	}
         $(function () {
             var id = zengForm.getUrlParam("id");
             //zengForm.selectCity.setup();
@@ -101,6 +104,7 @@
                     'memo3': id,
                     "needSmscode":true,  //需不需要发送手机验证
                    // 'convert_id':'83026373131',		//头条监控id
+		   'callback':'monitor', //表单提交成功时回调的方法
                     'formId':'fbb878735ea2530d01604e35c1380445',  //表单id
                     'renderUrl':'http://d.ac20.cn/del/ok01.html' //提交成功调整的url
                 });
