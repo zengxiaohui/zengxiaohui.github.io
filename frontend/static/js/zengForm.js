@@ -125,13 +125,13 @@ var zengForm = {
             if (zengForm.smsCodeService.countdown == 0) {
                 othis.removeAttr('disabled');
                 othis.removeClass("disabled");
-                othis.children('span.text').html("获取验证码");
+                $(".smsSendStatus").html("获取验证码");
                 zengForm.smsCodeService.countdown = 60;
                 return;
             } else {
                 othis.attr('disabled', true);
                 othis.addClass("disabled");
-                othis.children('span.text').html("重新发送(" + zengForm.smsCodeService.countdown + ")");
+                $(".smsSendStatus").html("重新发送(" + zengForm.smsCodeService.countdown + ")");
                 zengForm.smsCodeService.countdown--;
             }
             setTimeout(function() {
@@ -226,7 +226,7 @@ var zengForm = {
         },
         //验证表单中的信息
         validForm:function () {
-            $("#theForm").find("[data-option]").each(function(){
+            $("[data-option]").each(function(){
                 zengForm.formOpt.needValidProject(this);
             });
         }
